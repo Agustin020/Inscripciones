@@ -63,8 +63,6 @@
                     Datos Erronéos.
                     <br>
                     Ingrese nuevamente
-                    <br>
-                    alsaslsal
                 </div>
             <?php
             }
