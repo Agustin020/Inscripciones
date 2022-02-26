@@ -152,7 +152,7 @@
                 <option value="3">Apellido</option>
             </select>
         </div>
-
+        
         <div class="form-floating select">
             <select class="form-select" name="carrera" id="carrera" required>
                 <option value="0">Seleccione la carrera</option>

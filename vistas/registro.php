@@ -98,7 +98,7 @@
                     });
                 </script>
             <?php
-            unset($_SESSION['registro']);
+                unset($_SESSION['registro']);
             } else {
             ?>
                 <script>
