@@ -85,6 +85,38 @@ class Consultas extends Conexion
         return $listRegistros;
     }
 
+    public function altaEstudiante($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "UPDATE usuario SET idRol = 1 WHERE dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == false) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    public function bajaEstudiante($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "DELETE FROM usuario WHERE dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == false) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
     public function listarEstudiantes1ro()
     {
         $listEstudiantes1 = [];
