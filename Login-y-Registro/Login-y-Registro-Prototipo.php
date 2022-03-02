@@ -19,29 +19,11 @@
     <!--JQuery-->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     <!--SweetAlert-->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <title>Document</title>
-    <script>
-        function confirmarEnvio() {
-            event.preventDefault();
-            Swal.fire({
-                title: 'Enviar los datos',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si',
-                cancelButtonText: 'No',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('form').submit();
-                }
-                return false;
-
-            });
-        }</script>
+    <title>Login y Registro</title>
 </head>
 
 <body>
@@ -87,46 +69,64 @@
                 }
             }
             ?>
-            <form action="../controlador/c_registro.php" id="form" method="post" onsubmit="confirmarEnvio();">
+            <form action="../controlador/c_registro.php" id="form" method="post">
                 <h1>Registro</h1>
                 <span> <b>Nota:</b> Los datos enviados se evaluaran de acuerdo a la documentación presentada.
                     De acuerdo a lo enviado se le dara de alta al Sistema si es que corresponde.
                 </span>
                 <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre">
+                <div id="mensaje1" class="errores">Introducí un nombre válido</div>
+                
                 <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido">
+                <div id="mensaje2" class="errores">Introducí un apellido válido</div>
+
                 <input type="email" class="form-control" name="email" id="email" placeholder="Correo Electrónico">
+                <div id="mensaje3" class="errores">Introducí un email válido</div>
+
                 <input type="number" class="form-control" name="dni" id="dni" placeholder="Dni" min="1000000"
                     max="99999999">
+                <div id="mensaje4" class="errores">El DNI no puede estar vacío</div>
+
                 <input type="tel" class="form-control" name="cel" id="cel" placeholder="Celular">
+                <div id="mensaje5" class="errores">Introducí un teléfono válido</div>
+
                 <input type="text" class="form-control" name="domicilio" id="domicilio" placeholder="Domicilio">
+                <div id="mensaje6" class="errores">El domicilio no puede estar vacío</div>
+
                 <input type="date" class="form-control" name="fechaNac" id="fechaNac" placeholder="Fecha de Nacimiento">
+                <div id="mensaje7" class="errores">La fecha de nacimiento estar vacía</div>
+
                 <input type="text" class="form-control" name="username" id="username" placeholder="Nombre de usuario">
+                <div id="mensaje8" class="errores">Introducí un nombre de usuario válido</div>
+
                 <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                <div id="mensaje9" class="errores">Introducí una contraseña válida</div>
+
                 <div id="btnEnviar">
-                    <button type="submit">Registrarme</button>
+                    <button type="submit" id="enviar">Registrarme</button>
                 </div>
             </form>
         </div>
         <div class="form-container sign-in-container">
             <form action="#">
                 <i class="fa-solid fa-users fa-10x"></i>
-                <h1>Iniciar Sesion</h1>
+                <h1>Iniciar Sesión</h1>
                 <span>Bienvenido al Sistema</span>
                 <input type="email" placeholder="Email">
-                <input type="password" placeholder="Contraceña">
-                <button>Iniciar Sesion</button>
+                <input type="password" placeholder="Contraseña">
+                <button>Iniciar Sesión</button>
             </form>
         </div>
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
                     <i class="fa-solid fa-user fa-10x"></i>
-                    <p>Si tenes una cuenta podes iniciar Sesion aqui</p>
-                    <button class="ghost" id="signIn">Iniciar Sesion</button>
+                    <p>Si tenés una cuenta podés iniciar sesión</p>
+                    <button class="ghost" id="signIn">Iniciar Sesión</button>
                 </div>
                 <div class="overlay-panel overlay-right">
                     <i class="fas fa-user icon fa-10x"></i>
-                    <p>No tenes una cuenta podes Registrate aqui</p>
+                    <p>Si no tenés una cuenta podés registrarte</p>
                     <button class="ghost" id="signUp">Registrarme</button>
                 </div>
             </div>
