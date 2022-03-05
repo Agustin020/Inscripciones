@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/a3c1a16320.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="Login-y-Registro.css">
+    <script defer src="Login-y-Registro.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!--SweetAlert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="" id="form" class="needs-validation">
+                <h1>Registro</h1>
+                <span><b><i class="fa-solid fa-circle-info fa-lg" id="info"></i></b> Los datos enviados se evaluaran de acuerdo a la documentación presentada.
+                    De acuerdo a lo enviado se le dara de alta al Sistema si es que corresponde.
+                </span>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" aria-label=""
+                        aria-describedby="button-addon1">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" id="error-nombre"
+                        data-bs-placement="right" title="a">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon1"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido"
+                        aria-label="" aria-describedby="button-addon2">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Alerta apellido" id="error-apellido">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon2"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Correo Electrónico"
+                        aria-label="" aria-describedby="button-addon3">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Alerta Correo Electronico" id="error-email">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon3"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" name="dni" id="dni" placeholder="Dni" min="1000000"
+                        max="99999999" aria-label="" aria-describedby="button-addon4">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Alerta DNI" id="error-dni">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon4"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="tel" class="form-control" name="cel" id="telefono" placeholder="Celular" aria-label=""
+                        aria-describedby="button-addon5">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Alerta Celular" id="error-telefono">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon5"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="domicilio" id="domicilio" placeholder="Domicilio"
+                        aria-label="" aria-describedby="button-addon6">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Alerta Domicilio" id="error-domicilio">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon6"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="date" class="form-control" name="fechaNac" id="fechaNac"
+                        placeholder="Fecha de Nacimiento" aria-label="" aria-describedby="button-addon7">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Alerta Fecha de Nacimiento" id="error-fechaNac">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon7"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="username" id="username"
+                        placeholder="Nombre de usuario" aria-label="" aria-describedby="button-addon8">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Alerta Nombre de Usuario" id="error-username">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon8"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña"
+                        aria-label="Recipient's username" aria-describedby="button-addon9">
+                    <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Alerta Contraceña" id="error-password">
+                        <button class="btn btn-outline-secondary id" type="button" id="button-addon9"><i
+                                class="fas fa-exclamation-circle fa-lg"></i></button>
+                    </span>
+                </div>
+                <button id="btnEnviar">enviar</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <i class="fa-solid fa-users fa-10x"></i>
+                <h1>Iniciar Sesion</h1>
+                <span>Bienvenido al Sistema</span>
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Contraceña">
+                <button>Iniciar Sesion</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <i class="fa-solid fa-user fa-10x"></i>
+                    <p>Si tenes una cuenta podes iniciar Sesion aqui</p>
+                    <button class="ghost" id="signIn">Iniciar Sesion</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <i class="fas fa-user icon fa-10x"></i>
+                    <p>No tenes una cuenta podes Registrate aqui</p>
+                    <button class="ghost" id="signUp">Registrarme</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
