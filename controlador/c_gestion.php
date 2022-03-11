@@ -13,16 +13,6 @@ class ControladorGestion
         require('vistas/pagesGestion/listarRegistro.php');
     }
 
-
-    public function altaEstudiante(){
-        require('modelo/m_consultas.php');
-        $co = new Consultas();
-        $co->altaEstudiante($dni);
-        require('vistas/lib/libreria.php');
-        require('vistas/pagesGestion/header.php');
-    }
-
-
     public function listarEstudiantes1ro()
     {
         require('modelo/m_consultas.php');
