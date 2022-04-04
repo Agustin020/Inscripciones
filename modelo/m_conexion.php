@@ -7,7 +7,7 @@ class Conexion
     public function Conexion()
     {
         try {
-            $this->link = new mysqli("localhost", "root", "", "inscripciones2.0");
+            $this->link = new mysqli("localhost", "root", "agus21", "inscripciones2.0", "3307");
         } catch (Exception $e) {
             die('Error' . $e->getMessage());
         }

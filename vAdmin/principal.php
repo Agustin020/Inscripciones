@@ -32,7 +32,7 @@
             <div class="card-body">
                 <h5 class="card-title">Registro de estudiantes</h5>
                 <p class="card-text">Verifica que estudiantes han solicitado el alta al Sistema.</p>
-                <a href="../index.php?accion=listarRegistros" class="btn btn-primary">Ver</a>
+                <a href="index.php?accion=listarRegistros" class="btn btn-primary">Ver</a>
             </div>
         </div>
 
@@ -44,7 +44,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                     Estudiantes 1er Año
-                    <a href="../../index.php?accion=listarEstudiantes1ro&anio=1" class="btn btn-primary">Ver Listado</a>
+                    <a href="index.php?accion=listarEstudiantes1ro&anio=1" class="btn btn-primary">Ver Listado</a>
                 </li>
                 <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                     Estudiantes 2do Año
@@ -113,7 +113,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                     Inscripción 1er Año
-                    <a href="../../index.php?accion=gestionarUsuario" class="btn btn-primary">Ver Listado</a>
+                    <a href="index.php?accion=gestionarUsuario" class="btn btn-primary">Ver Listado</a>
                 </li>
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>

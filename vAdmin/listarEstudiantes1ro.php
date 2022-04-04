@@ -103,7 +103,7 @@
         function recargarListaSede() {
             $.ajax({
                 type: 'POST',
-                url: 'vistas/pagesGestion/pagesAjax/selectSede.php',
+                url: 'pagesAjax/selectSede.php',
                 data: 'carrera=' + $('#carrera').val(),
                 success: function(r) {
                     $('#sede').html(r);
@@ -114,7 +114,7 @@
         function buscarEstudianteInput() {
             $.ajax({
                 type: 'POST',
-                url: 'vistas/pagesGestion/pagesAjax/busquedaInput.php',
+                url: 'pagesAjax/busquedaInput.php',
                 data: 'busqueda=' + $('#busquedaInput').val() +
                     '&filtroInput=' + $('#filtroInput').val() +
                     '&anio=' + $('#anio').val(),
@@ -127,7 +127,7 @@
         function buscarEstudianteSelect(codCarrera, codSede, anio) {
             $.ajax({
                 type: 'POST',
-                url: 'vistas/pagesGestion/pagesAjax/busquedaSelect.php',
+                url: 'pagesAjax/busquedaSelect.php',
                 data: 'codCarrera=' + codCarrera + '&codSede=' + codSede + '&anio=' + anio,
                 success: function(r) {
                     $('#tResultado').html(r);

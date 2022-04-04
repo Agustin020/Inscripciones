@@ -1,5 +1,5 @@
 <?php
-$link = mysqli_connect('localhost', 'root', '', 'inscripciones2.0');
+$link = mysqli_connect('localhost', 'root', 'agus21', 'inscripciones2.0', 3307);
 
 $codCarrera = $_POST["codCarrera"];
 $codSede = $_POST["codSede"];

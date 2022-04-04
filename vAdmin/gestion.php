@@ -6,14 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <?php require('lib/libreria.php') ?>
+    <?php require('libreria.php') ?>
 </head>
 
 <body>
-    <?php require('pagesGestion/header.php'); ?>
+    <?php require('header.php'); ?>
     <!--Container-->
     
-    <?php require('pagesGestion/principal.php'); ?>
+    <?php require('principal.php'); ?>
 
     
 </body>
