@@ -2,10 +2,10 @@
 $accion = $_GET['accion'];
 
 switch ($accion) {
-    case 'listarRegistros':
+    case 'agregarUsuario':
         require('../controlador/c_gestion.php');
         $controlador = new ControladorGestion();
-        $controlador->listarRegistros();
+        $controlador->pageAgregarUsuarioContr();
         break;
     case 'listarEstudiantes1ro':
         require('../controlador/c_gestion.php');

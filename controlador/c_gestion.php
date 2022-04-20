@@ -3,14 +3,14 @@
 class ControladorGestion
 {
 
-    public function listarRegistros()
-    {
+    public function pageAgregarUsuarioContr(){
         require('../modelo/m_consultas.php');
         $co = new Consultas();
-        $lista = $co->listarRegistros();
+        $listRoles = $co->listarTipoUsuarios();
+        $listAnios = $co->listarAnioCursado();
         require('libreria.php');
         require('header.php');
-        require('listarRegistro.php');
+        require('agregarUsuario.php');
     }
 
     public function listarEstudiantes1ro()

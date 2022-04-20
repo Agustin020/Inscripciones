@@ -46,8 +46,8 @@
                 <img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Gestión de Usuarios</h5>
-                    <p class="card-text">Agrega, el.</p>
-                    <a href="index.php?accion=listarRegistros" class="btn btn-primary">Ver</a>
+                    <p class="card-text">Agrega, edita y elimina Usuarios, cambia de rol</p>
+                    <a href="opcionesUsuario.php" class="btn btn-primary">Ver</a>
                 </div>
             </div>
 

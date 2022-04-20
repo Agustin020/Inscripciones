@@ -54,37 +54,44 @@ class Consultas extends Conexion
         return $listDatos;
     }
 
-    public function registrarUsuario($username, $nombre, $apellido, $password, $fechaNac, $dni, $domicilio, $celular, $email)
+    //PAGE agregarUsuario
+    public function listarTipoUsuarios()
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT INTO usuario(usuario, nombre, apellido, contraseña, fechaNac, DNI, domicilio, celular, correo)
-                    VALUES('$username', '$nombre', '$apellido', '$password', '$fechaNac', '$dni', '$domicilio', '$celular', '$email')";
+            $sql = "SELECT * FROM rolusuario";
             $result = mysqli_query($link, $sql);
-            if ($result == false) {
-                return false;
-            } else {
-                return true;
+            $listRoles = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listRoles[$i] = $row;
+                $i++;
             }
         } catch (Exception $e) {
-            $e->getMessage();
+            die('Error: ' . $e->getMessage());
         }
+        return $listRoles;
     }
 
-    public function listarRegistros()
+    public function listarAnioCursado()
     {
-        $listRegistros = [];
-        $link = parent::Conexion();
-        $sql = "SELECT dni, nombre, apellido, correo, domicilio, fechaNac, celular FROM usuario WHERE idRol IS NULL";
-        $result = mysqli_query($link, $sql);
-        $i = 0;
-        while ($col = mysqli_fetch_assoc($result)) {
-            $listRegistros[$i] = $col;
-            $i++;
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT * FROM anioCursado";
+            $result = mysqli_query($link, $sql);
+            $listAnios = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listAnios[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
         }
-        return $listRegistros;
+        return $listAnios;
     }
 
+    
     public function altaEstudiante($dni)
     {
         try {
