@@ -12,7 +12,7 @@ MySQL - 8.0.27 : Database - inscripciones2.0
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`inscripciones2.0` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`inscripciones2.0` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `inscripciones2.0`;
 
@@ -22,10 +22,10 @@ DROP TABLE IF EXISTS `aniocursado`;
 
 CREATE TABLE `aniocursado` (
   `id` int NOT NULL,
-  `anio` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `descripcion` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `anio` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `descripcion` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `aniocursado` */
 
@@ -52,12 +52,12 @@ CREATE TABLE `calificaciones` (
   `fechaFinal2` date DEFAULT NULL,
   `califFinal3` decimal(10,0) DEFAULT NULL,
   `fechaFinal3` date DEFAULT NULL,
-  `condicionFinal` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `condicionFinal` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`dniEstudiante2`,`codigoMateria2`),
   KEY `fk_codigoMateria2` (`codigoMateria2`),
   CONSTRAINT `fk_codigoMateria2` FOREIGN KEY (`codigoMateria2`) REFERENCES `materia` (`codigo`),
   CONSTRAINT `fk_dniEstudiante2` FOREIGN KEY (`dniEstudiante2`) REFERENCES `estudiante` (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `calificaciones` */
 
@@ -80,11 +80,11 @@ DROP TABLE IF EXISTS `carrera`;
 
 CREATE TABLE `carrera` (
   `codigo` int NOT NULL,
-  `nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `resolucion` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `resolucion` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `duracion` int DEFAULT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `carrera` */
 
@@ -110,7 +110,7 @@ CREATE TABLE `estudiante` (
   CONSTRAINT `fk_anioCursado3` FOREIGN KEY (`idAnioCursado3`) REFERENCES `aniocursado` (`id`),
   CONSTRAINT `fk_dniEstudiante` FOREIGN KEY (`dni`) REFERENCES `usuario` (`dni`),
   CONSTRAINT `fk_dniInscripcion` FOREIGN KEY (`dniInscripcion`) REFERENCES `inscripcion` (`dni`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `estudiante` */
 
@@ -123,16 +123,16 @@ DROP TABLE IF EXISTS `inscripcion`;
 
 CREATE TABLE `inscripcion` (
   `dni` int NOT NULL,
-  `apellido/s` varchar(100) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `nombre/s` varchar(100) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `apellido/s` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nombre/s` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `fechaNac` date DEFAULT NULL,
-  `lugarNac` varchar(75) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `domicilio` varchar(150) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `lugarNac` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `domicilio` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `codPostal` int DEFAULT NULL,
   `celular` bigint DEFAULT NULL,
-  `correo` varchar(75) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `correo` varchar(75) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `fechaInscripcion` date DEFAULT NULL,
-  `materias` varchar(400) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `materias` varchar(400) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `codigoCarrera4` int DEFAULT NULL,
   `codigoSede2` int DEFAULT NULL,
   `idAnioCursado2` int DEFAULT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `inscripcion` (
   CONSTRAINT `fk_codigoCarrera4` FOREIGN KEY (`codigoCarrera4`) REFERENCES `carrera` (`codigo`),
   CONSTRAINT `fk_codigoSede2` FOREIGN KEY (`codigoSede2`) REFERENCES `sede` (`codigo`),
   CONSTRAINT `fk_idAnioCursado2` FOREIGN KEY (`idAnioCursado2`) REFERENCES `aniocursado` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `inscripcion` */
 
@@ -153,14 +153,14 @@ DROP TABLE IF EXISTS `materia`;
 
 CREATE TABLE `materia` (
   `codigo` int NOT NULL,
-  `nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `estado` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL COMMENT 'Definir si una materia es con final o promocional',
-  `duracion` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL COMMENT 'Definir si una materia es anual o cuatrimestral',
+  `nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `estado` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Definir si una materia es con final o promocional',
+  `duracion` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Definir si una materia es anual o cuatrimestral',
   `idAnioCursado` int DEFAULT NULL,
   PRIMARY KEY (`codigo`),
   KEY `fk_idAnioCursado_idx` (`idAnioCursado`),
   CONSTRAINT `fk_idAnioCursado` FOREIGN KEY (`idAnioCursado`) REFERENCES `aniocursado` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `materia` */
 
@@ -240,7 +240,7 @@ CREATE TABLE `materia_carrera` (
   KEY `fk_codigoCarrera2_idx` (`codigoCarrera2`),
   CONSTRAINT `fk_codigoCarrera2` FOREIGN KEY (`codigoCarrera2`) REFERENCES `carrera` (`codigo`),
   CONSTRAINT `fk_codigoMateria` FOREIGN KEY (`codigoMateria`) REFERENCES `materia` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `materia_carrera` */
 
@@ -313,9 +313,9 @@ DROP TABLE IF EXISTS `rolusuario`;
 
 CREATE TABLE `rolusuario` (
   `id` int NOT NULL,
-  `nombreRol` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `nombreRol` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `rolusuario` */
 
@@ -330,10 +330,10 @@ DROP TABLE IF EXISTS `sede`;
 
 CREATE TABLE `sede` (
   `codigo` int NOT NULL,
-  `nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `domicilio` varchar(150) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `domicilio` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `sede` */
 
@@ -356,7 +356,7 @@ CREATE TABLE `sede_carrera` (
   KEY `fk_codigoCarrera3_idx` (`codigoCarrera3`),
   CONSTRAINT `fk_codigoCarrera3` FOREIGN KEY (`codigoCarrera3`) REFERENCES `carrera` (`codigo`),
   CONSTRAINT `fk_codigoSede` FOREIGN KEY (`codigoSede`) REFERENCES `sede` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `sede_carrera` */
 
@@ -380,16 +380,16 @@ DROP TABLE IF EXISTS `usuario`;
 
 CREATE TABLE `usuario` (
   `dni` int NOT NULL,
-  `nombre` varchar(70) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `apellido` varchar(70) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `correo` varchar(70) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `usuario` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `contraseña` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
-  `domicilio` varchar(200) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `nombre` varchar(70) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `apellido` varchar(70) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `correo` varchar(70) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `usuario` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `contraseña` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `domicilio` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `codigoPostal` int DEFAULT NULL,
-  `lugarNac` varchar(200) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `lugarNac` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `fechaNac` date DEFAULT NULL,
-  `celular` varchar(45) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
+  `celular` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `idRol` int DEFAULT NULL,
   PRIMARY KEY (`dni`),
   KEY `fk_idRol2_idx` (`idRol`),
@@ -416,7 +416,7 @@ CREATE TABLE `usuario_carrera` (
   KEY `fk_codigoCarrera_idx` (`codigoCarrera`),
   CONSTRAINT `fk_codigoCarrera` FOREIGN KEY (`codigoCarrera`) REFERENCES `carrera` (`codigo`),
   CONSTRAINT `fk_dniUsuario3` FOREIGN KEY (`dniUsuario3`) REFERENCES `usuario` (`dni`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_czech_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_general_ci;
 
 /*Data for the table `usuario_carrera` */
 
@@ -436,7 +436,7 @@ CREATE TABLE `usuario_sede` (
   KEY `fk_dniUsuario4` (`dniUsuario4`),
   CONSTRAINT `fk_codigoSede3` FOREIGN KEY (`codigoSede3`) REFERENCES `sede` (`codigo`),
   CONSTRAINT `fk_dniUsuario4` FOREIGN KEY (`dniUsuario4`) REFERENCES `usuario` (`dni`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `usuario_sede` */
 

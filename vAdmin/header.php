@@ -54,7 +54,7 @@
                             <a class="nav-link disabled">Disabled</a>
                         </li>
                         <li class="nav-item">
-                            <button type="button" id="btnSalir" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Salir</button>
+                            <a id="btnSalir" href="../controlador/c_logout.php" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Salir</a>
                         </li>
                     </ul>
 

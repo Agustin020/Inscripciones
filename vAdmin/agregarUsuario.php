@@ -65,30 +65,38 @@
             display: flex;
             justify-content: flex-end;
         }
-
     </style>
 
     <script>
         $(document).ready(function() {
+            $('.selectTipoUsuario').val('');
             $('#estudiante').hide();
             $('#preceptor').hide();
             $('#admin').hide();
         })
 
+        $('#make_hide_button').on('click', function() {
+            $('#target_area').hide().find('input, select').prop('disabled', true);
+        });
+
+        $('#make_show_button').on('click', function() {
+            $('#target_area').show().find('input, select').prop('disabled', false);
+        });
+
         function mostrarOpcionesRol(rol) {
             var rol = rol.value;
             if (rol == 1) {
-                $('#estudiante').show();
-                $('#preceptor').hide();
-                $('#admin').hide();
+                $('#estudiante').show().find('input, select').prop('disabled', false);
+                $('#preceptor').hide().find('input, select').prop('disabled', true);
+                $('#admin').hide().find('input, select').prop('disabled', true);
             } else if (rol == 2) {
-                $('#preceptor').show();
-                $('#estudiante').hide();
-                $('#admin').hide();
-            }else if(rol == 3){
-                $('#admin').show();
-                $('#estudiante').hide();
-                $('#preceptor').hide();
+                $('#preceptor').show().find('input, select').prop('disabled', false);
+                $('#estudiante').hide().find('input, select').prop('disabled', true);
+                $('#admin').hide().find('input, select').prop('disabled', true);
+            } else if (rol == 3) {
+                $('#admin').show().find('input, select').prop('disabled', false);
+                $('#estudiante').hide().find('input, select').prop('disabled', true);
+                $('#preceptor').hide().find('input, select').prop('disabled', true);
             }
         }
 
@@ -144,8 +152,8 @@
         <p class="fs-6">Completa los datos</p>
         <form action="../controlador/c_agregarUsuario.php" method="post">
             <div class="form-floating mb-3" id="tipoUsuario">
-                <select class="form-select" onchange="mostrarOpcionesRol(this);" name="rolUser" id="floatingSelect" aria-label="Floating label select example">
-                    <option selected>Seleccione...</option>
+                <select class="form-select selectTipoUsuario" onchange="mostrarOpcionesRol(this);" name="rolUser" id="floatingSelect" aria-label="Floating label select example">
+                    <option value="" selected>Seleccione...</option>
                     <?php
                     foreach ($listRoles as $rol) {
                     ?>
@@ -197,6 +205,20 @@
                 <div class="form-floating mb-3">
                     <input type="number" name="codPostal" class="form-control" id="floatingInput" placeholder="Ejemplo">
                     <label for="floatingInput">Código Postal</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="departamento" id="floatingSelect" aria-label="Floating label select example">
+                        <option value="" selected>Seleccione...</option>
+                        <?php
+                        foreach ($listDepartamentos as $departamento) {
+                        ?>
+                            <option value="<?php echo $departamento[0]; ?>"><?php echo $departamento[1]; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    <label for="floatingSelect">Seleccione el departamento donde vive</label>
                 </div>
 
                 <div class="form-floating mb-3">

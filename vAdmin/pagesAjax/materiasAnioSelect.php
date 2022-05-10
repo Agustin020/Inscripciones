@@ -1,7 +1,10 @@
 <?php
+
+require('../../modelo/m_conexionPage.php');
+$link = conexion();
+
 $anio = $_POST['anio'];
 $codCarrera = $_POST['carrera'];
-$link = mysqli_connect("localhost", "root", "agus21", "inscripciones2.0", "3307");
 
 $html = '<p class="fs-6">Selecciona el Espacio Curricular al cual se inscribio</p>
             <div class="list-group">';

@@ -1,4 +1,5 @@
 <?php
+session_start();
 $accion = $_GET['accion'];
 
 switch ($accion) {
@@ -9,9 +10,10 @@ switch ($accion) {
         break;
     case 'listarEstudiantes':
         $anioCursado = $_GET['anio'];
+        $codSede = $_GET['sede'];
         require('../controlador/c_gestion.php');
         $controlador = new ControladorGestion();
-        $controlador->listarEstudiantesContr($anioCursado);
+        $controlador->listarEstudiantesContr($anioCursado, $codSede);
         break;
     case 'registrarEstudiante':
         require('../controlador/c_gestion.php');

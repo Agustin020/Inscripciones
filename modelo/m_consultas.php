@@ -10,7 +10,7 @@ class Consultas extends Conexion
             $link = parent::Conexion();
             $sql = "SELECT usuario, contraseña FROM usuario WHERE usuario = '$usuario' AND contraseña = '$password' AND idRol IS NOT NULL";
             $result = mysqli_query($link, $sql);
-            if (mysqli_num_rows($result)) {
+            if ($result == true) {
                 return true;
             } else {
                 return false;
@@ -24,10 +24,10 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT id FROM tipousuario WHERE id IN (SELECT id_tipoUsuario FROM usuario WHERE usuario = '$usuario')";
+            $sql = "SELECT id FROM rolusuario r WHERE id IN (SELECT idRol FROM usuario WHERE usuario = '$usuario')";
             $result = mysqli_query($link, $sql);
-            while ($filas = mysqli_fetch_row($result)) {
-                $id = $filas[0];
+            while ($row = mysqli_fetch_row($result)) {
+                $id = $row[0];
             }
         } catch (Exception $e) {
             $e->getMessage();
@@ -54,6 +54,22 @@ class Consultas extends Conexion
         return $listDatos;
     }
 
+    public function verificarSedePreceptor($user)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT s.codigo, s.nombre, u.usuario from sede s, usuario u, usuario_sede us
+                    where s.codigo = us.codigoSede3 and us.dniUsuario4 = u.dni and u.idRol = 2 and u.usuario = '$user'";
+            $result = mysqli_query($link, $sql);
+            while ($col = mysqli_fetch_row($result)) {
+                $sedePreceptorActual = $col[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $sedePreceptorActual;
+    }
+
     //ADMIN
     //PAGE agregarUsuario
     public function listarTipoUsuarios()
@@ -72,6 +88,24 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $listRoles;
+    }
+
+    public function listarDepartamentos()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT * FROM departamentos";
+            $result = mysqli_query($link, $sql);
+            $listDepartamentos = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listDepartamentos[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listDepartamentos;
     }
 
     public function listarSedes()
@@ -133,6 +167,7 @@ class Consultas extends Conexion
         $contraseña,
         $domicilio,
         $codigoPostal,
+        $departamento,
         $lugarNac,
         $fechaNac,
         $celular,
@@ -142,7 +177,7 @@ class Consultas extends Conexion
             $link = parent::Conexion();
             $sql = "INSERT INTO usuario 
                     VALUES ('$dni', '$nombre', '$apellido', '$correo', '$usuario', '$contraseña', 
-                    '$domicilio', '$codigoPostal', '$lugarNac', '$fechaNac', '$celular', '$idRol')";
+                    '$domicilio', '$codigoPostal', '$lugarNac', '$fechaNac', '$celular', '$idRol', '$departamento')";
             $result = mysqli_query($link, $sql);
             if ($result) {
                 return true;
@@ -202,7 +237,8 @@ class Consultas extends Conexion
         }
     }
 
-    public function asignarCalificacionesEstudiante($dni, $codMateria){
+    public function asignarCalificacionesEstudiante($dni, $codMateria)
+    {
         try {
             $link = parent::Conexion();
             $sql = "INSERT INTO calificaciones(dniEstudiante2, codigoMateria2) VALUES ('$dni', '$codMateria')";
@@ -217,7 +253,7 @@ class Consultas extends Conexion
         }
     }
 
-    
+
 
     public function altaEstudiante($dni)
     {
@@ -251,16 +287,35 @@ class Consultas extends Conexion
         }
     }
 
-    public function listarEstudiantes($anio)
+    //PAGE LISTARESTUDIANTES
+    public function verificarCarrerasSedePreceptor($usuario)
+    {
+        $listPreceptorSedes = [];
+        $link = parent::Conexion();
+        $sql = "SELECT c.codigo, c.nombre, u.usuario, s.nombre from sede s, sede_carrera sc, carrera c, usuario u, usuario_sede us
+                where s.codigo = sc.codigoSede and sc.codigoCarrera3 = c.codigo
+                and s.codigo = us.codigoSede3 and us.dniUsuario4 = u.dni and u.idRol = 2 and u.usuario = '$usuario'";
+        $result = mysqli_query($link, $sql);
+        $i = 0;
+        while ($col = mysqli_fetch_row($result)) {
+            $listPreceptorSedes[$i] = $col;
+            $i++;
+        }
+        return $listPreceptorSedes;
+    }
+
+    public function listarEstudiantes($anio, $codSede)
     {
         $listEstudiantes = [];
         $link = parent::Conexion();
-        $sql = "SELECT u.dni, concat(u.nombre,' ', u.apellido) as nombre_apellido, u.correo, u.domicilio, 
-                u.fechaNac, u.celular, c.nombre, s.nombre
-                from usuario u, usuario_carrera uc, carrera c, sede s, usuario_sede us, estudiante e
-                where u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo and u.idRol = 1
-                and u.dni = us.dniUsuario4 and us.codigoSede3 = s.codigo
-                and e.idAnioCursado3 = '$anio'";
+        $sql = "SELECT u.dni, CONCAT(u.nombre,' ', u.apellido) AS nombre_apellido, u.correo, u.domicilio, 
+                u.fechaNac, u.celular, c.nombre, concat(s.nombre, ' (', d.nombre, ')') as sede
+                FROM usuario u, usuario_carrera uc, carrera c, sede s, usuario_sede us, estudiante e, departamentos d 
+                WHERE u.dni = uc.dniUsuario3 AND uc.codigoCarrera = c.codigo AND u.idRol = 1
+                AND u.dni = us.dniUsuario4 AND us.codigoSede3 = s.codigo
+                AND e.idAnioCursado3 = '$anio' and s.codigo = '$codSede'
+                and d.codPostal = s.codPostal3
+                group by u.dni";
         $result = mysqli_query($link, $sql);
         $i = 0;
         while ($col = mysqli_fetch_row($result)) {

@@ -1,0 +1,22 @@
+SELECT u.dni, CONCAT(u.nombre,' ', u.apellido) AS nombre_apellido, u.correo, u.domicilio, 
+                u.fechaNac, u.celular, c.nombre, concat(s.nombre, ' (', s.codPostal3 , ')') as sede
+                FROM usuario u, usuario_carrera uc, carrera c, sede s, usuario_sede us, estudiante e
+                WHERE u.dni = uc.dniUsuario3 AND uc.codigoCarrera = c.codigo AND u.idRol = 1
+                AND u.dni = us.dniUsuario4 AND us.codigoSede3 = s.codigo
+                AND e.idAnioCursado3 = '3' and s.codigo = '4000'
+                group by u.dni
+				
+select c.codigo, c.nombre, u.usuario, s.codigo, s.nombre from sede s, sede_carrera sc, carrera c, usuario u, usuario_sede us
+where s.codigo = sc.codigoSede and sc.codigoCarrera3 = c.codigo
+and s.codigo = us.codigoSede3 and us.dniUsuario4 = u.dni and u.idRol = 2 and u.usuario = 'fer95'
+
+select s.codigo, s.nombre, u.usuario from sede s, usuario u, usuario_sede us
+where s.codigo = us.codigoSede3 and us.dniUsuario4 = u.dni and u.idRol = 2 and u.usuario = 'fer95'
+
+
+Important
+select u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, u.correo, u.domicilio, u.fechaNac, u.celular,
+c.nombre
+from usuario u, estudiante e, usuario_carrera uc, carrera c
+where u.dni = e.dni and e.idAnioCursado3 = 1
+and u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo 

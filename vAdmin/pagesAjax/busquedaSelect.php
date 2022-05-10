@@ -1,5 +1,7 @@
 <?php
-$link = mysqli_connect('localhost', 'root', 'agus21', 'inscripciones2.0', 3307);
+
+require('../../modelo/m_conexionPage.php');
+$link = conexion();
 
 $codCarrera = $_POST["codCarrera"];
 $codSede = $_POST["codSede"];
@@ -13,8 +15,7 @@ $html = '
 <thead class="table-dark">
     <tr>
         <th>DNI</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
+        <th>Nombre y Apellido</th>
         <th>Correo</th>
         <th>Domicilio</th>
         <th>Nacimiento</th>
@@ -26,9 +27,9 @@ $html = '
 </thead>
 <tbody>';
 
-$sql = "SELECT us.`dni`, us.`nombre`, us.`apellido`, us.`correo`, us.`domicilio`, us.`fechaNac`, us.`celular`, carr.`nombre`, s.`nombre`
+$sql = "SELECT us.`dni`, CONCAT(us.nombre,' ', us.apellido) AS nombre_apellido, us.`correo`, us.`domicilio`, us.`fechaNac`, us.`celular`, carr.`nombre`, s.`nombre`
         FROM usuario AS us, usuario_carrera AS uc, carrera AS carr, sede AS s, usuario_sede AS usede, estudiante AS es
-        WHERE us.dni = es.dniUsuario AND es.idAnioCursado3 = '$anio'
+        WHERE us.dni = es.dni AND es.idAnioCursado3 = '$anio'
         AND us.`dni` = uc.`dniUsuario3` AND uc.`codigoCarrera` = carr.`codigo` AND carr.codigo = '$codCarrera'
         AND us.`dni` = usede.dniUsuario4 AND usede.codigoSede3 = s.`codigo` AND s.codigo = '$codSede'";
 
@@ -45,7 +46,6 @@ if (mysqli_num_rows($result) > 0) {
                     <td>' . $row[5] . '</td>
                     <td>' . $row[6] . '</td>
                     <td>' . $row[7] . '</td>
-                    <td>' . $row[8] . '</td>
                     <td><a name="" id="" class="btn btn-danger" href="#" role="button" title="Elimina al estudiante seleccionado y no le permite el acceso al sistema">Baja</a></td>
                     ';
     }

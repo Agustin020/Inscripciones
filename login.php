@@ -50,7 +50,7 @@
 
 <body>
     <div class="contenedor">
-        <form action="../controlador/c_login.php" method="post" class="border border-primary">
+        <form action="controlador/c_login.php" method="post" class="border border-primary">
             <img src="http://ies9008.mendoza.edu.ar/pluginfile.php/1/core_admin/logo/0x200/1630026381/190x298.jpg" alt="">
             <hr>
             <?php

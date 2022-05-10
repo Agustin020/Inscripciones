@@ -17,8 +17,6 @@ if ($co->autenticar($usuario, $password)) {
                 'datosUser' => $listaNomApell,
             );
             $_SESSION['username'] = $datosSessionArray;
-            $_SESSION['timeout'] = time();
-            
             break;
         case 2:
         case 3:
@@ -26,10 +24,12 @@ if ($co->autenticar($usuario, $password)) {
             $listaNomApell = $co->mostrarNombreApellido($usuario);
             $datosSessionArray = array(
                 'usuario' => $usuario,
-                'rol' => $co->verificarTipoUser($usuario),
                 'datosUser' => $listaNomApell,
             );
             $_SESSION['username'] = $datosSessionArray;
+            $_SESSION['rol'] = $co->verificarTipoUser($usuario);
+            $_SESSION['sedeActual'] = $co->verificarSedePreceptor($usuario);
+            header('Location: ../vAdmin/gestion.php');
             break;
     }
 } else {

@@ -1,6 +1,8 @@
 <?php
 
-$link = mysqli_connect('localhost', 'root', 'agus21', 'inscripciones2.0', 3307);
+require('../../modelo/m_conexionPage.php');
+$link = conexion();
+
 $codCarrera = $_POST["carrera"];
 
 $sql = "SELECT * FROM sede WHERE codigo IN (SELECT codigoSede FROM sede_carrera WHERE codigoCarrera3 

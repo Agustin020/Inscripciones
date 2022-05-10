@@ -12,6 +12,7 @@ $correo = $_POST['correo'];
 $usuario = $_POST['usuario'];
 $pass = $_POST['pass'];
 $domicilio = $_POST['domicilio'];
+$departamento = $_POST['departamento'];
 $codPostal = $_POST['codPostal'];
 $lugarNac = $_POST['lugarNac'];
 $fechaNac = $_POST['fechaNac'];
@@ -29,7 +30,7 @@ $asignarCalificaciones = $co->asignarCalificacionesEstudiante($dni, $codMateria)
 
 switch ($rol) {
     case 1:
-        $agregarUsuarioEstudiante = $co->agregarUsuario($dni, $nombre, $apellido, $correo, $usuario, $pass, $domicilio, $codPostal, $lugarNac, $fechaNac, $celular, 1);
+        $agregarUsuarioEstudiante = $co->agregarUsuario($dni, $nombre, $apellido, $correo, $usuario, $pass, $domicilio, $codPostal, $departamento, $lugarNac, $fechaNac, $celular, 1);
         if ($agregarUsuarioEstudiante) {
             if ($co->asignarEstudiante($dni, $anioCursado)) {
                 if ($co->asignarCarreraUsuario($dni, $codCarrera)) {
@@ -48,7 +49,7 @@ switch ($rol) {
         echo $contador;
         break;
     case 2:
-        $agregarUsuarioPreceptor = $co->agregarUsuario($dni, $nombre, $apellido, $correo, $usuario, $pass, $domicilio, $codPostal, $lugarNac, $fechaNac, $celular, 2);
+        $agregarUsuarioPreceptor = $co->agregarUsuario($dni, $nombre, $apellido, $correo, $usuario, $pass, $domicilio, $codPostal, $departamento, $lugarNac, $fechaNac, $celular, 2);
         if($agregarUsuarioPreceptor){
             if($co->asignarSedeUsuario($dni, $codSede)){
 
@@ -56,7 +57,7 @@ switch ($rol) {
         }
         break;
     case 3:
-        $agregarUsuarioAdmin = $co->agregarUsuario($dni, $nombre, $apellido, $correo, $usuario, $pass, $domicilio, $codPostal, $lugarNac, $fechaNac, $celular, 3);
+        $agregarUsuarioAdmin = $co->agregarUsuario($dni, $nombre, $apellido, $correo, $usuario, $pass, $domicilio, $codPostal, $departamento, $lugarNac, $fechaNac, $celular, 3);
         if($agregarUsuarioAdmin){
             
         }

@@ -1,6 +1,7 @@
 <?php
 
-$link = mysqli_connect('localhost', 'root', 'agus21', 'inscripciones2.0', 3307);
+require('../../modelo/m_conexionPage.php');
+$link = conexion();
 
 $busquedaInput = $_POST["busqueda"];
 $filtroInput = $_POST["filtroInput"];
@@ -14,11 +15,10 @@ $html = '
 <thead class="table-dark">
     <tr>
         <th>DNI</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
+        <th>Nombre y Apellido</th>
         <th>Correo</th>
         <th>Domicilio</th>
-        <th>Nacimiento</th>
+        <th>Fecha de nacimiento</th>
         <th>Celular</th>
         <th>Carrera</th>
         <th>Sede</th>
@@ -29,12 +29,15 @@ $html = '
 
 switch ($filtroInput) {
     case 1:
-        $sql = "SELECT us.`dni`, us.`nombre`, us.`apellido`, us.`correo`, us.`domicilio`, us.`fechaNac`, us.`celular`, carr.`nombre`, s.`nombre`
-                FROM usuario AS us, usuario_carrera AS uc, carrera AS carr, sede AS s, usuario_sede AS usede, estudiante AS es
-                WHERE us.dni = es.dniUsuario AND es.idAnioCursado3 = '$anio'
-                AND us.`dni` = uc.`dniUsuario3` AND uc.`codigoCarrera` = carr.`codigo`
-                AND us.`dni` = usede.dniUsuario4 AND usede.codigoSede3 = s.`codigo`
-                AND us.dni LIKE '$busquedaInput%'";
+        $sql = "SELECT u.dni, CONCAT(u.nombre,' ', u.apellido) AS nombre_apellido, u.correo, u.domicilio, 
+                u.fechaNac, u.celular, c.nombre, concat(s.nombre, ' (', d.nombre, ')') as sede
+                FROM usuario u, usuario_carrera uc, carrera c, sede s, usuario_sede us, estudiante e, departamentos d 
+                WHERE u.dni = uc.dniUsuario3 AND uc.codigoCarrera = c.codigo AND u.idRol = 1
+                AND u.dni = us.dniUsuario4 AND us.codigoSede3 = s.codigo
+                AND e.idAnioCursado3 = '3' and s.codigo = '4000'
+                and d.codPostal = s.codPostal3
+                AND u.dni LIKE '$busquedaInput%'
+                group by u.dni";
         $result = mysqli_query($link, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -48,7 +51,6 @@ switch ($filtroInput) {
                             <td>' . $row[5] . '</td>
                             <td>' . $row[6] . '</td>
                             <td>' . $row[7] . '</td>
-                            <td>' . $row[8] . '</td>
                             <td><a name="" id="" class="btn btn-danger" href="#" role="button" title="Elimina al estudiante seleccionado y no le permite el acceso al sistema">Baja</a></td>
                             ';
             }
@@ -60,12 +62,15 @@ switch ($filtroInput) {
         }
         break;
     case 2:
-        $sql = "SELECT us.`dni`, us.`nombre`, us.`apellido`, us.`correo`, us.`domicilio`, us.`fechaNac`, us.`celular`, carr.`nombre`, s.`nombre`
-                FROM usuario AS us, usuario_carrera AS uc, carrera AS carr, sede AS s, usuario_sede AS usede, estudiante AS es
-                WHERE us.dni = es.dniUsuario AND es.idAnioCursado3 = '$anio'
-                AND us.`dni` = uc.`dniUsuario3` AND uc.`codigoCarrera` = carr.`codigo`
-                AND us.`dni` = usede.dniUsuario4 AND usede.codigoSede3 = s.`codigo`
-                AND us.nombre LIKE '$busquedaInput%'";
+        $sql = "SELECT u.dni, CONCAT(u.nombre,' ', u.apellido) AS nombre_apellido, u.correo, u.domicilio, 
+                u.fechaNac, u.celular, c.nombre, concat(s.nombre, ' (', d.nombre, ')') as sede
+                FROM usuario u, usuario_carrera uc, carrera c, sede s, usuario_sede us, estudiante e, departamentos d 
+                WHERE u.dni = uc.dniUsuario3 AND uc.codigoCarrera = c.codigo AND u.idRol = 1
+                AND u.dni = us.dniUsuario4 AND us.codigoSede3 = s.codigo
+                AND e.idAnioCursado3 = '3' and s.codigo = '4000'
+                and d.codPostal = s.codPostal3
+                AND u.nombre LIKE '$busquedaInput%'
+                group by u.dni";
         $result = mysqli_query($link, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -91,12 +96,15 @@ switch ($filtroInput) {
         }
         break;
     case 3:
-        $sql = "SELECT us.`dni`, us.`nombre`, us.`apellido`, us.`correo`, us.`domicilio`, us.`fechaNac`, us.`celular`, carr.`nombre`, s.`nombre`
-                FROM usuario AS us, usuario_carrera AS uc, carrera AS carr, sede AS s, usuario_sede AS usede, estudiante AS es
-                WHERE us.dni = es.dniUsuario AND es.idAnioCursado3 = '$anio'
-                AND us.`dni` = uc.`dniUsuario3` AND uc.`codigoCarrera` = carr.`codigo`
-                AND us.`dni` = usede.dniUsuario4 AND usede.codigoSede3 = s.`codigo`
-                AND us.apellido LIKE '$busquedaInput%'";
+        $sql = "SELECT u.dni, CONCAT(u.nombre,' ', u.apellido) AS nombre_apellido, u.correo, u.domicilio, 
+                u.fechaNac, u.celular, c.nombre, concat(s.nombre, ' (', d.nombre, ')') as sede
+                FROM usuario u, usuario_carrera uc, carrera c, sede s, usuario_sede us, estudiante e, departamentos d 
+                WHERE u.dni = uc.dniUsuario3 AND uc.codigoCarrera = c.codigo AND u.idRol = 1
+                AND u.dni = us.dniUsuario4 AND us.codigoSede3 = s.codigo
+                AND e.idAnioCursado3 = '3' and s.codigo = '4000'
+                and d.codPostal = s.codPostal3
+                AND u.apellido LIKE '$busquedaInput%'
+                group by u.dni";
         $result = mysqli_query($link, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -110,7 +118,6 @@ switch ($filtroInput) {
                             <td>' . $row[5] . '</td>
                             <td>' . $row[6] . '</td>
                             <td>' . $row[7] . '</td>
-                            <td>' . $row[8] . '</td>
                             <td><a name="" id="" class="btn btn-danger" href="#" role="button" title="Elimina al estudiante seleccionado y no le permite el acceso al sistema">Baja</a></td>
                             ';
             }

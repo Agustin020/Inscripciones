@@ -7,6 +7,7 @@ class ControladorGestion
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listRoles = $co->listarTipoUsuarios();
+        $listDepartamentos = $co->listarDepartamentos();
         $listCarreras = $co->listarCarrera();
         $listSedes = $co->listarSedes();
         $listAnios = $co->listarAnioCursado();
@@ -15,12 +16,14 @@ class ControladorGestion
         require('agregarUsuario.php');
     }
 
-    public function listarEstudiantesContr($anioCursado)
+    public function listarEstudiantesContr($anioCursado, $codSede)
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
-        $listaEstudiantes = $co->listarEstudiantes($anioCursado);
+        $listSedesPreceptor = $co->verificarCarrerasSedePreceptor($_SESSION['username']['usuario']);
+        $listaEstudiantes = $co->listarEstudiantes($anioCursado, $codSede);
         $listCarrera = $co->listarCarrera();
+        $anio = $anioCursado;
         require('libreria.php');
         require('header.php');
         require('listarEstudiantes.php');
