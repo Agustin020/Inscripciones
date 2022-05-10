@@ -59,15 +59,15 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                         Estudiantes 1er Año
-                        <a href="index.php?accion=listarEstudiantes1ro&anio=1" class="btn btn-primary">Ver Listado</a>
+                        <a href="index.php?accion=listarEstudiantes&anio=1" class="btn btn-primary">Ver Listado</a>
                     </li>
                     <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                         Estudiantes 2do Año
-                        <a href="#" class="btn btn-primary">Ver Listado</a>
+                        <a href="index.php?accion=listarEstudiantes&anio=2" class="btn btn-primary">Ver Listado</a>
                     </li>
                     <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                         Estudiantes 3er Año
-                        <a href="#" class="btn btn-primary">Ver Listado</a>
+                        <a href="index.php?accion=listarEstudiantes&anio=3" class="btn btn-primary">Ver Listado</a>
                     </li>
                 </ul>
             </div>

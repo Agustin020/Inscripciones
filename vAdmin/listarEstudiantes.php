@@ -36,7 +36,7 @@
             margin: 5px;
         }
 
-        td {
+        th, td {
             vertical-align: middle;
         }
     </style>
@@ -181,11 +181,10 @@
             <thead class="table-dark">
                 <tr>
                     <th>DNI</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
+                    <th>Nombre y Apellido</th>
                     <th>Correo</th>
                     <th>Domicilio</th>
-                    <th>Nacimiento</th>
+                    <th>Fecha de nacimiento</th>
                     <th>Celular</th>
                     <th>Carrera</th>
                     <th>Sede</th>
@@ -194,7 +193,7 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($lista1ro as $registro) {
+                foreach ($listaEstudiantes as $registro) {
                 ?>
                     <tr>
                         <td><?php echo $registro[0] ?></td>
@@ -205,7 +204,6 @@
                         <td><?php echo $registro[5] ?></td>
                         <td><?php echo $registro[6] ?></td>
                         <td><?php echo $registro[7] ?></td>
-                        <td><?php echo $registro[8] ?></td>
                         <td>
                             <a name="" id="" class="btn btn-danger" href="#" role="button" title="Elimina al estudiante seleccionado y no le permite el acceso al sistema">Baja</a>
                         </td>

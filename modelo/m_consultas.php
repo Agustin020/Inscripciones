@@ -54,6 +54,7 @@ class Consultas extends Conexion
         return $listDatos;
     }
 
+    //ADMIN
     //PAGE agregarUsuario
     public function listarTipoUsuarios()
     {
@@ -71,6 +72,38 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $listRoles;
+    }
+
+    public function listarSedes()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT * FROM sede";
+            $result = mysqli_query($link, $sql);
+            $listSedes = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listSedes[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listSedes;
+    }
+
+    public function listarCarrera()
+    {
+        $listCarrera = [];
+        $link = parent::Conexion();
+        $sql = "SELECT * FROM carrera";
+        $result = mysqli_query($link, $sql);
+        $i = 0;
+        while ($col = mysqli_fetch_row($result)) {
+            $listCarrera[$i] = $col;
+            $i++;
+        }
+        return $listCarrera;
     }
 
     public function listarAnioCursado()
@@ -91,7 +124,101 @@ class Consultas extends Conexion
         return $listAnios;
     }
 
+    public function agregarUsuario(
+        $dni,
+        $nombre,
+        $apellido,
+        $correo,
+        $usuario,
+        $contraseña,
+        $domicilio,
+        $codigoPostal,
+        $lugarNac,
+        $fechaNac,
+        $celular,
+        $idRol
+    ) {
+        try {
+            $link = parent::Conexion();
+            $sql = "INSERT INTO usuario 
+                    VALUES ('$dni', '$nombre', '$apellido', '$correo', '$usuario', '$contraseña', 
+                    '$domicilio', '$codigoPostal', '$lugarNac', '$fechaNac', '$celular', '$idRol')";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function asignarEstudiante($dni, $anio)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "INSERT INTO estudiante(dni, idAnioCursado3) VALUES ('$dni', '$anio')";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function asignarCarreraUsuario($dni, $codCarrera)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "INSERT INTO usuario_carrera(dniUsuario3, codigoCarrera) VALUES ('$dni', '$codCarrera')";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function asignarSedeUsuario($dni, $codSede)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "INSERT INTO usuario_sede(dniUsuario4, codigoSede3) VALUES('$dni', '$codSede')";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function asignarCalificacionesEstudiante($dni, $codMateria){
+        try {
+            $link = parent::Conexion();
+            $sql = "INSERT INTO calificaciones(dniEstudiante2, codigoMateria2) VALUES ('$dni', '$codMateria')";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     
+
     public function altaEstudiante($dni)
     {
         try {
@@ -124,36 +251,23 @@ class Consultas extends Conexion
         }
     }
 
-    public function listarEstudiantes1ro()
+    public function listarEstudiantes($anio)
     {
-        $listEstudiantes1 = [];
+        $listEstudiantes = [];
         $link = parent::Conexion();
-        $sql = "SELECT us.`dni`, us.`nombre`, us.`apellido`, us.`correo`, us.`domicilio`, us.`fechaNac`, us.`celular`, carr.`nombre`, s.`nombre`
-                FROM usuario AS us, usuario_carrera AS uc, carrera AS carr, sede AS s, usuario_sede AS usede, estudiante AS es
-                WHERE us.dni = es.dniUsuario AND es.idAnioCursado3 = 1
-                AND us.`dni` = uc.`dniUsuario3` AND uc.`codigoCarrera` = carr.`codigo`
-                AND us.`dni` = usede.dniUsuario4 AND usede.codigoSede3 = s.`codigo`";
+        $sql = "SELECT u.dni, concat(u.nombre,' ', u.apellido) as nombre_apellido, u.correo, u.domicilio, 
+                u.fechaNac, u.celular, c.nombre, s.nombre
+                from usuario u, usuario_carrera uc, carrera c, sede s, usuario_sede us, estudiante e
+                where u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo and u.idRol = 1
+                and u.dni = us.dniUsuario4 and us.codigoSede3 = s.codigo
+                and e.idAnioCursado3 = '$anio'";
         $result = mysqli_query($link, $sql);
         $i = 0;
         while ($col = mysqli_fetch_row($result)) {
-            $listEstudiantes1[$i] = $col;
+            $listEstudiantes[$i] = $col;
             $i++;
         }
-        return $listEstudiantes1;
-    }
-
-    public function listarCarrera()
-    {
-        $listCarrera = [];
-        $link = parent::Conexion();
-        $sql = "SELECT * FROM carrera";
-        $result = mysqli_query($link, $sql);
-        $i = 0;
-        while ($col = mysqli_fetch_row($result)) {
-            $listCarrera[$i] = $col;
-            $i++;
-        }
-        return $listCarrera;
+        return $listEstudiantes;
     }
 
     public function listarEstudiantesNoAsignados()

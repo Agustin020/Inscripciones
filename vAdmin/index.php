@@ -7,10 +7,11 @@ switch ($accion) {
         $controlador = new ControladorGestion();
         $controlador->pageAgregarUsuarioContr();
         break;
-    case 'listarEstudiantes1ro':
+    case 'listarEstudiantes':
+        $anioCursado = $_GET['anio'];
         require('../controlador/c_gestion.php');
         $controlador = new ControladorGestion();
-        $controlador->listarEstudiantes1ro();
+        $controlador->listarEstudiantesContr($anioCursado);
         break;
     case 'registrarEstudiante':
         require('../controlador/c_gestion.php');

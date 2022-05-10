@@ -88,9 +88,9 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <h5 class="card-title">Lista de Preceptores o Encargados</h5>
+                    <p class="card-text">Mostrar el listado de Preceptores o Encargados en el Sistema</p>
+                    <a href="#" class="btn btn-primary">Ver</a>
                 </div>
             </div>
         </div>

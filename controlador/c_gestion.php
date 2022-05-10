@@ -7,22 +7,23 @@ class ControladorGestion
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listRoles = $co->listarTipoUsuarios();
+        $listCarreras = $co->listarCarrera();
+        $listSedes = $co->listarSedes();
         $listAnios = $co->listarAnioCursado();
         require('libreria.php');
         require('header.php');
         require('agregarUsuario.php');
     }
 
-    public function listarEstudiantes1ro()
+    public function listarEstudiantesContr($anioCursado)
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
-        $anio = 1;
-        $lista1ro = $co->listarEstudiantes1ro();
+        $listaEstudiantes = $co->listarEstudiantes($anioCursado);
         $listCarrera = $co->listarCarrera();
         require('libreria.php');
         require('header.php');
-        require('listarEstudiantes1ro.php');
+        require('listarEstudiantes.php');
     }
 
 
