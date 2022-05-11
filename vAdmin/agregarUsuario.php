@@ -75,14 +75,6 @@
             $('#admin').hide();
         })
 
-        $('#make_hide_button').on('click', function() {
-            $('#target_area').hide().find('input, select').prop('disabled', true);
-        });
-
-        $('#make_show_button').on('click', function() {
-            $('#target_area').show().find('input, select').prop('disabled', false);
-        });
-
         function mostrarOpcionesRol(rol) {
             var rol = rol.value;
             if (rol == 1) {

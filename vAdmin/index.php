@@ -15,9 +15,10 @@ switch ($accion) {
         $controlador = new ControladorGestion();
         $controlador->listarEstudiantesContr($anioCursado, $codSede);
         break;
-    case 'registrarEstudiante':
+    case 'infoEstudiante':
+        $dni = $_GET['dni'];
         require('../controlador/c_gestion.php');
         $controlador = new ControladorGestion();
-        $controlador->registrarEstudiante();
+        $controlador->infoEstudianteContr($dni);
         break;
 }
