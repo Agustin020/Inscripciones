@@ -216,7 +216,9 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                             foreach ($listSedesPreceptor as $registro) {
                             ?>
                                 <option value="<?php echo $registro[0] ?>"><?php echo $registro[1] ?></option>
-                            <?php } ?>
+                            <?php
+                            }
+                            ?>
                         </select>
                         <label for="floatingSelect">Búsqueda por carrera</label>
                     </div>
