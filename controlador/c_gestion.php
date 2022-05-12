@@ -46,4 +46,13 @@ class ControladorGestion
         require('infoEstudiantes.php');
     }
 
+    public function verCalificacionesContr($dni){
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listCalifEstudiante = $co->listarCalificacionesEstudiante($dni);
+        require('libreria.php');
+        require('header.php');
+        require('calificaciones.php');
+    }
+
 }

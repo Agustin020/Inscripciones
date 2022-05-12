@@ -28,6 +28,10 @@
             justify-content: flex-end;
         }
 
+        form #botones button{
+            margin: 0 5px;
+        }
+
     </style>
 </head>
 
@@ -48,8 +52,8 @@
         $('#btnCancelar').click(function(){
             $('#formulario').find('input, select, check').prop('disabled', true);
             $('#btnEditar').show();
-            $('#btnCancelar').hide(200);
-            $('#btnGuardar').hide(200);
+            $('#btnCancelar').hide();
+            $('#btnGuardar').hide();
         });
     });
 </script>

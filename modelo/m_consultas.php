@@ -431,4 +431,27 @@ class Consultas extends Conexion
         }
         return $listMateriasEstudiante;
     }
+
+    //Calificaciones
+    public function listarCalificacionesEstudiante($dni)
+    {
+        try {
+            $listCalifEstudiante = [];
+            $link = parent::Conexion();
+            $sql = "SELECT m.nombre, c.califParcial, c.califRecuperatorio, c.calificacionParcial2, c.califRecuperatorio2, c.califGlobal, 
+                    c.califFinal, c.fechaFinal, c.califFinal2, c.fechaFinal2, c.califFinal3, c.fechaFinal3, c.condicionFinal 
+                    from calificaciones c, materia m, estudiante e, usuario u
+                    where c.dniEstudiante2 = e.dni and e.dni = u.dni and u.dni = '$dni'
+                    and c.codigoMateria2 = m.codigo";
+            $result = mysqli_query($link, $sql);
+            $i = 0;
+            while ($col = mysqli_fetch_row($result)) {
+                $listCalifEstudiante[$i] = $col;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+        return $listCalifEstudiante;
+    }
 }

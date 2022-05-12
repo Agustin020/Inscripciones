@@ -21,4 +21,10 @@ switch ($accion) {
         $controlador = new ControladorGestion();
         $controlador->infoEstudianteContr($dni);
         break;
+    case 'verCalificaciones':
+        $dni = $_GET['dni'];
+        require('../controlador/c_gestion.php');
+        $controlador = new ControladorGestion();
+        $controlador->verCalificacionesContr($dni);;
+        break;
 }

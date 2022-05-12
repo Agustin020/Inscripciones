@@ -18,23 +18,8 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                     background-color: lightskyblue;
                 }
 
-                .contenedor>* {
-                    margin: 5px 10px;
-                }
-
-                form {
-                    display: flex;
-                    justify-content: space-evenly;
-
-                }
-
-                form .search {
-                    display: flex;
-                    align-items: center;
-                }
-
-                form .search>* {
-                    width: auto;
+                p{
+                    margin-bottom: 0 !important;
                 }
 
                 #nuevoEstudiante {
@@ -114,7 +99,8 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
 
         <body>
             <div class="contenedor">
-                <p class="fs-5 text-uppercase fw-bold">Lista de todos los estudiantes que estan cursando el primer año de cada carrera</p>
+                <p class="fs-5">Lista de todos los estudiantes de <?php echo $anio; ?>° Año</p>
+                <hr>
 
                 <div class="table-responsive" id="tPrincipal">
                     <div id="nuevoEstudiante">
@@ -158,7 +144,11 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                                         Ver más info
                                                     </a>
                                                 </li>
-                                                <li><a class="dropdown-item" href="#">Calificaciones</a></li>
+                                                <li>
+                                                    <a class="dropdown-item" href="index.php?accion=verCalificaciones&dni=<?php echo $registro[0]; ?>">
+                                                        Calificaciones
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>

@@ -316,6 +316,20 @@
                 </div>
 
                 <div class="form-floating mb-3">
+                    <select class="form-select" name="departamento" id="floatingSelect" aria-label="Floating label select example">
+                        <option value="" selected>Seleccione...</option>
+                        <?php
+                        foreach ($listDepartamentos as $departamento) {
+                        ?>
+                            <option value="<?php echo $departamento[0]; ?>"><?php echo $departamento[1]; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    <label for="floatingSelect">Seleccione el departamento donde vive</label>
+                </div>
+
+                <div class="form-floating mb-3">
                     <input type="date" name="fechaNac" class="form-control" id="floatingInput" placeholder="Ejemplo">
                     <label for="floatingInput">Fecha de Nacimiento</label>
                 </div>
@@ -389,6 +403,20 @@
                 <div class="form-floating mb-3">
                     <input type="number" name="codPostal" class="form-control" id="floatingInput" placeholder="Ejemplo">
                     <label for="floatingInput">Código Postal</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="departamento" id="floatingSelect" aria-label="Floating label select example">
+                        <option value="" selected>Seleccione...</option>
+                        <?php
+                        foreach ($listDepartamentos as $departamento) {
+                        ?>
+                            <option value="<?php echo $departamento[0]; ?>"><?php echo $departamento[1]; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    <label for="floatingSelect">Seleccione el departamento donde vive</label>
                 </div>
 
                 <div class="form-floating mb-3">
