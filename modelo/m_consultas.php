@@ -439,7 +439,7 @@ class Consultas extends Conexion
             $listCalifEstudiante = [];
             $link = parent::Conexion();
             $sql = "SELECT m.nombre, c.califParcial, c.califRecuperatorio, c.calificacionParcial2, c.califRecuperatorio2, c.califGlobal, 
-                    c.califFinal, c.fechaFinal, c.califFinal2, c.fechaFinal2, c.califFinal3, c.fechaFinal3, c.condicionFinal 
+                    c.califFinal, c.fechaFinal, c.califFinal2, c.fechaFinal2, c.califFinal3, c.fechaFinal3, c.condicionFinal, m.codigo
                     from calificaciones c, materia m, estudiante e, usuario u
                     where c.dniEstudiante2 = e.dni and e.dni = u.dni and u.dni = '$dni'
                     and c.codigoMateria2 = m.codigo";
@@ -453,5 +453,25 @@ class Consultas extends Conexion
             die($e->getMessage());
         }
         return $listCalifEstudiante;
+    }
+
+    public function editarCalificacionesEstudiante($dni, $codMateria, $notaParcial, $notaRecup, $notaParcial2, $notaRecup2, $notaGlobal, $notaFinal, $fechaFinal, $notaFinal2, $fechaFinal2, $notaFinal3, $fechaFinal3, $condicion)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "UPDATE calificaciones c set c.califParcial = $notaParcial, c.califRecuperatorio = $notaRecup, c.calificacionParcial2 = $notaParcial2, 
+                    c.califRecuperatorio2 = $notaRecup2, c.califGlobal = $notaGlobal, c.califFinal = $notaFinal, c.fechaFinal = $fechaFinal, 
+                    c.califFinal2 = $notaFinal2, c.fechaFinal2 = $fechaFinal2, c.califFinal3 = $notaFinal3, c.fechaFinal3 = $fechaFinal3, 
+                    c.condicionFinal = '$condicion'
+                    where c.dniEstudiante2 = '$dni' and c.codigoMateria2 = '$codMateria'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 }

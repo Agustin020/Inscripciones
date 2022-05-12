@@ -50,6 +50,7 @@ class ControladorGestion
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listCalifEstudiante = $co->listarCalificacionesEstudiante($dni);
+        $dniEstudiante = $dni;
         require('libreria.php');
         require('header.php');
         require('calificaciones.php');
