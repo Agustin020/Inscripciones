@@ -255,6 +255,28 @@ class Consultas extends Conexion
 
 
 
+    //ESTUDIANTE
+    public function agregarInscripcion($dni, $apellido, $nombre, $fechaNac, $lugarNac, $domicilio, $codPostal, $celular, $correo, $materias, $codCarrera, $codSede, $anioCursado)
+    {
+        try {
+
+            $link = parent::Conexion();
+            $sql = "INSERT into inscripcion values('$dni', '$apellido', '$nombre', '$fechaNac', '$lugarNac', '$domicilio',
+            '$codPostal', '$celular', '$correo', now(), '$materias',
+            '$codCarrera', '$codSede', '$anioCursado')";
+            $result = mysqli_query($link, $sql);
+            if ($result == false) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+
+
     public function altaEstudiante($dni)
     {
         try {

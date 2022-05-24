@@ -17,6 +17,8 @@ if ($co->autenticar($usuario, $password)) {
                 'datosUser' => $listaNomApell,
             );
             $_SESSION['username'] = $datosSessionArray;
+            $_SESSION['rol'] = $co->verificarTipoUser($usuario);
+            header('Location: ../vEstudiante/gestion.php');
             break;
         case 2:
         case 3:

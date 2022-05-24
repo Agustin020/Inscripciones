@@ -21,7 +21,6 @@ switch ($anio) {
                     ' . $row[1] . '
                   </label></div>';
         }
-        echo $html;
         break;
     case 2:
         $sql = "SELECT codigo, nombre FROM materia WHERE idAnioCursado = 2 AND codigo IN 
@@ -35,7 +34,6 @@ switch ($anio) {
                         ' . $row[1] . '
                       </label></div>';
         }
-        echo $html;
         break;
     case 3:
         $sql = "SELECT codigo, nombre FROM materia WHERE idAnioCursado = 3 AND codigo IN 
@@ -49,6 +47,7 @@ switch ($anio) {
                             ' . $row[1] . '
                           </label></div>';
         }
-        echo $html;
         break;
 }
+
+echo $html;

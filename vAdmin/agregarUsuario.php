@@ -92,7 +92,7 @@
             }
         }
 
-        function mostrarMateriasAnio(valor) {
+        /*function mostrarMateriasAnio(valor) {
             var anio = valor.value;
             var carrera = $('.selectCarrera').val();
             if (anio != '') {
@@ -101,12 +101,21 @@
             } else {
                 $('#materias').hide();
             }
-        }
+        }*/
 
         function mostrarSelectSedes(carrera) {
             recargarSedeAjax(carrera.value);
             $('.selectAnio').val('');
             $('#materias').hide();
+        }
+
+        function mostrarMateriasCarrera(carrera){
+            if(carrera.value != ''){
+                $('#materias').show();
+                mostrarMateriasCarreraAjax(carrera.value);
+            }else{
+                $('#materias').hide();
+            }
         }
 
         //AJAX
@@ -128,6 +137,17 @@
                 data: 'carrera=' + codCarrera,
                 success: function(r) {
                     $('#sedes').html(r);
+                }
+            });
+        }
+
+        function mostrarMateriasCarreraAjax(carrera){
+            $.ajax({
+                type: 'POST',
+                url: 'pagesAjax/mostrarMateriasCarreras.php',
+                data: 'carrera=' + carrera,
+                success: function(r) {
+                    $('#materias').html(r);
                 }
             });
         }
@@ -229,7 +249,7 @@
                 </div>
 
                 <div class="form-floating mb-3" id="selectCarreras">
-                    <select class="form-select selectCarrera" onchange="mostrarSelectSedes(this);" name="selectCarreras" id="floatingSelect" aria-label="Floating label select example">
+                    <select class="form-select selectCarrera" onchange="mostrarSelectSedes(this); mostrarMateriasCarrera(this);" name="selectCarreras" id="floatingSelect" aria-label="Floating label select example">
                         <option value="">Seleccione...</option>
                         <?php
                         foreach ($listCarreras as $carrera) {
@@ -250,7 +270,7 @@
                 </div>
 
                 <div class="form-floating mb-3" id="anioCursado">
-                    <select class="form-select selectAnio" onchange="mostrarMateriasAnio(this);" name="anioCursado" id="floatingSelect" aria-label="Floating label select example">
+                    <select class="form-select selectAnio" name="anioCursado" id="floatingSelect" aria-label="Floating label select example">
                         <option value="">Seleccione primero la carrera</option>
                         <?php
                         foreach ($listAnios as $anioCursado) {
