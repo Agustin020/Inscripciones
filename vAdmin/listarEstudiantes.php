@@ -8,14 +8,13 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
         <head>
             <title>Listado de Estudiantes de 1ro</title>
             <style type="text/css">
-                .contenedor {
-                    display: flex;
-                    flex-direction: column;
-                    margin: 15px 20px;
-                }
 
                 body {
                     background-color: lightskyblue;
+                }
+
+                section{
+                    padding: 15px;
                 }
 
                 p{
@@ -33,10 +32,15 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                     vertical-align: middle;
                 }
 
+                table #accion{
+                    text-align: center;
+                }
+
                 .dataTables_length {
                     margin-bottom: 10px;
                 }
             </style>
+
 
             <script>
                 $(document).ready(function() {
@@ -98,7 +102,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
         </head>
 
         <body>
-            <div class="contenedor">
+            <section id="container">
                 <p class="fs-5">Lista de todos los estudiantes de <?php echo $anio; ?>° Año</p>
                 <hr>
 
@@ -133,7 +137,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                     <td><?php echo $registro[5] ?></td>
                                     <td><?php echo $registro[6] ?></td>
                                     <td><?php echo $registro[7] ?></td>
-                                    <td>
+                                    <td id="accion">
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Acción
@@ -162,7 +166,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                 <div class="table-responsive" id="tResultado">
 
                 </div>
-            </div>
+            </section>
         </body>
 
         </html>

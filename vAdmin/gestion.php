@@ -13,26 +13,18 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
             <title>Document</title>
             <?php require('libreria.php') ?>
             <style type="text/css">
-                .contenedor {
-                    background-color: darkblue;
-                    display: flex;
-                    flex-direction: column;
+                section {
+                    background-color: whitesmoke;
+                    padding: 15px;
                 }
 
-                .contenedor #titleWelcome p {
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                    margin: 15px 30px;
-                    color: white;
-                }
-
-                .contenedor .tarjetas {
-                    display: flex;
-                    justify-content: space-evenly;
+                section .tarjetas {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                    column-gap: 20px;
                     align-items: flex-start;
-                    margin-bottom: 20px;
                 }
+
             </style>
 
         </head>
@@ -41,13 +33,12 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
             <?php require('header.php'); ?>
             <!--Container-->
 
-            <div class="contenedor">
-                <div id="titleWelcome">
-                    <p class="fs-4">Bienvenido</p>
-                </div>
+            <section id="container">
+
+                <p class="fs-5">Bienvenido</p>
 
                 <div class="tarjetas">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card">
                         <img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Gestión de Usuarios</h5>
@@ -56,7 +47,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                         </div>
                     </div>
 
-                    <div class="card" id="card2" style="width: 18rem;">
+                    <div class="card" id="card2">
                         <img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Alumnos inscriptos</h5>
@@ -77,7 +68,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                         </ul>
                     </div>
 
-                    <div class="card" id="card3" style="width: 18rem;">
+                    <div class="card" id="card3">
                         <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1080,h_675/https://www.gqdalya.com/wp-content/uploads/2018/12/calificaciones-blog.png" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Calificaciones</h5>
@@ -99,7 +90,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                         </ul>
                     </div>
 
-                    <div class="card" id="card4" style="width: 18rem;">
+                    <div class="card" id="card4">
                         <img src="https://www.frd.utn.edu.ar/wp-content/uploads/elementor/thumbs/student-social-internet-home-profession-p392dtdg10d8z1tfw83rfap7ltcuftrygetuqagr9c.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Solicitud de inscripción</h5>
@@ -161,7 +152,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
 
         </body>

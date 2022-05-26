@@ -1,99 +1,194 @@
-<style>
-    nav .titulo {
-        display: flex;
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    nav .titulo #title {
-        margin-left: 10px;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
-    nav nav form {
-        align-items: center;
-    }
+    <style>
+        .header {
+            margin-left: 250px;
+            transition: 0.2s all;
+        }
 
-    nav nav #btnSalir {
-        margin-left: 10px;
-    }
-</style>
-<nav class="navbar navbar-dark bg-dark sticky-top">
-    <div class="container-fluid">
-        <!--NavBar-->
-        <div class="titulo">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        .header .settingsUser a:hover {
+            background-color: darkviolet;
+        }
+
+        #buttonText {
+            display: flex;
+            align-items: center;
+        }
+
+        #buttonText span {
+            padding: 15px;
+        }
+
+        #buttonText button {
+            color: white;
+            border-radius: 5px;
+            transition: 0.1s all;
+            background-color: transparent;
+            border: none;
+        }
+
+        #buttonText button:active {
+            box-shadow: 0 0 0 2px gray;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            color: white;
+            transition: 0.2s all;
+        }
+
+        .sidebar #txtRol {
+            padding: 15px;
+        }
+
+        .sidebar a {
+            padding-left: 20px;
+            padding-right: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar a:hover {
+            background-color: blueviolet;
+        }
+
+        .sidebar a:active {
+            box-shadow: 0 0 5px 0 darkviolet;
+        }
+
+
+        .sidebar #menu a {
+            border-left: 5px solid darkviolet;
+        }
+
+        .sidebar i {
+            color: white;
+        }
+
+        section {
+            margin-left: 250px;
+            margin-top: 56px;
+            transition: 0.2s all;
+        }
+
+        .hideSidebar {
+            transition: 0.2s all;
+            left: -250px;
+        }
+
+        .expandHeader {
+            transition: 0.2s all;
+            margin-left: 0;
+        }
+
+        .expandContainer {
+            margin-left: 0;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function() {
+            $('#iconToggle').click(function() {
+                $('#navHeader').toggleClass('expandHeader');
+                $('#navSidebar').toggleClass('hideSidebar');
+                $('#container').toggleClass('expandContainer');
+                //$('.sidebar').hide(200);
+            });
+
+            $('#menu').hide();
+            $('#showMenu').click(function() {
+                $('#menu').toggle(100);
+                $('#showMenu i').toggleClass('bi bi-caret-up');
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <nav id="navHeader" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top header">
+        <div class="container-fluid">
+            <div id="buttonText">
+                <button type="button">
+                    <span id="iconToggle" class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#" style="margin-left: 5px;">Gestión</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <span class="navbar-brand" id="title">Gestión</span>
-        </div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="btnSalir" href="../controlador/c_logout.php" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Salir</a>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
-        <!--Sidebar-->
-        <div class="offcanvas offcanvas-start navbar-dark bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="color: white;">Nombre y Apellido</h5>
-                <button type="button" class="btn-close text-reset bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Features</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
+
+            <ul class="navbar-nav settingsUser">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo $_SESSION['username']['datosUser']; ?>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="../controlador/c_logout.php">Cerrar sesión</a></li>
+                    </ul>
+
+
+                </li>
+            </ul>
         </div>
-    </div>
-</nav>
+    </nav>
+
+    <nav id="navSidebar" class="navbar-dark bg-dark fixed-top sidebar">
+        <div id="txtRol">
+            <p class="fs-5" style="margin-bottom: 0 !important;">RolUsuario</p>
+        </div>
+
+        <ul class="navbar-nav itemsSidebar bg-dark">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" role="button" id="showMenu">
+                    Dropdown
+                    <i class="bi bi-caret-down"></i>
+                </a>
+                <ul class="navbar-nav bg-dark" id="menu">
+                    <li><a class="nav-link" href="#">Action</a></li>
+                    <li><a class="nav-link" href="#">Another action</a></li>
+                    <li><a class="nav-link" href="#">Something else here</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+</body>
+
+</html>

@@ -39,14 +39,10 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $listDatos = array();
-            $sql = "SELECT id_usuario, nombre, apellido FROM usuario WHERE usuario = '$usuario'";
+            $sql = "SELECT concat(nombre, ' ', apellido) FROM usuario WHERE usuario = '$usuario'";
             $result = mysqli_query($link, $sql);
             while ($col = mysqli_fetch_row($result)) {
-                $listDatos = [
-                    'nombre' => $col[1],
-                    'apellido' => $col[2]
-                ];
+                $listDatos = $col[0];
             }
         } catch (Exception $e) {
             $e->getMessage();

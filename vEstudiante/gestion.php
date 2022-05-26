@@ -17,8 +17,8 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                     background-color: lightblue;
                 }
 
-                .contenedor {
-                    margin: 15px;
+                section {
+                    padding: 15px;
                 }
 
             </style>
@@ -29,7 +29,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
             <?php require('header.php'); ?>
             <!--Container-->
 
-            <div class="contenedor">
+            <section id="container">
                 <p class="fs-5">Bienvenido</p>
 
                 <div class="card-group">
@@ -58,7 +58,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                         </div>
                     </div>
                 </div>
-
+            </section>
 
         </body>
 

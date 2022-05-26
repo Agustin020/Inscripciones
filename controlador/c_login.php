@@ -13,7 +13,6 @@ if ($co->autenticar($usuario, $password)) {
             $listaNomApell = $co->mostrarNombreApellido($usuario);
             $datosSessionArray = array(
                 'usuario' => $usuario,
-                'rol' => $co->verificarTipoUser($usuario),
                 'datosUser' => $listaNomApell,
             );
             $_SESSION['username'] = $datosSessionArray;
