@@ -5,12 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <?php require('vAdmin/libreria.php'); ?>
     <title>Document</title>
     <style>
         .contenedor {
@@ -18,7 +13,8 @@
             align-items: center;
             justify-content: flex-start;
             height: 100vh;
-            background-color: darkblue;
+            background: linear-gradient(to right, lightskyblue, darkturquoise);
+            background-color: darkturquoise;
         }
 
         form {
@@ -34,30 +30,49 @@
             color: white;
         }
 
-        form .btnGroup{
+        form .btnGroup {
             display: flex;
             justify-content: space-between;
         }
-
-        form .btnGroup a{
-            text-decoration: none;
-            color: white;
-        }
-
     </style>
+
+    <script>
+        function validarNumericos(valor) {
+            var patron = /^([0-9]+)*$/;
+            if (!patron.test(valor.value)) {
+                valor.value = valor.value.substring(0, valor.value.length - 1);
+            }
+        }
+    </script>
 
 </head>
 
 <body>
+    <?php
+    error_reporting(0);
+    session_start();
+    if ($_SESSION['registro'] == true) {
+    ?>
+        <script>
+            Swal.fire({
+                position: 'bottom-end',
+                icon: 'success',
+                title: 'Los datos han sido enviados',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    <?php
+        unset($_SESSION['registro']);
+    }
+    ?>
     <div class="contenedor">
         <form action="controlador/c_login.php" method="post" class="border border-primary">
             <img src="http://ies9008.mendoza.edu.ar/pluginfile.php/1/core_admin/logo/0x200/1630026381/190x298.jpg" alt="">
             <hr>
             <?php
-            error_reporting(0);
-            $errorLogin = $_GET['error'];
 
-            if ($errorLogin == 'autenticacion') {
+            if ($_SESSION['autenticacionError']) {
             ?>
                 <div class="alert alert-primary" role="alert" id="msjError">
                     Datos Erronéos.
@@ -65,6 +80,7 @@
                     Ingrese nuevamente
                 </div>
             <?php
+                unset($_SESSION['autenticacionError']);
             }
             ?>
 
@@ -78,9 +94,71 @@
                 <label for="floatingInput">Contraseña</label>
             </div>
             <div class="btnGroup">
-                <button type="button" name="submit" class="btn btn-primary"><a href="Registro.php">Registrarse</a></button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
 
                 <button type="submit" name="submit" class="btn btn-primary">Acceder</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Registro-->
+    <div class="modal fade" id="modalRegistro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <form action="controlador/c_registro.php" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Registro</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <p class="fs-6">
+                            Nota: Los datos enviados se evaluaran de acuerdo a la documentación presentada.<br>
+                            De acuerdo a lo enviado se le dara de alta al Sistema si es que corresponde.
+                        </p>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre">
+                            <label for="floatingInput">Nombre</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido">
+                            <label for="floatingInput">Apellido</label>
+                        </div>
+
+                        <div class="form-floating mb-3" id="correo">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Correo Electrónico">
+                            <label for="floatingInput">Correo Electrónico</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="number" oninput="validarNumericos(this);" class="form-control" name="dni" id="dni" placeholder="Dni" min="1000000" max="99999999">
+                            <label for="floatingInput">DNI</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="tel" oninput="validarNumericos(this);" class="form-control" name="cel" id="cel" placeholder="Celular">
+                            <label for="floatingInput">Celular</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Nombre de usuario">
+                            <label for="floatingInput">Nombre de usuario</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+                            <label for="floatingInput">Contraseña</label>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+
+                </div>
             </div>
         </form>
     </div>

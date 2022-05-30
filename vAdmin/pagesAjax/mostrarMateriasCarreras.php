@@ -25,8 +25,11 @@ if (mysqli_num_rows($result1)) {
         $html .= '<label class="list-group-item">
                     <input class="form-check-input me-1" name="materias[]" type="checkbox" value="' . $row[0] . '">
                     ' . $row[1] . '
-                  </label></div>';
+                  </label>';
     }
+
+    $html .= '</div>
+            <div class="list-group">';
 }
 
 $result2 = mysqli_query($link, $sql2);
@@ -36,8 +39,10 @@ if (mysqli_num_rows($result2)) {
         $html .= '<label class="list-group-item">
                     <input class="form-check-input me-1" name="materias[]" type="checkbox" value="' . $row[0] . '">
                     ' . $row[1] . '
-                  </label></div>';
+                  </label>';
     }
+    $html .= '</div>
+            <div class="list-group">';
 }
 
 $result3 = mysqli_query($link, $sql3);
@@ -48,8 +53,9 @@ if (mysqli_num_rows($result3)) {
         $html .= '<label class="list-group-item">
                     <input class="form-check-input me-1" name="materias[]" type="checkbox" value="' . $row[0] . '">
                     ' . $row[1] . '
-                  </label></div>';
+                  </label>';
     }
+    $html .= '</div>';
 }
 
 echo $html;

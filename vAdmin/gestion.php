@@ -24,7 +24,6 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                     column-gap: 20px;
                     align-items: flex-start;
                 }
-
             </style>
 
         </head>
@@ -35,7 +34,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
 
             <section id="container">
 
-                <p class="fs-5">Bienvenido</p>
+                <p class="fs-5">Bienvenido <?php echo $_SESSION['username']['datosUser']; ?></p>
 
                 <div class="tarjetas">
                     <div class="card">
@@ -71,23 +70,10 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                     <div class="card" id="card3">
                         <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1080,h_675/https://www.gqdalya.com/wp-content/uploads/2018/12/calificaciones-blog.png" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Calificaciones</h5>
-                            <p class="card-text">Coloca, modifica y consulta las notas del respectivo estudiante</p>
+                            <h5 class="card-title">Solicitud de alta</h5>
+                            <p class="card-text">Ver los datos de los usuarios que requieren el alta al Sistema</p>
+                            <a href="index.php?accion=listarSolicitudAlta" class="btn btn-primary">Ver</a>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Estudiantes 1er Año
-                                <a href="#" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Estudiantes 2do Año
-                                <a href="#" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Estudiantes 3er Año
-                                <a href="#" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                        </ul>
                     </div>
 
                     <div class="card" id="card4">
@@ -99,15 +85,15 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                                 Inscripción 1er Año
-                                <a href="#" class="btn btn-primary">Ver Listado</a>
+                                <a href="index.php?accion=listarInscripciones&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                                 Inscripción 2do Año
-                                <a href="#" class="btn btn-primary">Ver Listado</a>
+                                <a href="index.php?accion=listarInscripciones&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
                                 Inscripción 3er Año
-                                <a href="#" class="btn btn-primary">Ver Listado</a>
+                                <a href="index.php?accion=listarInscripciones&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
                             </li>
                         </ul>
                     </div>

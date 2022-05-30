@@ -8,7 +8,7 @@
     <title>Document</title>
     <style type="text/css">
         section {
-            margin: 15px;
+            padding: 15px;
         }
 
         form #tipoUsuario {
@@ -109,11 +109,11 @@
             $('#materias').hide();
         }
 
-        function mostrarMateriasCarrera(carrera){
-            if(carrera.value != ''){
+        function mostrarMateriasCarrera(carrera) {
+            if (carrera.value != '') {
                 $('#materias').show();
                 mostrarMateriasCarreraAjax(carrera.value);
-            }else{
+            } else {
                 $('#materias').hide();
             }
         }
@@ -141,7 +141,7 @@
             });
         }
 
-        function mostrarMateriasCarreraAjax(carrera){
+        function mostrarMateriasCarreraAjax(carrera) {
             $.ajax({
                 type: 'POST',
                 url: 'pagesAjax/mostrarMateriasCarreras.php',
@@ -155,7 +155,7 @@
 </head>
 
 <body>
-    <section>
+    <section id="container">
         <?php
         ?>
 
@@ -168,9 +168,16 @@
                     <option value="" selected>Seleccione...</option>
                     <?php
                     foreach ($listRoles as $rol) {
+                        if ($_SESSION['rol'] == 2 && $rol[0] == 1) {
                     ?>
-                        <option value="<?php echo $rol[0]; ?>"><?php echo $rol[1]; ?></option>
+                            <option value="<?php echo $rol[0]; ?>"><?php echo $rol[1]; ?></option>
+                        <?php
+                        }
+                        if($_SESSION['rol'] == 3) {
+                        ?>
+                            <option value="<?php echo $rol[0]; ?>"><?php echo $rol[1]; ?></option>
                     <?php
+                        }
                     }
                     ?>
                 </select>

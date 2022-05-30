@@ -123,25 +123,6 @@
                 </button>
                 <a class="navbar-brand" href="#" style="margin-left: 5px;">Gestión</a>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li>
-                </ul>
-            </div>
 
             <ul class="navbar-nav settingsUser">
                 <li class="nav-item dropdown">
@@ -165,12 +146,22 @@
 
     <nav id="navSidebar" class="navbar-dark bg-dark fixed-top sidebar">
         <div id="txtRol">
-            <p class="fs-5" style="margin-bottom: 0 !important;">RolUsuario</p>
+            <?php
+            if ($_SESSION['rol'] == 2) {
+            ?>
+                <p class="fs-5" style="margin-bottom: 0 !important;">Preceptor</p>
+            <?php
+            } else if ($_SESSION['rol'] == 3) {
+            ?>
+                <p class="fs-5" style="margin-bottom: 0 !important;">Admin</p>
+            <?php
+            }
+            ?>
         </div>
 
         <ul class="navbar-nav itemsSidebar bg-dark">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link active" aria-current="page" href="gestion.php">Inicio</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>

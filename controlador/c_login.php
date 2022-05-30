@@ -34,7 +34,9 @@ if ($co->autenticar($usuario, $password)) {
             break;
     }
 } else {
-    header('Location: ../vistas/login.php?error=autenticacion');
+    session_start();
+    $_SESSION['autenticacionError'] = true;
+    header('Location: ../login.php');
 }
 ?>
 <!DOCTYPE html>

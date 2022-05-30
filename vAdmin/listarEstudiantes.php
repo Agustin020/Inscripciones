@@ -8,16 +8,15 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
         <head>
             <title>Listado de Estudiantes de 1ro</title>
             <style type="text/css">
-
                 body {
                     background-color: lightskyblue;
                 }
 
-                section{
+                section {
                     padding: 15px;
                 }
 
-                p{
+                p {
                     margin-bottom: 0 !important;
                 }
 
@@ -32,7 +31,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                     vertical-align: middle;
                 }
 
-                table #accion{
+                table #accion {
                     text-align: center;
                 }
 
@@ -63,7 +62,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                         dom: 'lBfrtip',
                         buttons: [{
                                 extend: 'excelHtml5',
-                                title: 'Listado de Estudiantes',
+                                title: 'Listado de Estudiantes de ' + <?php echo $_GET['anio']; ?> + '° año',
                                 messageTop: 'Reporte: ' + localdate,
                                 exportOptions: {
                                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -74,7 +73,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                 orientation: 'landscape',
                                 pageSize: 'A4',
                                 download: 'open',
-                                title: 'Listado de Estudiantes',
+                                title: 'Listado de Estudiantes de ' + <?php echo $_GET['anio']; ?> + '° año',
                                 messageTop: 'Reporte: ' + localdate,
                                 exportOptions: {
                                     columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -108,7 +107,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
 
                 <div class="table-responsive" id="tPrincipal">
                     <div id="nuevoEstudiante">
-                        <a class="btn btn-primary" href="index.php?accion=registrarEstudiante">Nuevo Estudiante</a>
+                        <a class="btn btn-primary" href="index.php?accion=agregarUsuario">Nuevo Estudiante</a>
                     </div>
                     <table class="table table-hover table-light" id="tablaDinamicaLoad">
                         <thead class="table-dark">

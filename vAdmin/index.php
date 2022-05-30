@@ -27,4 +27,16 @@ switch ($accion) {
         $controlador = new ControladorGestion();
         $controlador->verCalificacionesContr($dni);;
         break;
+    case 'listarSolicitudAlta':
+        require('../controlador/c_gestion.php');
+        $controlador = new ControladorGestion();
+        $controlador->listarSolicitudesAltaContr();
+        break;
+    case 'listarInscripciones':
+        $anio = $_GET['anio'];
+        $sedeActual = $_GET['sede'];
+        require('../controlador/c_gestion.php');
+        $controlador = new ControladorGestion();
+        $controlador->listarInscripcionesContr($anio, $sedeActual);
+        break;
 }

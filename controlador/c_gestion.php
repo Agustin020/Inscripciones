@@ -56,4 +56,22 @@ class ControladorGestion
         require('calificaciones.php');
     }
 
+    public function listarSolicitudesAltaContr(){
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listSolicitudAlta = $co->listarSolicitudAlta();
+        require('libreria.php');
+        require('header.php');
+        require('listarRegistros.php');
+    }
+
+    public function listarInscripcionesContr($anio, $sedeActual){
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listInscripcion = $co->listarInscripciones($anio, $sedeActual);
+        require('libreria.php');
+        require('header.php');
+        require('listarInscripciones.php');
+    }
+
 }

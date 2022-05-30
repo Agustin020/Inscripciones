@@ -10,13 +10,30 @@ class Consultas extends Conexion
             $link = parent::Conexion();
             $sql = "SELECT usuario, contraseña FROM usuario WHERE usuario = '$usuario' AND contraseña = '$password' AND idRol IS NOT NULL";
             $result = mysqli_query($link, $sql);
-            if ($result == true) {
+            if (mysqli_num_rows($result) > 0) {
                 return true;
             } else {
                 return false;
             }
         } catch (Exception $e) {
             $e->getMessage();
+        }
+    }
+
+    public function registrarUsuario($dni, $nombre, $apellido, $email, $celular, $username, $password)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "INSERT into usuario(dni, nombre, apellido, correo, celular, usuario, contraseña)
+                    values('$dni', '$nombre', '$apellido', '$email', '$celular', '$username', '$password')";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
         }
     }
 
@@ -271,40 +288,6 @@ class Consultas extends Conexion
         }
     }
 
-
-
-    public function altaEstudiante($dni)
-    {
-        try {
-            $link = parent::Conexion();
-            $sql = "UPDATE usuario SET idRol = 1 WHERE dni = '$dni'";
-            $result = mysqli_query($link, $sql);
-            if ($result == false) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (Exception $e) {
-            $e->getMessage();
-        }
-    }
-
-    public function bajaEstudiante($dni)
-    {
-        try {
-            $link = parent::Conexion();
-            $sql = "DELETE FROM usuario WHERE dni = '$dni'";
-            $result = mysqli_query($link, $sql);
-            if ($result == false) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (Exception $e) {
-            $e->getMessage();
-        }
-    }
-
     //PAGE LISTARESTUDIANTES
     public function verificarCarrerasSedePreceptor($usuario)
     {
@@ -491,5 +474,79 @@ class Consultas extends Conexion
         } catch (Exception $e) {
             die($e->getMessage());
         }
+    }
+
+
+    //SOLICITUD ALTA
+    public function listarSolicitudAlta()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.celular, u.usuario from usuario u 
+                    where u.idRol is null";
+            $result = mysqli_query($link, $sql);
+            $listSolicitudAlta = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listSolicitudAlta[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+        return $listSolicitudAlta;
+    }
+
+    public function altaEstudiante($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "UPDATE usuario set idRol = 1 where dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function eliminarSolicitud($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "DELETE from usuario where dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+    //LISTAR INSCRIPCIONES
+    public function listarInscripciones($anio, $sedeActual)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT i.dni, i.`apellido/s`, i.`nombre/s`, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
+                    i.fechaInscripcion, i.materias, c.nombre, s.nombre, i.idAnioCursado2 from inscripcion i, carrera c, sede s 
+                    where i.codigoCarrera4 = c.codigo and i.codigoSede2 = s.codigo and i.idAnioCursado2 = '$anio' and i.codigoSede2 = '$sedeActual'";
+            $result = mysqli_query($link, $sql);
+            $listInscripcion = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listInscripcion[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listInscripcion;
     }
 }
