@@ -81,8 +81,8 @@ if (isset($_SESSION['rol'])) {
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item" role="button" onclick="accionEliminar();" href="">
-                                                        Eliminar
+                                                    <a class="dropdown-item" role="button" href="">
+                                                        Inscribir
                                                     </a>
                                                 </li>
                                             </ul>
