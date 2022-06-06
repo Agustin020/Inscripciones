@@ -78,6 +78,8 @@ class ControladorGestion
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listInscripcion = $co->listarInscripcionEstudiante($dni);
+        $listAnioCursado = $co->listarAnioCursado();
+        $listCarrera = $co->verificarCarrerasSedePreceptor($_SESSION['username']['usuario']);
         require('libreria.php');
         require('header.php');
         require('inscribirEstudiante.php');

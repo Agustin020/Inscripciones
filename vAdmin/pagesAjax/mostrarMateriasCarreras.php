@@ -5,7 +5,7 @@ $link = conexion();
 
 $codCarrera = $_POST['carrera'];
 
-$html = '<p class="fs-6">Selecciona el Espacio Curricular al cual se inscribió</p>
+$html = '<p class="fs-6">Selecciona el Espacio Curricular al cual se inscribe</p>
             <div class="list-group">';
 
 $sql1 = "SELECT m.codigo, m.nombre, m.idAnioCursado from materia m where m.codigo in (select mc.codigoMateria from materia_carrera mc

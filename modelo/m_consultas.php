@@ -272,19 +272,17 @@ class Consultas extends Conexion
     public function agregarInscripcion($dni, $apellido, $nombre, $fechaNac, $lugarNac, $domicilio, $codPostal, $celular, $correo, $materias, $codCarrera, $codSede, $anioCursado)
     {
         try {
-
             $link = parent::Conexion();
-            $sql = "INSERT into inscripcion values('$dni', '$apellido', '$nombre', '$fechaNac', '$lugarNac', '$domicilio',
-            '$codPostal', '$celular', '$correo', now(), '$materias',
-            '$codCarrera', '$codSede', '$anioCursado')";
+            $sql = "INSERT INTO inscripcion(dni, apellidos, nombres, fechaNac, lugarNac, domicilio, codPostal, celular, correo, fechaInscripcion, materias, codigoCarrera4, codigoSede2, idAnioCursado2) 
+                    VALUES('$dni', '$apellido', '$nombre', '$fechaNac', '$lugarNac', '$domicilio', '$codPostal', '$celular', '$correo', CURDATE(), '$materias', '$codCarrera', '$codSede', '$anioCursado')";
             $result = mysqli_query($link, $sql);
-            if ($result == false) {
-                return false;
-            } else {
+            if ($result == true) {
                 return true;
+            } else {
+                return false;
             }
         } catch (Exception $e) {
-            $e->getMessage();
+            die('Error: ' . $e->getMessage());
         }
     }
 
@@ -295,8 +293,8 @@ class Consultas extends Conexion
             $listPreceptorSedes = [];
             $link = parent::Conexion();
             $sql = "SELECT c.codigo, c.nombre, u.usuario, s.nombre from sede s, sede_carrera sc, carrera c, usuario u, usuario_sede us
-                where s.codigo = sc.codigoSede and sc.codigoCarrera3 = c.codigo
-                and s.codigo = us.codigoSede3 and us.dniUsuario4 = u.dni and u.idRol = 2 and u.usuario = '$usuario'";
+                    where s.codigo = sc.codigoSede and sc.codigoCarrera3 = c.codigo
+                    and s.codigo = us.codigoSede3 and us.dniUsuario4 = u.dni and u.idRol = 2 and u.usuario = '$usuario'";
             $result = mysqli_query($link, $sql);
             $i = 0;
             while ($col = mysqli_fetch_row($result)) {
@@ -534,7 +532,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT i.dni, i.`apellido/s`, i.`nombre/s`, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
+            $sql = "SELECT i.dni, i.apellidos, i.nombres, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
                     i.fechaInscripcion, i.materias, c.nombre, s.nombre, i.idAnioCursado2 from inscripcion i, carrera c, sede s 
                     where i.codigoCarrera4 = c.codigo and i.codigoSede2 = s.codigo and i.idAnioCursado2 = '$anio' and i.codigoSede2 = '$sedeActual'";
             $result = mysqli_query($link, $sql);
@@ -554,7 +552,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT i.dni, i.`apellido/s`, i.`nombre/s`, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
+            $sql = "SELECT i.dni, i.apellidos, i.nombres, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
             i.fechaInscripcion, i.materias, c.nombre, s.nombre, i.idAnioCursado2 FROM inscripcion i, carrera c, sede s 
             WHERE i.codigoCarrera4 = c.codigo AND i.codigoSede2 = s.codigo AND i.dni = '$dni'";
             $result = mysqli_query($link, $sql);

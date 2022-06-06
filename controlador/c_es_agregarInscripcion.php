@@ -23,6 +23,8 @@ foreach ($materias as $materia) {
 }
 if ($co->agregarInscripcion($dni, $apellido, $nombre, $fechaNac, $lugarNac, $domicilio, $codPostal, $celular, $correo, $materiasInscriptas, $codCarrera, $codSede, $anioCursado)) {
     echo 'Verdadero';
+}else{
+    echo 'Falso';
 }
 
 
@@ -40,7 +42,5 @@ if ($co->agregarInscripcion($dni, $apellido, $nombre, $fechaNac, $lugarNac, $dom
 'Codigo Carrera: ' . $codCarrera . '<br>' .
 'Codigo Sede: ' . $codSede . '<br>' .
 'Año Cursado: ' . $anioCursado . '<br>' . 
-'Materias: ';
-foreach($materias as $materia){
-    echo $materia . ' - ';
-}*/
+'Materias: ' . $materiasInscriptas;*/
+

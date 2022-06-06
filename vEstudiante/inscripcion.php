@@ -79,6 +79,13 @@
                 }
             });
         }
+
+        function validarDomicilio(valor) {
+            var patron = /^[a-zA-Z éúíóáÉÚÍÓÁ0-9,."-]+$/;
+            if (!patron.test(valor.value)) {
+                valor.value = valor.value.substring(0, valor.value.length - 1);
+            }
+        }
     </script>
 </head>
 
@@ -116,7 +123,7 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" name="domicilio" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                <input type="text" name="domicilio" oninput="validarDomicilio(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                 <label for="floatingInput">Domicilio</label>
             </div>
 
