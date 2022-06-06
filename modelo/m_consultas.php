@@ -549,4 +549,24 @@ class Consultas extends Conexion
         }
         return $listInscripcion;
     }
+
+    public function listarInscripcionEstudiante($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT i.dni, i.`apellido/s`, i.`nombre/s`, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
+            i.fechaInscripcion, i.materias, c.nombre, s.nombre, i.idAnioCursado2 FROM inscripcion i, carrera c, sede s 
+            WHERE i.codigoCarrera4 = c.codigo AND i.codigoSede2 = s.codigo AND i.dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            $listInscripcionEstudiante = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listInscripcionEstudiante[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listInscripcionEstudiante;
+    }
 }

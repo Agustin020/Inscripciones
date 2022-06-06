@@ -138,7 +138,6 @@
                         <li><a class="dropdown-item" href="../controlador/c_logout.php">Cerrar sesión</a></li>
                     </ul>
 
-
                 </li>
             </ul>
         </div>
@@ -159,7 +158,7 @@
             ?>
         </div>
 
-        <ul class="navbar-nav itemsSidebar bg-dark">
+        <ul class="navbar-nav bg-dark">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="gestion.php">Inicio</a>
             </li>

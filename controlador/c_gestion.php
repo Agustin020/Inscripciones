@@ -74,4 +74,13 @@ class ControladorGestion
         require('listarInscripciones.php');
     }
 
+    public function inscribirEstudianteContr($dni){
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listInscripcion = $co->listarInscripcionEstudiante($dni);
+        require('libreria.php');
+        require('header.php');
+        require('inscribirEstudiante.php');
+    }
+
 }

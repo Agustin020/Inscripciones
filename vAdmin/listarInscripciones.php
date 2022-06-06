@@ -81,7 +81,7 @@ if (isset($_SESSION['rol'])) {
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item" role="button" href="">
+                                                    <a class="dropdown-item" role="button" href="index.php?accion=inscribirEstudiante&dni=<?php echo $dato[0]; ?>">
                                                         Inscribir
                                                     </a>
                                                 </li>

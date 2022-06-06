@@ -39,4 +39,9 @@ switch ($accion) {
         $controlador = new ControladorGestion();
         $controlador->listarInscripcionesContr($anio, $sedeActual);
         break;
+    case 'inscribirEstudiante':
+        $dni = $_GET['dni'];
+        require('../controlador/c_gestion.php');
+        $controlador = new ControladorGestion();
+        $controlador->inscribirEstudianteContr($dni);
 }
