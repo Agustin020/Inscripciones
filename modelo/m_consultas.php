@@ -553,8 +553,9 @@ class Consultas extends Conexion
         try {
             $link = parent::Conexion();
             $sql = "SELECT i.dni, i.apellidos, i.nombres, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
-            i.fechaInscripcion, i.materias, c.nombre, s.nombre, i.idAnioCursado2 FROM inscripcion i, carrera c, sede s 
-            WHERE i.codigoCarrera4 = c.codigo AND i.codigoSede2 = s.codigo AND i.dni = '$dni'";
+                    i.fechaInscripcion, i.materias, c.nombre, concat(s.nombre, ', ', d.nombre) as sede, i.idAnioCursado2 
+                    FROM inscripcion i, carrera c, sede s, departamentos d 
+                    WHERE i.codigoCarrera4 = c.codigo AND i.codigoSede2 = s.codigo and s.codPostal3 = d.codPostal and i.dni = '$dni'";
             $result = mysqli_query($link, $sql);
             $listInscripcionEstudiante = [];
             $i = 0;
@@ -566,5 +567,25 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $listInscripcionEstudiante;
+    }
+
+    //SELECT2 - PAGE INSCRIBIR ESTUDIANTE
+    public function listarEstudiantesCargados()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.celular from usuario u 
+                    where u.idRol in (select r.id from rolusuario r where r.id = 1) and u.dni in (select e.dni from estudiante e where e.dni = u.dni)";
+            $result = mysqli_query($link, $sql);
+            $listEstudiantes = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listEstudiantes[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listEstudiantes;
     }
 }

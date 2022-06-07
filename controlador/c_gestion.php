@@ -80,6 +80,7 @@ class ControladorGestion
         $listInscripcion = $co->listarInscripcionEstudiante($dni);
         $listAnioCursado = $co->listarAnioCursado();
         $listCarrera = $co->verificarCarrerasSedePreceptor($_SESSION['username']['usuario']);
+        $listEstudiantes = $co->listarEstudiantesCargados();
         require('libreria.php');
         require('header.php');
         require('inscribirEstudiante.php');

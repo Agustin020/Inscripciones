@@ -25,13 +25,13 @@ if (isset($_SESSION['rol'])) {
                 #fields {
                     position: relative;
                     width: 80%;
-                    margin: 5%;
+                    margin: 0 5%;
                 }
 
                 #input {
                     position: relative;
                     width: 90%;
-                    margin: 5%;
+                    margin: 0 5%;
                 }
 
                 .list-group-item {
@@ -42,6 +42,27 @@ if (isset($_SESSION['rol'])) {
                     padding: 15px;
                 }
             </style>
+
+            <script>
+                $(document).ready(function() {
+                    $("#estudiantesSelect").select2({
+                        theme: "classic",
+                        maximumSelectionLength: 1,
+                        language: {
+                            noResults: function() {
+                                return "No hay resultados";
+                            },
+                            searching: function() {
+                                return "Buscando..";
+                            },
+                            maximumSelected: function(){
+                                return "Solo puedes seleccionar un estudiante";
+                            }
+                        }
+                    });
+
+                });
+            </script>
 
             <script>
                 function mostrarMateriasCarrera(selectCarrera) {
@@ -128,9 +149,6 @@ if (isset($_SESSION['rol'])) {
                                             <label for="textareaMaterias" class="form-label">Materias</label>
                                             <textarea class="form-control" id="textareaMaterias" rows="6" readonly><?php echo $datoInscripcion[10]; ?></textarea>
                                         </div>
-                                        <div class="col-12">
-                                            <button type="submit" class="btn btn-primary">Enviar</button>
-                                        </div>
                                     </form>
                                 <?php
                                 }
@@ -139,15 +157,23 @@ if (isset($_SESSION['rol'])) {
                         </div>
                         <div class="container-input">
                             <div class="col" id="input">
-                                <div class="container-fluid">
-                                    <nav class="navbar navbar-expand-lg navbar-light">
-                                        <a class="navbar-brand" href="#">Buscar ingresante</a>
-                                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                            <form class="d-flex">
-                                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                                <button class="btn btn-outline-success" type="submit">Search</button>
-                                            </form>
-                                        </div>
+                                <div style="display: flex; flex-direction: column;">
+                                    <p class="fs-6">Buscar Estudiante</p>
+
+                                    <select class="form-select" id="estudiantesSelect" multiple="multiple">
+                                        <optgroup label="Estudiantes">
+                                            <?php
+                                            foreach ($listEstudiantes as $estudiante) {
+                                            ?>
+                                                <option value="<?php echo $estudiante[0]; ?>">
+                                                    <?php echo $estudiante[0] . ' - ' . $estudiante[1] . ' ' . $estudiante[2] . ' - ' . $estudiante[3] . ' - ' . $estudiante[4]; ?>
+                                                </option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </optgroup>
+                                    </select>
+
                                 </div>
                                 <div class="container-fluid">
                                     <ul class="list-group list-group-flush">
@@ -177,12 +203,11 @@ if (isset($_SESSION['rol'])) {
                                         </li>
                                         <li class="list-group-item">
                                             <div id="resultadoMaterias">
-                                        
+
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                </nav>
                             </div>
                         </div>
                     </div>
