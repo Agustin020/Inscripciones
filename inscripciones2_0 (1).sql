@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2022 a las 19:25:39
+-- Tiempo de generación: 08-06-2022 a las 19:27:10
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -70,7 +70,7 @@ CREATE TABLE `calificaciones` (
 --
 
 INSERT INTO `calificaciones` (`dniEstudiante2`, `codigoMateria2`, `califParcial`, `califRecuperatorio`, `calificacionParcial2`, `califRecuperatorio2`, `califGlobal`, `califFinal`, `fechaFinal`, `califFinal2`, `fechaFinal2`, `califFinal3`, `fechaFinal3`, `condicionFinal`) VALUES
-(12345678, 1300, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12345678, 1300, '8', NULL, '10', NULL, NULL, '9', '2022-05-11', NULL, NULL, NULL, NULL, 'Regular'),
 (12345678, 1301, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (12345678, 1302, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (12345678, 1303, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -91,7 +91,7 @@ INSERT INTO `calificaciones` (`dniEstudiante2`, `codigoMateria2`, `califParcial`
 (42900600, 2307, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42900600, 2308, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42900600, 2309, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42913695, 1300, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42913695, 1300, '8', NULL, '10', NULL, NULL, '9', '2022-05-11', NULL, NULL, NULL, NULL, 'Regular'),
 (42913695, 1301, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42913695, 1302, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (42913695, 1303, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -181,7 +181,7 @@ INSERT INTO `departamentos` (`codPostal`, `nombre`) VALUES
 
 CREATE TABLE `estudiante` (
   `dni` int(11) NOT NULL,
-  `dniInscripcion` int(11) DEFAULT NULL,
+  `idInscripcion` int(11) DEFAULT NULL,
   `idAnioCursado3` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -189,9 +189,10 @@ CREATE TABLE `estudiante` (
 -- Volcado de datos para la tabla `estudiante`
 --
 
-INSERT INTO `estudiante` (`dni`, `dniInscripcion`, `idAnioCursado3`) VALUES
+INSERT INTO `estudiante` (`dni`, `idInscripcion`, `idAnioCursado3`) VALUES
 (12345678, NULL, 3),
 (42900600, NULL, 3),
+(42913100, NULL, NULL),
 (42913695, NULL, 3),
 (87654321, NULL, 1);
 
@@ -202,9 +203,10 @@ INSERT INTO `estudiante` (`dni`, `dniInscripcion`, `idAnioCursado3`) VALUES
 --
 
 CREATE TABLE `inscripcion` (
-  `dni` int(11) NOT NULL,
-  `apellido/s` varchar(100) DEFAULT NULL,
-  `nombre/s` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `dni` int(11) DEFAULT NULL,
+  `apellidos` varchar(100) DEFAULT NULL,
+  `nombres` varchar(100) DEFAULT NULL,
   `fechaNac` date DEFAULT NULL,
   `lugarNac` varchar(75) DEFAULT NULL,
   `domicilio` varchar(150) DEFAULT NULL,
@@ -212,11 +214,19 @@ CREATE TABLE `inscripcion` (
   `celular` bigint(20) DEFAULT NULL,
   `correo` varchar(75) DEFAULT NULL,
   `fechaInscripcion` date DEFAULT NULL,
-  `materias` varchar(400) DEFAULT NULL,
+  `materias` varchar(500) DEFAULT NULL,
   `codigoCarrera4` int(11) DEFAULT NULL,
   `codigoSede2` int(11) DEFAULT NULL,
   `idAnioCursado2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `inscripcion`
+--
+
+INSERT INTO `inscripcion` (`id`, `dni`, `apellidos`, `nombres`, `fechaNac`, `lugarNac`, `domicilio`, `codPostal`, `celular`, `correo`, `fechaInscripcion`, `materias`, `codigoCarrera4`, `codigoSede2`, `idAnioCursado2`) VALUES
+(23, 42913695, 'Videla', 'Agustin', '2000-09-24', 'Godoy Cruz', 'Beltrán Norte, Manzana \"A\", Casa 11', 5531, 2612634082, 'agustinvidela835@gmail.com', '2022-06-07', 'Programación II, Comunicaciones y redes, Matemática Discreta, Análisis Matemático, Inglés Técnico II, Modelado de Software, Bases de Datos I, Sistemas Operativos, Práctica Profesionalizante II, ', 1000, 4000, 2),
+(25, 12345678, 'Airoldi', 'Fernando', '2000-09-24', 'Capital', 'Fray Luis Beltrán', 5531, 2612634090, 'alguien@gmail.com', '2022-06-07', 'jkadnwidniwoadpbwqiudbqwdbvam,swm,dalñjaowdihwo', 1000, 3000, 2);
 
 -- --------------------------------------------------------
 
@@ -463,7 +473,7 @@ CREATE TABLE `usuario` (
   `apellido` varchar(70) CHARACTER SET utf8 DEFAULT NULL,
   `correo` varchar(70) CHARACTER SET utf8 DEFAULT NULL,
   `usuario` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
-  `contraseña` varchar(45) CHARACTER SET utf8 DEFAULT NULL,
+  `contraseña` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
   `domicilio` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
   `codigoPostal` int(11) DEFAULT NULL,
   `lugarNac` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
@@ -478,10 +488,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`dni`, `nombre`, `apellido`, `correo`, `usuario`, `contraseña`, `domicilio`, `codigoPostal`, `lugarNac`, `fechaNac`, `celular`, `idRol`, `codPostal2`) VALUES
+(3, 'Admin', 'Ad', NULL, 'admin', '1234', NULL, NULL, NULL, NULL, NULL, 3, NULL),
 (12345678, 'Ejemplo', 'Ejemplo', 'alguien@gmail.com', 'ejemplo', '1234', 'Fray Luis Beltrán', 5531, 'Capital', '2000-09-24', '2612634091', 1, 5515),
 (20444696, 'Leandro', 'Diaz', 'lean@gmail.com', 'lean45', '1234', 'Rodeo Del Medio', 5529, 'Capital', '1980-05-22', '2612634080', 2, 5515),
 (38414378, 'Fernando', 'Airoldi', 'fernando@gmail.com', 'fer95', '1234', 'Fray Luis Beltran', 5531, 'Godoy Cruz', '1995-09-24', '2612634081', 2, 5515),
 (42900600, 'Gonzalo', 'Lozano', 'gonzalozano@gmail.com', 'gonzalozano', '1234', 'Fray Luis Beltrán', 5531, 'Capital', '2000-04-24', '2612634090', 1, 5515),
+(42913100, 'Ejemplo', 'Ejemplo', 'ejemplo@gmail.com', 'usuario', '1234', NULL, NULL, NULL, NULL, '2612634070', 1, NULL),
 (42913695, 'Agustin', 'Videla', 'agustinvidela835@gmail.com', 'agustinvidela', '1234', 'Fray Luis Beltran', 5531, 'Godoy Cruz', '2000-09-24', '2612634082', 1, 5515),
 (87654321, 'Nombre', 'Apellido', 'alguien@gmail.com', 'username', '1234', 'Fray Luis Beltrán', 5531, 'Godoy Cruz', '2000-09-24', '2612634070', 1, 5515);
 
@@ -565,14 +577,14 @@ ALTER TABLE `departamentos`
 --
 ALTER TABLE `estudiante`
   ADD PRIMARY KEY (`dni`),
-  ADD KEY `fk_dniInscripcion` (`dniInscripcion`),
-  ADD KEY `fk_anioCursado3` (`idAnioCursado3`);
+  ADD KEY `fk_anioCursado3` (`idAnioCursado3`),
+  ADD KEY `fk_dniInscripcion` (`idInscripcion`);
 
 --
 -- Indices de la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
-  ADD PRIMARY KEY (`dni`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `fk_codigoSede2_idx` (`codigoSede2`),
   ADD KEY `fk_idAnioCursado2_idx` (`idAnioCursado2`),
   ADD KEY `fk_codigoCarrera4_idx` (`codigoCarrera4`);
@@ -642,6 +654,12 @@ ALTER TABLE `usuario_sede`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `inscripcion`
+--
+ALTER TABLE `inscripcion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
 -- AUTO_INCREMENT de la tabla `materia_carrera`
 --
 ALTER TABLE `materia_carrera`
@@ -682,7 +700,7 @@ ALTER TABLE `calificaciones`
 ALTER TABLE `estudiante`
   ADD CONSTRAINT `fk_anioCursado3` FOREIGN KEY (`idAnioCursado3`) REFERENCES `aniocursado` (`id`),
   ADD CONSTRAINT `fk_dniEstudiante` FOREIGN KEY (`dni`) REFERENCES `usuario` (`dni`),
-  ADD CONSTRAINT `fk_dniInscripcion` FOREIGN KEY (`dniInscripcion`) REFERENCES `inscripcion` (`dni`);
+  ADD CONSTRAINT `fk_idInscripcion` FOREIGN KEY (`idInscripcion`) REFERENCES `inscripcion` (`id`);
 
 --
 -- Filtros para la tabla `inscripcion`
