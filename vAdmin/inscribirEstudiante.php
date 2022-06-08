@@ -13,10 +13,6 @@ if (isset($_SESSION['rol'])) {
             <title>Document</title>
 
             <style>
-                body {
-                    background-color: rgba(144, 146, 147, 0.663);
-                }
-
                 .container-fields,
                 .container-input {
                     width: 50%;
@@ -41,6 +37,11 @@ if (isset($_SESSION['rol'])) {
                 section {
                     padding: 15px;
                 }
+
+                form #btnEnviar{
+                    display: flex;
+                    justify-content: flex-end;
+                }
             </style>
 
             <script>
@@ -55,7 +56,7 @@ if (isset($_SESSION['rol'])) {
                             searching: function() {
                                 return "Buscando..";
                             },
-                            maximumSelected: function(){
+                            maximumSelected: function() {
                                 return "Solo puedes seleccionar un estudiante";
                             }
                         }
@@ -65,6 +66,18 @@ if (isset($_SESSION['rol'])) {
             </script>
 
             <script>
+                function buscarEstudianteMaterias(valor) {
+                    var dni = valor.value;
+                    $.ajax({
+                        type: 'POST',
+                        url: 'pagesAjax/materiasEstudiante.php',
+                        data: 'dni=' + dni,
+                        success: function(r) {
+                            $('#resultadoMateriasInscripto').html(r);
+                        }
+                    });
+                }
+
                 function mostrarMateriasCarrera(selectCarrera) {
                     var codCarrera = selectCarrera.value;
                     $.ajax({
@@ -72,6 +85,7 @@ if (isset($_SESSION['rol'])) {
                         url: 'pagesAjax/mostrarMateriasCarreras.php',
                         data: 'carrera=' + codCarrera,
                         success: function(r) {
+                            $('#divisor').show();
                             $('#resultadoMaterias').html(r);
                         }
                     })
@@ -160,7 +174,7 @@ if (isset($_SESSION['rol'])) {
                                 <div style="display: flex; flex-direction: column;">
                                     <p class="fs-6">Buscar Estudiante</p>
 
-                                    <select class="form-select" id="estudiantesSelect" multiple="multiple">
+                                    <select class="form-select" onchange="buscarEstudianteMaterias(this);" id="estudiantesSelect" multiple="multiple">
                                         <optgroup label="Estudiantes">
                                             <?php
                                             foreach ($listEstudiantes as $estudiante) {
@@ -176,37 +190,51 @@ if (isset($_SESSION['rol'])) {
 
                                 </div>
                                 <div class="container-fluid">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Año de cursado
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option value="" selected>Seleccione...</option>
-                                                <?php
-                                                foreach ($listAnioCursado as $anio) {
-                                                ?>
-                                                    <option value="<?php echo $anio[0]; ?>"><?php echo $anio[1]; ?></option>
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </li>
-                                        <li class="list-group-item">Carreras
-                                            <select class="form-select" onchange="mostrarMateriasCarrera(this);" aria-label="Default select example">
-                                                <option value="" selected>Seleccione...</option>
-                                                <?php
-                                                foreach ($listCarrera as $carrera) {
-                                                ?>
-                                                    <option value="<?php echo $carrera[0]; ?>"><?php echo $carrera[1]; ?></option>
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div id="resultadoMaterias">
+                                    <form action="" method="post">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
 
-                                            </div>
-                                        </li>
-                                    </ul>
+                                                <div id="resultadoMateriasInscripto">
+
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item">Año de cursado a inscribir
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option value="" selected>Seleccione...</option>
+                                                    <?php
+                                                    foreach ($listAnioCursado as $anio) {
+                                                    ?>
+                                                        <option value="<?php echo $anio[0]; ?>"><?php echo $anio[1]; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </li>
+                                            <li class="list-group-item">Carrera a inscribir
+                                                <select class="form-select" onchange="mostrarMateriasCarrera(this);" aria-label="Default select example">
+                                                    <option value="" selected>Seleccione...</option>
+                                                    <?php
+                                                    foreach ($listCarrera as $carrera) {
+                                                    ?>
+                                                        <option value="<?php echo $carrera[0]; ?>"><?php echo $carrera[1]; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </li>
+                                            <li class="list-group-item">
+
+                                                <div id="resultadoMaterias">
+
+                                                </div>
+
+                                            </li>
+
+                                        </ul>
+                                        <div id="btnEnviar">
+                                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

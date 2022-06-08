@@ -495,11 +495,27 @@ class Consultas extends Conexion
         return $listSolicitudAlta;
     }
 
-    public function altaEstudiante($dni)
+    public function altaUsuarioEstudiante($dni)
     {
         try {
             $link = parent::Conexion();
             $sql = "UPDATE usuario set idRol = 1 where dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function altaEstudiante($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "INSERT into estudiante(dni) values('$dni')";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;

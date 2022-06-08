@@ -39,7 +39,7 @@ if (isset($_SESSION['rol'])) {
 
         <body>
             <section id="container">
-                <p class="fs-5">Listado de inscripciones para 3er Año</p>
+                <p class="fs-5">Listado de inscripciones para <?php echo $_GET['anio']; ?>° Año</p>
                 <hr>
                 <div class="table-responsive-xxl" id="tPrincipal">
                     <table class="table table-hover table-light" id="tablaDinamicaLoad">
