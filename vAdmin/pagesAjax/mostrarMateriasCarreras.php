@@ -23,7 +23,7 @@ if (mysqli_num_rows($result1)) {
     while ($row = mysqli_fetch_row($result1)) {
 
         $html .= '<label class="list-group-item">
-                    <input class="form-check-input me-1" name="materias[]" type="checkbox" value="' . $row[0] . '">
+                    <input class="form-check-input me-1" name="materias[]" id="checkbox" type="checkbox" value="' . $row[0] . '">
                     ' . $row[1] . '
                   </label>';
     }
@@ -37,7 +37,7 @@ if (mysqli_num_rows($result2)) {
     $html .= '<br><p class="fs-6">Espacios curriculares de 2do Año</p>';
     while ($row = mysqli_fetch_row($result2)) {
         $html .= '<label class="list-group-item">
-                    <input class="form-check-input me-1" name="materias[]" type="checkbox" value="' . $row[0] . '">
+                    <input class="form-check-input me-1" name="materias[]" id="checkbox" type="checkbox" value="' . $row[0] . '">
                     ' . $row[1] . '
                   </label>';
     }
@@ -51,7 +51,7 @@ if (mysqli_num_rows($result3)) {
     while ($row = mysqli_fetch_row($result3)) {
 
         $html .= '<label class="list-group-item">
-                    <input class="form-check-input me-1" name="materias[]" type="checkbox" value="' . $row[0] . '">
+                    <input class="form-check-input me-1" name="materias[]" id="checkbox" type="checkbox" value="' . $row[0] . '">
                     ' . $row[1] . '
                   </label>';
     }

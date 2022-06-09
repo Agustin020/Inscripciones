@@ -604,4 +604,53 @@ class Consultas extends Conexion
         }
         return $listEstudiantes;
     }
+
+    //asignarEstudianteAnio
+    public function asignarAnioEstudiante($dni, $anio)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "UPDATE estudiante set idAnioCursado3 = '$anio' where dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function asignarCarreraEstudiante($dni, $codCarrera)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "UPDATE usuario_carrera set codigoCarrera = '$codCarrera' where dniUsuario3 = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function asignarSedeEstudiante($dni, $codSede)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "UPDATE usuario_sede set codigoSede3 = '$codSede' where dniUsuario4 = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
 }

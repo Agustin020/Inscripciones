@@ -38,7 +38,7 @@ if (isset($_SESSION['rol'])) {
                     padding: 15px;
                 }
 
-                form #btnEnviar{
+                form #btnEnviar {
                     display: flex;
                     justify-content: flex-end;
                 }
@@ -61,7 +61,6 @@ if (isset($_SESSION['rol'])) {
                             }
                         }
                     });
-
                 });
             </script>
 
@@ -95,6 +94,35 @@ if (isset($_SESSION['rol'])) {
         </head>
 
         <body>
+            <?php
+            error_reporting(0);
+            if ($_SESSION['estudianteInscripto']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Confirmado',
+                        text: 'El estudiante ha sido inscripto'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['estudianteInscripto']);
+            }
+            if ($_SESSION['errorMateriasInscriptas']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ha ocurrido un error',
+                        text: 'Algunas materias que selecciono para el estudiante no se han ' +
+                            'podido asignar ya que el estudiante está inscripto en esas materias. Intente nuevamente.'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['errorMateriasInscriptas']);
+            }
+            ?>
+
             <section id="container">
                 <p class="fs-5">Inscribir estudiante</p>
                 <hr>
@@ -170,11 +198,14 @@ if (isset($_SESSION['rol'])) {
                             </div>
                         </div>
                         <div class="container-input">
-                            <div class="col" id="input">
-                                <div style="display: flex; flex-direction: column;">
+                            <form action="../controlador/c_inscribirEstudiante.php" method="post">
+                                <div class="col" id="input">
+
+                                    <input type="hidden" name="dniInscripcion" value="<?php echo $_GET['dni']; ?>">
+
                                     <p class="fs-6">Buscar Estudiante</p>
 
-                                    <select class="form-select" onchange="buscarEstudianteMaterias(this);" id="estudiantesSelect" multiple="multiple">
+                                    <select class="form-select" name="dni" onchange="buscarEstudianteMaterias(this);" id="estudiantesSelect" multiple="multiple">
                                         <optgroup label="Estudiantes">
                                             <?php
                                             foreach ($listEstudiantes as $estudiante) {
@@ -188,9 +219,10 @@ if (isset($_SESSION['rol'])) {
                                         </optgroup>
                                     </select>
 
-                                </div>
-                                <div class="container-fluid">
-                                    <form action="" method="post">
+                                    <div class="container-fluid">
+
+                                        <input type="hidden" name="sede" value="<?php echo $_SESSION['sedeActual']; ?>">
+
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item">
 
@@ -199,7 +231,7 @@ if (isset($_SESSION['rol'])) {
                                                 </div>
                                             </li>
                                             <li class="list-group-item">Año de cursado a inscribir
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select class="form-select" name="selectAnio" aria-label="Default select example">
                                                     <option value="" selected>Seleccione...</option>
                                                     <?php
                                                     foreach ($listAnioCursado as $anio) {
@@ -211,7 +243,7 @@ if (isset($_SESSION['rol'])) {
                                                 </select>
                                             </li>
                                             <li class="list-group-item">Carrera a inscribir
-                                                <select class="form-select" onchange="mostrarMateriasCarrera(this);" aria-label="Default select example">
+                                                <select class="form-select" name="selectCarrera" onchange="mostrarMateriasCarrera(this);" aria-label="Default select example">
                                                     <option value="" selected>Seleccione...</option>
                                                     <?php
                                                     foreach ($listCarrera as $carrera) {
@@ -232,11 +264,12 @@ if (isset($_SESSION['rol'])) {
 
                                         </ul>
                                         <div id="btnEnviar">
-                                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            <button type="submit" id="btnSubmit" class="btn btn-primary">Aceptar</button>
                                         </div>
-                                    </form>
+
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

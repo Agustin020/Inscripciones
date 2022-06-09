@@ -130,8 +130,7 @@
                         <?php echo $_SESSION['username']['datosUser']; ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Gestionar usuario actual</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -142,6 +141,70 @@
             </ul>
         </div>
     </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Datos personales de <?php echo $_SESSION['username']['datosUser']; ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <p class="fs-6">Puede modificar sus datos si lo desea</p>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="nombre" id="floatingInput" placeholder="example">
+                        <label for="floatingInput">Nombre</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="apellido" id="floatingInput" placeholder="example">
+                        <label for="floatingInput">Apellido</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="domicilio" id="floatingInput" placeholder="example">
+                        <label for="floatingInput">Domicilio</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                            <option value="" selected>Seleccione el departamento</option>
+                            <option value="1">One</option>
+                        </select>
+                        <label for="floatingSelect">Departamento</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" name="cPostal" id="floatingInput" placeholder="example">
+                        <label for="floatingInput">Código Postal</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="lugarNac" id="floatingInput" placeholder="example">
+                        <label for="floatingInput">Lugar de Nacimiento</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" name="fechaNac" id="floatingInput" placeholder="example">
+                        <label for="floatingInput">Fecha de Nacimiento</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control" name="cel" id="floatingInput" placeholder="example">
+                        <label for="floatingInput">Celular</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <nav id="navSidebar" class="navbar-dark bg-dark fixed-top sidebar">
         <div id="txtRol">
