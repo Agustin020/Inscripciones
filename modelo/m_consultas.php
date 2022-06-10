@@ -37,6 +37,21 @@ class Consultas extends Conexion
         }
     }
 
+    public function verificarDniUsuario($usuario)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT u.dni from usuario u where u.usuario = '$usuario'";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $dni = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $dni;
+    }
+
     public function verificarTipoUser($usuario)
     {
         try {
@@ -81,6 +96,51 @@ class Consultas extends Conexion
             $e->getMessage();
         }
         return $sedePreceptorActual;
+    }
+
+
+    //DATOS PERSONALES
+    public function listarInfoUsuario($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT u.dni, u.nombre, u.apellido, u.domicilio, d.codPostal, d.nombre, u.codigoPostal, u.lugarNac, u.fechaNac, u.celular, u.correo, u.usuario 
+                    from usuario u, departamentos d
+                    where u.codPostal2 = d.codPostal and u.dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            $infoUsuario = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $infoUsuario[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $infoUsuario;
+    }
+
+    public function modificarDatosPersonales($nombre, $apellido, $domicilio, $codPostalDep, $codPostal, $lugarNac, $fechaNac, $celular, $correo, $username, $pass, $dni)
+    {
+        try {
+            if($pass == '' || $pass == null){
+                $sql = "UPDATE usuario set nombre = '$nombre', apellido = '$apellido', domicilio = '$domicilio', codPostal2 = '$codPostalDep', codigoPostal = '$codPostal', 
+                    lugarNac = '$lugarNac', fechaNac = '$fechaNac', celular = '$celular', correo = '$correo', usuario = '$username' where dni = '$dni'";
+            }else{
+                $sql = "UPDATE usuario set nombre = '$nombre', apellido = '$apellido', domicilio = '$domicilio', codPostal2 = '$codPostalDep', codigoPostal = '$codPostal', 
+                    lugarNac = '$lugarNac', fechaNac = '$fechaNac', celular = '$celular', correo = '$correo', usuario = '$username', contraseña = '$pass' where dni = '$dni'";
+            }
+
+            $link = parent::Conexion();
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 
     //ADMIN

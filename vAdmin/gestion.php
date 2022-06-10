@@ -32,6 +32,22 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
             <?php require('header.php'); ?>
             <!--Container-->
 
+            <?php
+            error_reporting(0);
+            if ($_SESSION['datosModificadosOk']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Confirmado',
+                        text: 'Los datos han sido modificados'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['datosModificadosOk']);
+            }
+            ?>
+
             <section id="container">
 
                 <p class="fs-5">Bienvenido <?php echo $_SESSION['username']['datosUser']; ?></p>

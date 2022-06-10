@@ -110,7 +110,59 @@
                 $('#menu').toggle(100);
                 $('#showMenu i').toggleClass('bi bi-caret-up');
             })
+
+
+            $('#btnEditar').click(function() {
+                $('.bodyModal').find('input, select').removeAttr('readonly');
+                $('.seccionEditar').hide(200);
+                $('.seccionGuardar').show(200);
+            })
+
+            $('#btnCancelar').click(function() {
+                $('.bodyModal').find('input, select').prop('readonly', true);
+                $('.seccionEditar').show(200);
+                $('.seccionGuardar').hide(200);
+                $('#btnCambiarPass').show(200);
+                //Check
+                $('.mostrarPass').prop('checked', false);
+                $('#cambiarPass').find('input').prop('type', 'password');
+                $('#cambiarPass').hide().find('input').prop('required', false);
+                $('#cambiarPass').hide().find('input').val('');
+            })
+
+            $('#btnCambiarPass').click(function() {
+                $('#cambiarPass').show().find('input').prop('required', true);
+                $('#cambiarPass').show().find('input').removeAttr('readonly');
+                $('#btnCambiarPass').hide(200);
+                $('.seccionEditar').hide(200);
+                $('.seccionGuardar').show(200);
+            })
         })
+    </script>
+
+    <script>
+        function verificarPassIguales(valor) {
+            var passRepetida = valor.value;
+            var passNueva = $('#passNueva').val();
+
+            if (passNueva != passRepetida) {
+                document.getElementById('passRepetida').setCustomValidity('Las contraseñas deben ser iguales');
+            } else {
+                document.getElementById('passRepetida').setCustomValidity('');
+            }
+        }
+
+        function mostrarPass(valor){
+            var check = valor.checked;
+            if(check){
+                $('#passNueva').prop('type', 'text');
+                $('#passRepetida').prop('type', 'text');
+            }else{
+                $('#passNueva').prop('type', 'password');
+                $('#passRepetida').prop('type', 'password');
+            }
+        }
+
     </script>
 </head>
 
@@ -142,66 +194,132 @@
         </div>
     </nav>
 
+    <!--Datos del usuario-->
+
+
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Datos personales de <?php echo $_SESSION['username']['datosUser']; ?></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <form action="../controlador/c_modificarDatosPersonales.php" method="post">
+                    <div class="modal-body bodyModal">
 
-                    <p class="fs-6">Puede modificar sus datos si lo desea</p>
+                        <p class="fs-6">Puede modificar sus datos si lo desea</p>
 
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="nombre" id="floatingInput" placeholder="example">
-                        <label for="floatingInput">Nombre</label>
+                        <input type="hidden" name="dni" value="<?php echo $_SESSION['dni']; ?>">
+
+                        <?php
+                        require_once('../modelo/m_consultas.php');
+                        $co = new Consultas();
+                    
+                        $datosUsuario = $co->listarInfoUsuario($_SESSION['dni']);
+                        $departamentos = $co->listarDepartamentos();
+                        foreach ($datosUsuario as $dato) {
+                        ?>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="nombre" value="<?php echo $dato[1]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Nombre</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="apellido" value="<?php echo $dato[2]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Apellido</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="domicilio" value="<?php echo $dato[3]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Domicilio</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="floatingSelect" name="codPostalDep" aria-label="Floating label select example" readonly>
+                                    <option value="<?php echo $dato[4]; ?>" selected><?php echo $dato[5]; ?> (Actual)</option>
+
+                                    <?php
+                                    foreach ($departamentos as $departamento) {
+
+                                    ?>
+                                        <option value="<?php echo $departamento[0]; ?>"><?php echo $departamento[1]; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+
+                                </select>
+                                <label for="floatingSelect">Departamento</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" name="cPostal" value="<?php echo $dato[6]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Código Postal</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="lugarNac" value="<?php echo $dato[7]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Lugar de Nacimiento</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" name="fechaNac" value="<?php echo $dato[8]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Fecha de Nacimiento</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="tel" class="form-control" name="cel" value="<?php echo $dato[9]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Celular</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" name="correo" value="<?php echo $dato[10]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Correo</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="username" value="<?php echo $dato[11]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <label for="floatingInput">Nombre de Usuario</label>
+                            </div>
+
+                        <?php
+                        }
+                        ?>
+
+                        <button type="button" id="btnCambiarPass" class="btn btn-warning mb-3">Cambiar Contraseña</button>
+
+                        <div id="cambiarPass" style="display: none;">
+                            <hr>
+                            <p class="fs-6">Ingrese los campos</p>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="passNueva" placeholder="example">
+                                <label for="floatingInput">Contraseña</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" onkeyup="verificarPassIguales(this);" name="pass" id="passRepetida" placeholder="example">
+                                <label for="floatingInput">Repetir Contraseña</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input mostrarPass" type="checkbox" value="" id="flexCheckDefault" onclick="mostrarPass(this);">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Mostrar contraseña
+                                </label>
+                            </div>
+                        </div>
+
                     </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="apellido" id="floatingInput" placeholder="example">
-                        <label for="floatingInput">Apellido</label>
+                    <div class="modal-footer seccionEditar">
+                        <button type="button" id="btnEditar" class="btn btn-warning">Editar</button>
                     </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="domicilio" id="floatingInput" placeholder="example">
-                        <label for="floatingInput">Domicilio</label>
+                    <div class="modal-footer seccionGuardar" style="display: none;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-danger" id="btnCancelar">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                     </div>
-
-                    <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                            <option value="" selected>Seleccione el departamento</option>
-                            <option value="1">One</option>
-                        </select>
-                        <label for="floatingSelect">Departamento</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="number" class="form-control" name="cPostal" id="floatingInput" placeholder="example">
-                        <label for="floatingInput">Código Postal</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" name="lugarNac" id="floatingInput" placeholder="example">
-                        <label for="floatingInput">Lugar de Nacimiento</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control" name="fechaNac" id="floatingInput" placeholder="example">
-                        <label for="floatingInput">Fecha de Nacimiento</label>
-                    </div>
-
-                    <div class="form-floating mb-3">
-                        <input type="tel" class="form-control" name="cel" id="floatingInput" placeholder="example">
-                        <label for="floatingInput">Celular</label>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar Cambios</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>

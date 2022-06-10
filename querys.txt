@@ -20,3 +20,9 @@ c.nombre
 from usuario u, estudiante e, usuario_carrera uc, carrera c
 where u.dni = e.dni and e.idAnioCursado3 = 1
 and u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo 
+
+SELECT m.nombre, c.califParcial, c.califRecuperatorio, c.calificacionParcial2, c.califRecuperatorio2, c.califGlobal, 
+                    c.califFinal, c.fechaFinal, c.califFinal2, c.fechaFinal2, c.califFinal3, c.fechaFinal3, c.condicionFinal, m.codigo, a.id
+                    from calificaciones c, materia m, estudiante e, usuario u, aniocursado a 
+                    where c.dniEstudiante2 = e.dni and e.dni = u.dni and u.dni = '42913100'
+                    and c.codigoMateria2 = m.codigo and m.idAnioCursado = a.id and a.id = 2

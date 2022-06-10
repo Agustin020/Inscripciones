@@ -8,7 +8,7 @@
     <title>Document</title>
     <style>
         section {
-            margin: 15px 20px;
+            padding: 15px;
         }
 
         body {
@@ -77,7 +77,7 @@
 </head>
 
 <body>
-    <section>
+    <section id="container">
 
         <p class="fs-5">Calificaciones del estudiante</p>
         <hr>

@@ -8,7 +8,7 @@
     <title>Document</title>
     <style>
         section {
-            margin: 15px 20px;
+            padding: 15px;
         }
 
         body {
@@ -59,7 +59,7 @@
 </script>
 
 <body>
-    <section>
+    <section id="container">
         <p class="fs-5">Información del estudiante</p>
         <hr>
         <form action="" method="post" id="formulario">
