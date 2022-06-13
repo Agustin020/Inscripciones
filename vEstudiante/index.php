@@ -8,4 +8,10 @@ switch ($accion) {
         $controlador = new ControladorVistasEstudiantes();
         $controlador->pageInscripcion();
         break;
+
+    case 'verCalificaciones':
+        require('../controlador/c_estudiante.php');
+        $controlador = new ControladorVistasEstudiantes();
+        $controlador->verCalificacionesContr($_SESSION['dni']);
+        break;
 }

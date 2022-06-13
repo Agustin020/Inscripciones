@@ -3,6 +3,15 @@
 class ControladorGestion
 {
 
+    public function listarBajasContr(){
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listBajas = $co->listarBajas();
+        require('libreria.php');
+        require('header.php');
+        require('listarBajas.php');
+    }
+
     public function pageAgregarUsuarioContr(){
         require('../modelo/m_consultas.php');
         $co = new Consultas();

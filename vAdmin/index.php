@@ -3,6 +3,11 @@ session_start();
 $accion = $_GET['accion'];
 
 switch ($accion) {
+    case 'listarBajas':
+        require('../controlador/c_gestion.php');
+        $controlador = new ControladorGestion();
+        $controlador->listarBajasContr();
+        break;
     case 'agregarUsuario':
         require('../controlador/c_gestion.php');
         $controlador = new ControladorGestion();

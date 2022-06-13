@@ -404,12 +404,12 @@ class Consultas extends Conexion
             $listEstudiantes = [];
             $link = parent::Conexion();
             $sql = "SELECT u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, u.correo, u.domicilio, u.fechaNac, u.celular, c.nombre, concat(s.nombre, ' (', d.nombre, ')') as sede
-                from usuario u, estudiante e, usuario_carrera uc, carrera c, sede s, usuario_sede us, sede_carrera sc, departamentos d 
-                where u.dni = e.dni and e.idAnioCursado3 = '$anio' 
-                and u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo 
-                and u.dni = us.dniUsuario4 and us.codigoSede3 = s.codigo 
-                and s.codigo = sc.codigoSede and sc.codigoCarrera3 = c.codigo and s.codigo = '$codSede' 
-                and s.codPostal3 = d.codPostal";
+                    from usuario u, estudiante e, rolusuario r, usuario_carrera uc, carrera c, sede s, usuario_sede us, sede_carrera sc, departamentos d 
+                    where u.dni = e.dni and u.idRol = r.id and e.idAnioCursado3 = '$anio' 
+                    and u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo 
+                    and u.dni = us.dniUsuario4 and us.codigoSede3 = s.codigo 
+                    and s.codigo = sc.codigoSede and sc.codigoCarrera3 = c.codigo and s.codigo = '$codSede' 
+                    and s.codPostal3 = d.codPostal";
             $result = mysqli_query($link, $sql);
             $i = 0;
             while ($col = mysqli_fetch_row($result)) {
@@ -544,6 +544,24 @@ class Consultas extends Conexion
         }
         return $historialAcademico;
     }
+
+    //Baja de Usuarios
+    public function bajaUsuario($motivoBaja, $dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "UPDATE usuario set idRol = null, motivoBaja = '$motivoBaja', fechaBaja = CURDATE() where dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
 
     //Calificaciones
     public function listarCalificacionesEstudiante($dni)
@@ -791,5 +809,28 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $fechaInscripcionMateria;
+    }
+
+    //SECCION LISTA BAJAS
+    public function listarBajas()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT u.dni, concat(u.nombre, ' ', u.apellido), u.correo, u.celular, c.nombre, s.nombre, u.fechaBaja, u.motivoBaja
+                    from usuario u, carrera c, usuario_carrera uc, sede s, usuario_sede us
+                    where u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo
+                    and u.dni = us.dniUsuario4 and us.codigoSede3 = s.codigo
+                    and u.idRol is null";
+            $result = mysqli_query($link, $sql);
+            $listBajas = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listBajas[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listBajas;
     }
 }

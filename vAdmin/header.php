@@ -170,8 +170,8 @@
     <nav id="navHeader" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top header">
         <div class="container-fluid">
             <div id="buttonText">
-                <button type="button">
-                    <span id="iconToggle" class="navbar-toggler-icon"></span>
+                <button id="iconToggle" type="button">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="#" style="margin-left: 5px;">Gestión</a>
             </div>
@@ -341,10 +341,10 @@
 
         <ul class="navbar-nav bg-dark">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="gestion.php">Inicio</a>
+                <a class="nav-link" aria-current="page" href="gestion.php">Inicio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" aria-current="page" href="index.php?accion=listarBajas">Listado de bajas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" role="button" id="showMenu">
