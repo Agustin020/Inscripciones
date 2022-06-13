@@ -10,153 +10,251 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-            <?php require('libreria.php') ?>
-            <style type="text/css">
-                section {
-                    background-color: whitesmoke;
+            <?php require_once('libreria.php'); ?>
+
+            <style>
+
+                section{
                     padding: 15px;
                 }
 
-                section .tarjetas {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr 1fr;
-                    column-gap: 20px;
-                    align-items: flex-start;
+
+                .news-grid {
+                    position: relative;
+                    background: #fff;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    border: 1px solid #ddd;
+                    /*box-shadow: 0px 10px 30px 0px rgba(50, 50, 50, 0.16);*/
+                    margin: 10px;
+                }
+
+                .news-grid-image {
+                    width: 100%;
+                    height: 280px;
+                    overflow: hidden;
+                }
+
+                .news-grid-image img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: 0.5s;
+                }
+
+                .news-grid-box {
+                    display: block;
+                    position: absolute;
+                    text-align: center;
+                    background: #26ccca;
+                    left: -80px;
+                    top: 15px;
+                    padding: 10px;
+                    transition: 0.5s;
+                }
+
+                .news-grid-box h1 {
+                    color: #fff;
+                    font-size: 30px;
+                    font-weight: 400;
+                    letter-spacing: 2px;
+                    padding-bottom: 5px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                    margin-bottom: 5px;
+                }
+
+                .news-grid-box p {
+                    color: #fff;
+                    font-size: 14px;
+                    font-weight: 400;
+                    margin-bottom: 0px;
+                }
+
+                .news-grid-txt {
+                    padding: 25px;
+                }
+
+                .news-grid-txt span {
+                    color: #26ccca;
+                    font-size: 13px;
+                    font-weight: 500;
+                    letter-spacing: 4px;
+                    text-transform: uppercase;
+                }
+
+                .news-grid-txt h2 {
+                    color: #111;
+                    font-size: 20px;
+                    font-weight: 500;
+                    letter-spacing: 1px;
+                    margin: 10px 0px 5px 0px;
+                }
+
+                .news-grid-txt ul li {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                }
+
+                .news-grid-txt a {
+                    color: #fff;
+                    background: #26ccca;
+                    padding: 8px 20px;
+                    border-radius: 50px;
+                    font-size: 14px;
+                    font-weight: 300;
+                    line-height: 30px;
+                    letter-spacing: 1px;
+                    text-decoration-line: none;
+                    transition: 0.5s;
+                }
+
+                /*Hover-Section*/
+                .news-grid:hover .news-grid-box {
+                    left: 15px;
+                    transition: 0.5s;
+                }
+
+                .news-grid:hover .news-grid-image img {
+                    filter: grayscale(1);
+                    transform: scale(1.1);
+                    transition: 0.5s;
+                }
+
+                .news-grid:hover .news-grid-txt a {
+                    text-decoration-line: none;
+                    color: #fff;
+                    letter-spacing: 2px;
+                    transition: 0.5s;
+                }
+
+                /*OWL*/
+                .owl-controls .owl-buttons {
+                    position: relative;
+                }
+
+                .owl-controls .owl-prev {
+                    position: absolute;
+                    left: -40px;
+                    bottom: 230px;
+                    padding: 8px 17px;
+                    background: #26ccca;
+                    border-radius: 50px;
+                    transition: 0.5s;
+                }
+
+                .owl-controls .owl-next {
+                    position: absolute;
+                    right: -40px;
+                    bottom: 230px;
+                    padding: 8px 17px;
+                    background: #26ccca;
+                    border-radius: 50px;
+                    transition: 0.5s;
+                }
+
+                .owl-controls .owl-prev:after,
+                .owl-controls .owl-next:after {
+                    content: "\f104";
+                    font-family: FontAwesome;
+                    color: #fff;
+                    font-size: 16px;
+                }
+
+                .owl-controls .owl-next:after {
+                    content: "\f105";
+                }
+
+                .owl-controls .owl-prev:hover,
+                .owl-controls .owl-next:hover {
+                    background: #000;
                 }
             </style>
+
+            <script>
+                $(document).ready(function() {
+                    $("#news-slider").owlCarousel({
+                        items: 3,
+                        navigation: true,
+                        navigationText: ["", ""],
+                        autoPlay: true
+                    });
+                });
+            </script>
 
         </head>
 
         <body>
-            <?php require('header.php'); ?>
-            <!--Container-->
-
-            <?php
-            error_reporting(0);
-            if ($_SESSION['datosModificadosOk']) {
-            ?>
-                <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Confirmado',
-                        text: 'Los datos han sido modificados'
-                    })
-                </script>
-            <?php
-                unset($_SESSION['datosModificadosOk']);
-            }
-            ?>
+            <?php require_once('header.php'); ?>
 
             <section id="container">
-
                 <p class="fs-5">Bienvenido <?php echo $_SESSION['username']['datosUser']; ?></p>
+                <div class="container-fluid bar">
 
-                <div class="tarjetas">
-                    <div class="card">
-                        <img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Gestión de Usuarios</h5>
-                            <p class="card-text">Agrega, edita y elimina Usuarios, cambia de rol</p>
-                            <a href="opcionesUsuario.php" class="btn btn-primary">Ver</a>
-                        </div>
-                    </div>
+                    <div class="container-xxl">
+                        <div class="row">
+                            <div class="col-lg-12">
 
-                    <div class="card" id="card2">
-                        <img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Alumnos inscriptos</h5>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Estudiantes 1er Año
-                                <a href="index.php?accion=listarEstudiantes&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Estudiantes 2do Año
-                                <a href="index.php?accion=listarEstudiantes&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Estudiantes 3er Año
-                                <a href="index.php?accion=listarEstudiantes&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                        </ul>
-                    </div>
+                                <div id="news-slider" class="owl-carousel">
+                                    <div class="news-grid">
+                                        <div class="news-grid-image"><img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" alt="">
+                                        </div>
+                                        <div class="news-grid-txt">
+                                            <span>Registro</span>
+                                            <h2>Gestión de Usuarios</h2>
+                                            <p>Agregar, o dar de baja a Usuarios</p>
+                                            <a href="opcionesUsuario.php">Ver...</a>
+                                        </div>
+                                    </div>
 
-                    <div class="card" id="card3">
-                        <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1080,h_675/https://www.gqdalya.com/wp-content/uploads/2018/12/calificaciones-blog.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Solicitud de alta</h5>
-                            <p class="card-text">Ver los datos de los usuarios que requieren el alta al Sistema</p>
-                            <a href="index.php?accion=listarSolicitudAlta" class="btn btn-primary">Ver</a>
-                        </div>
-                    </div>
+                                    <div class="news-grid">
+                                        <div class="news-grid-image"><img src="https://fce.uncuyo.edu.ar/cache/placa-web3_800_900.png" alt="">
+                                        </div>
+                                        <div class="news-grid-txt">
+                                            <span>Inscripción</span>
+                                            <h2>Alumnos inscriptos</h2>
+                                            <hr>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Estudiantes 1er Año. <a href="index.php?accion=listarEstudiantes&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                <li class="list-group-item">Estudiantes 2do Año. <a href="index.php?accion=listarEstudiantes&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                <li class="list-group-item">Estudiantes 3er Año- <a href="index.php?accion=listarEstudiantes&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                            </ul>
 
-                    <div class="card" id="card4">
-                        <img src="https://www.frd.utn.edu.ar/wp-content/uploads/elementor/thumbs/student-social-internet-home-profession-p392dtdg10d8z1tfw83rfap7ltcuftrygetuqagr9c.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Solicitud de inscripción</h5>
-                            <p class="card-text">Verifica los datos de la inscripción a un año enviado por el estudiante</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Inscripción 1er Año
-                                <a href="index.php?accion=listarInscripciones&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Inscripción 2do Año
-                                <a href="index.php?accion=listarInscripciones&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Inscripción 3er Año
-                                <a href="index.php?accion=listarInscripciones&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                        </ul>
-                    </div>
+                                        </div>
+                                    </div>
 
-                </div>
+                                    <div class="news-grid">
+                                        <div class="news-grid-image"><img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1080,h_675/https://www.gqdalya.com/wp-content/uploads/2018/12/calificaciones-blog.png" alt="">
+                                        </div>
+                                        <div class="news-grid-txt">
+                                            <h2>Solicitud de alta</h2>
+                                            <p>Ver los datos de los usuarios que requieren el alta al Sistema</p>
+                                            <a href="index.php?accion=listarSolicitudAlta">Ver...</a>
+                                        </div>
+                                    </div>
 
-                <div class="tarjetas">
-                    <div class="card" id="card4" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-around d-flex align-items-center">
-                                Inscripción 1er Año
-                                <a href="index.php?accion=gestionarUsuario" class="btn btn-primary">Ver Listado</a>
-                            </li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
-                    </div>
+                                    <div class="news-grid">
+                                        <div class="news-grid-image"><img src="https://www.frd.utn.edu.ar/wp-content/uploads/elementor/thumbs/student-social-internet-home-profession-p392dtdg10d8z1tfw83rfap7ltcuftrygetuqagr9c.jpg" alt="">
+                                        </div>
+                                        <div class="news-grid-txt">
+                                            <h2>Solicitud de inscripción</h2>
+                                            <p>Verifica los datos de la inscripción a un año enviado por el estudiante</p>
+                                            <hr>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Estudiantes 1er Año<a href="index.php?accion=listarInscripciones&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                <li class="list-group-item">Estudiantes 2do Año<a href="index.php?accion=listarInscripciones&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                <li class="list-group-item">Estudiantes 3er Año<a href="index.php?accion=listarInscripciones&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                    <div class="card" id="card4" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-
-
         </body>
 
         </html>

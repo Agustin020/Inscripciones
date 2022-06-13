@@ -121,6 +121,19 @@ if (isset($_SESSION['rol'])) {
             <?php
                 unset($_SESSION['errorMateriasInscriptas']);
             }
+
+            if ($_SESSION['fechaActualIgual']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ha ocurrido un error',
+                        text: 'El estudiante ya ha sido inscripto hoy, intente inscribirlo mañana nuevamente'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['fechaActualIgual']);
+            }
             ?>
 
             <section id="container">

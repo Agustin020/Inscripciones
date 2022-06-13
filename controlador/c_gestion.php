@@ -50,10 +50,23 @@ class ControladorGestion
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listCalifEstudiante = $co->listarCalificacionesEstudiante($dni);
+        $anioCursadoEstudiante = $co->listarAnioCursadoEstudiante($dni);
+        $carreraEstudiante = $co->listarCarreraEstudiante($dni);
+        $estudiante = $co->mostrarNombreApellidoDni($dni);
         $dniEstudiante = $dni;
         require('libreria.php');
         require('header.php');
         require('calificaciones.php');
+    }
+
+    public function verHistorialAcademicoContr($dni){
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $estudiante = $co->mostrarNombreApellidoDni($dni);
+        $historial = $co->listarHistorialAcademico($dni);
+        require('libreria.php');
+        require('header.php');
+        require('historialAcademico.php');
     }
 
     public function listarSolicitudesAltaContr(){

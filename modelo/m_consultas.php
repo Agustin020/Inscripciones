@@ -82,6 +82,21 @@ class Consultas extends Conexion
         return $listDatos;
     }
 
+    public function mostrarNombreApellidoDni($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT concat(nombre, ' ', apellido) FROM usuario WHERE dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            while ($col = mysqli_fetch_row($result)) {
+                $listDatos = $col[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $listDatos;
+    }
+
     public function verificarSedePreceptor($user)
     {
         try {
@@ -96,6 +111,22 @@ class Consultas extends Conexion
             $e->getMessage();
         }
         return $sedePreceptorActual;
+    }
+
+    //FECHA ACTUAL
+    public function fechaActual()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT CURDATE()";
+            $result = mysqli_query($link, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $fechaActual = $row[0];
+            }
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+        return $fechaActual;
     }
 
 
@@ -123,10 +154,10 @@ class Consultas extends Conexion
     public function modificarDatosPersonales($nombre, $apellido, $domicilio, $codPostalDep, $codPostal, $lugarNac, $fechaNac, $celular, $correo, $username, $pass, $dni)
     {
         try {
-            if($pass == '' || $pass == null){
+            if ($pass == '' || $pass == null) {
                 $sql = "UPDATE usuario set nombre = '$nombre', apellido = '$apellido', domicilio = '$domicilio', codPostal2 = '$codPostalDep', codigoPostal = '$codPostal', 
                     lugarNac = '$lugarNac', fechaNac = '$fechaNac', celular = '$celular', correo = '$correo', usuario = '$username' where dni = '$dni'";
-            }else{
+            } else {
                 $sql = "UPDATE usuario set nombre = '$nombre', apellido = '$apellido', domicilio = '$domicilio', codPostal2 = '$codPostalDep', codigoPostal = '$codPostal', 
                     lugarNac = '$lugarNac', fechaNac = '$fechaNac', celular = '$celular', correo = '$correo', usuario = '$username', contraseña = '$pass' where dni = '$dni'";
             }
@@ -314,7 +345,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT INTO calificaciones(dniEstudiante2, codigoMateria2) VALUES ('$dni', '$codMateria')";
+            $sql = "INSERT INTO calificaciones(dniEstudiante2, codigoMateria2, fechaInscripto) VALUES ('$dni', '$codMateria', NOW())";
             $result = mysqli_query($link, $sql);
             if ($result) {
                 return true;
@@ -440,7 +471,7 @@ class Consultas extends Conexion
             $anioCursadoEstudiante = [];
             $link = parent::Conexion();
             $sql = "SELECT * from aniocursado a where a.id in (select e.idAnioCursado3 from estudiante e where e.dni 
-                in (select u.dni from usuario u where u.dni = '$dni'))";
+                    in (select u.dni from usuario u where u.dni = '$dni'))";
             $result = mysqli_query($link, $sql);
             $i = 0;
             while ($col = mysqli_fetch_row($result)) {
@@ -491,6 +522,29 @@ class Consultas extends Conexion
         return $listMateriasEstudiante;
     }
 
+    //Opcion ver historial academico
+    public function listarHistorialAcademico($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT m.nombre, a.anio, c.califParcial, c.califRecuperatorio, c.calificacionParcial2, c.califRecuperatorio2, c.califGlobal, c.califFinal,
+                    c.fechaFinal, c.califFinal2, c.fechaFinal2, c.califFinal3, c.fechaFinal3, c.condicionFinal, c.fechaInscripto
+                    from usuario u, estudiante e, calificaciones c, materia m, aniocursado a 
+                    where u.dni = e.dni and e.dni = c.dniEstudiante2 and c.codigoMateria2 = m.codigo 
+                    and m.idAnioCursado = a.id and u.dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            $historialAcademico = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $historialAcademico[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $historialAcademico;
+    }
+
     //Calificaciones
     public function listarCalificacionesEstudiante($dni)
     {
@@ -498,10 +552,12 @@ class Consultas extends Conexion
             $listCalifEstudiante = [];
             $link = parent::Conexion();
             $sql = "SELECT m.nombre, c.califParcial, c.califRecuperatorio, c.calificacionParcial2, c.califRecuperatorio2, c.califGlobal, 
-                    c.califFinal, c.fechaFinal, c.califFinal2, c.fechaFinal2, c.califFinal3, c.fechaFinal3, c.condicionFinal, m.codigo
-                    from calificaciones c, materia m, estudiante e, usuario u
-                    where c.dniEstudiante2 = e.dni and e.dni = u.dni and u.dni = '$dni'
-                    and c.codigoMateria2 = m.codigo";
+                    c.califFinal, c.fechaFinal, c.califFinal2, c.fechaFinal2, c.califFinal3, c.fechaFinal3, c.condicionFinal, m.codigo,
+                    c.fechainscripto
+                    FROM calificaciones c, materia m, estudiante e, usuario u, aniocursado a 
+                    WHERE c.dniEstudiante2 = e.dni AND e.dni = u.dni AND u.dni = '$dni'
+                    AND c.codigoMateria2 = m.codigo AND m.idAnioCursado = a.id 
+                    AND c.fechaInscripto = (SELECT MAX(c2.fechaInscripto) FROM calificaciones c2)";
             $result = mysqli_query($link, $sql);
             $i = 0;
             while ($col = mysqli_fetch_row($result)) {
@@ -665,6 +721,7 @@ class Consultas extends Conexion
         return $listEstudiantes;
     }
 
+
     //asignarEstudianteAnio
     public function asignarAnioEstudiante($dni, $anio)
     {
@@ -712,5 +769,27 @@ class Consultas extends Conexion
         } catch (Exception $e) {
             die('Error: ' . $e->getMessage());
         }
+    }
+
+    //Comprobar fecha Inscripcion a materias
+    public function comprobarFechaInscripcionMaterias($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT m.nombre, c.fechainscripto
+                    FROM calificaciones c, materia m, estudiante e, usuario u, aniocursado a 
+                    WHERE c.dniEstudiante2 = e.dni AND e.dni = u.dni AND u.dni = '$dni'
+                    AND c.codigoMateria2 = m.codigo AND m.idAnioCursado = a.id AND c.fechaInscripto = (SELECT MAX(c2.fechaInscripto) FROM calificaciones c2)";
+            $result = mysqli_query($link, $sql);
+            $fechaInscripcionMateria = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $fechaInscripcionMateria[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $fechaInscripcionMateria;
     }
 }

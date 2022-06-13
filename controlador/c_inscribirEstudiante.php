@@ -22,17 +22,31 @@ foreach ($listMateriasInscriptas as $materiasInscriptas) {
     }
 }
 
+$fechaInscripcionMateria = $co->comprobarFechaInscripcionMaterias($dni);
+$fechaActual = $co->fechaActual();
+$fechasIguales = 0;
+foreach ($fechaInscripcionMateria as $fecha) {
+    if ($fechaActual == $fecha[1]) {
+        $fechasIguales++;
+    }
+}
 
 if ($anio == 1) {
     if ($co->asignarCarreraUsuario($dni, $codCarrera)) {
         if ($co->asignarSedeUsuario($dni, $codSede)) {
             if ($contInscriptas == 0) {
-                foreach ($materiasMarcadas as $materias) {
-                    $co->asignarCalificacionesEstudiante($dni, $materias);
-                }
-                if ($co->asignarAnioEstudiante($dni, $anio)) {
+                if ($fechasIguales == 0) {
+                    foreach ($materiasMarcadas as $materias) {
+                        $co->asignarCalificacionesEstudiante($dni, $materias);
+                    }
+                    if ($co->asignarAnioEstudiante($dni, $anio)) {
+                        session_start();
+                        $_SESSION['estudianteInscripto'] = true;
+                        header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
+                    }
+                } else {
                     session_start();
-                    $_SESSION['estudianteInscripto'] = true;
+                    $_SESSION['fechaActualIgual'] = true;
                     header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
                 }
             } else {
@@ -46,12 +60,18 @@ if ($anio == 1) {
     if ($co->asignarCarreraEstudiante($dni, $codCarrera)) {
         if ($co->asignarSedeEstudiante($dni, $codSede)) {
             if ($contInscriptas == 0) {
-                foreach ($materiasMarcadas as $materias) {
-                    $co->asignarCalificacionesEstudiante($dni, $materias);
-                }
-                if ($co->asignarAnioEstudiante($dni, $anio)) {
+                if ($fechasIguales == 0) {
+                    foreach ($materiasMarcadas as $materias) {
+                        $co->asignarCalificacionesEstudiante($dni, $materias);
+                    }
+                    if ($co->asignarAnioEstudiante($dni, $anio)) {
+                        session_start();
+                        $_SESSION['estudianteInscripto'] = true;
+                        header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
+                    }
+                } else {
                     session_start();
-                    $_SESSION['estudianteInscripto'] = true;
+                    $_SESSION['fechaActualIgual'] = true;
                     header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
                 }
             } else {
@@ -62,19 +82,3 @@ if ($anio == 1) {
         }
     }
 }
-
-/*if ($co->asignarCarreraUsuario($dni, $codCarrera)) {
-    if ($co->asignarSedeUsuario($dni, $codSede)) {
-        
-        
-        if (isset($materias)) {
-            foreach ($materiasMarcadas as $materia) {
-                if ($co->asignarCalificacionesEstudiante($dni, $materia)) {
-                    
-                }
-            }
-        }
-
-        
-    }
-}*/

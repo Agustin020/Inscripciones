@@ -15,6 +15,16 @@
             background-color: lightskyblue;
         }
 
+        section #informacion{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            justify-items: end;
+        }
+
+        section #informacion .col1{
+            justify-self: start;
+        }
+
 
         th,
         td {
@@ -26,7 +36,7 @@
             margin-bottom: 10px;
         }
 
-        form{
+        form {
             display: none;
         }
     </style>
@@ -47,7 +57,9 @@
             var localdate = dNow.getDate() + '/' + (dNow.getMonth() + 1) + '/' + dNow.getFullYear() + ' ' + time;
 
             $('#tablaDinamicaLoad').DataTable({
-                dom: 'lBfrtip',
+                dom: 'Bfrtip',
+                paging: false,
+                aaSorting: [],
                 buttons: [{
                         extend: 'excelHtml5',
                         title: 'Calificaciones',
@@ -79,17 +91,38 @@
 <body>
     <section id="container">
 
-        <p class="fs-5">Calificaciones del estudiante</p>
+        <p class="fs-5">Calificaciones</p>
         <hr>
+        <div id="informacion">
+            <p class="fs-6 col1">Calificaciones de <b><?php echo $estudiante; ?></b><br></p>
+            <p class="fs-6">
+                <?php
+                foreach ($carreraEstudiante as $carrera) {
+                ?>
+                    Carrera: <?php echo $carrera[1] ?>
+                <?php
+                }
+                ?>
+            </p>
+            <p class="fs-6 col1">
+                <?php
+                foreach ($anioCursadoEstudiante as $anio) {
+                ?>
+                    Año de Cursado: <?php echo $anio[1] ?>
+                <?php
+                }
+                ?>
+            </p>
+        </div>
 
         <div class="table-responsive">
             <table class="table table-hover table-light" id="tablaDinamicaLoad">
                 <thead class="table-dark">
                     <th>Materias</th>
                     <th>1er Parcial</th>
-                    <th>Recuperatorio</th>
+                    <th>Recup.</th>
                     <th>2do Parcial</th>
-                    <th>Recuperatorio</th>
+                    <th>Recup.</th>
                     <th>Global</th>
                     <th>1er Final</th>
                     <th style="width: 100px;">Fecha Final</th>

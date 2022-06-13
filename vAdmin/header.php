@@ -125,7 +125,7 @@
                 $('#btnCambiarPass').show(200);
                 //Check
                 $('.mostrarPass').prop('checked', false);
-                $('#cambiarPass').find('input').prop('type', 'password');
+                $('#cambiarPass').find('input[type=text]').prop('type', 'password');
                 $('#cambiarPass').hide().find('input').prop('required', false);
                 $('#cambiarPass').hide().find('input').val('');
             })

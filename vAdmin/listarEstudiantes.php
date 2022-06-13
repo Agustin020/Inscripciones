@@ -152,6 +152,16 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                                         Calificaciones
                                                     </a>
                                                 </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="index.php?accion=verHistorialAcademico&dni=<?php echo $registro[0]; ?>">
+                                                        Ver historial académico
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="index.php?accion=verHistorialAcademico&dni=<?php echo $registro[0]; ?>">
+                                                        Dar de baja
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>
