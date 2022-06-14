@@ -23,4 +23,13 @@ class ControladorVistasEstudiantes
         require('header.php');
         require('calificaciones.php');
     }
+
+    public function verHistorialAcademicoContr($dni){
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $historialAcademico = $co->listarHistorialAcademico($dni);
+        require('libreria.php');
+        require('header.php');
+        require('historialAcademico.php');
+    }
 }

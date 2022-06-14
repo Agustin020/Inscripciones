@@ -14,4 +14,10 @@ switch ($accion) {
         $controlador = new ControladorVistasEstudiantes();
         $controlador->verCalificacionesContr($_SESSION['dni']);
         break;
+
+    case 'verHistorialAcademico':
+        require('../controlador/c_estudiante.php');
+        $controlador = new ControladorVistasEstudiantes();
+        $controlador->verHistorialAcademicoContr($_SESSION['dni']);
+        break;
 }

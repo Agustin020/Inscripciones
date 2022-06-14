@@ -186,6 +186,22 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
         </head>
 
         <body>
+            <?php
+            error_reporting(0);
+            if ($_SESSION['datosModificadosOk']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Listo',
+                        text: 'Tus datos personales han sido modificados'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['datosModificadosOk']);
+            }
+            ?>
+
             <?php require('header.php'); ?>
             <!--Container-->
 
@@ -225,7 +241,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                         <div class="news-grid-txt">
                                             <h2>Historial Académico</h2>
                                             <p>Ver los datos de las calificaciones cursadas hasta la actualidad</p>
-                                            <a href="index.php?accion=listarSolicitudAlta">Ver...</a>
+                                            <a href="index.php?accion=verHistorialAcademico">Ver...</a>
                                         </div>
                                     </div>
 

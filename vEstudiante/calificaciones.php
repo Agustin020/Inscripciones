@@ -17,6 +17,10 @@ if (isset($_SESSION['rol'])) {
             section {
                 padding: 15px;
             }
+
+            td, th{
+                vertical-align: middle;
+            }
         </style>
 
         <script>
@@ -34,7 +38,7 @@ if (isset($_SESSION['rol'])) {
             <section id="container">
                 <p class="fs-5">Calificaciones</p>
                 <hr>
-                <p class="fs-6"></p>
+                <p class="fs-6">Se muestran las calificaciones del año de cursado actual</p>
 
                 <div class="table-responsive-xxl">
                     <table class="table table-hover table-light" id="tablaDinamicaLoad">

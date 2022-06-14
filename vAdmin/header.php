@@ -152,17 +152,16 @@
             }
         }
 
-        function mostrarPass(valor){
+        function mostrarPass(valor) {
             var check = valor.checked;
-            if(check){
+            if (check) {
                 $('#passNueva').prop('type', 'text');
                 $('#passRepetida').prop('type', 'text');
-            }else{
+            } else {
                 $('#passNueva').prop('type', 'password');
                 $('#passRepetida').prop('type', 'password');
             }
         }
-
     </script>
 </head>
 
@@ -173,7 +172,7 @@
                 <button id="iconToggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#" style="margin-left: 5px;">Gestión</a>
+                <a class="navbar-brand fw-bold" style="margin-left: 5px;">Gestión</a>
             </div>
 
             <ul class="navbar-nav settingsUser">
@@ -215,7 +214,7 @@
                         <?php
                         require_once('../modelo/m_consultas.php');
                         $co = new Consultas();
-                    
+
                         $datosUsuario = $co->listarInfoUsuario($_SESSION['dni']);
                         $departamentos = $co->listarDepartamentos();
                         foreach ($datosUsuario as $dato) {
@@ -324,40 +323,46 @@
         </div>
     </div>
 
-    <nav id="navSidebar" class="navbar-dark bg-dark fixed-top sidebar">
-        <div id="txtRol">
-            <?php
-            if ($_SESSION['rol'] == 2) {
-            ?>
-                <p class="fs-5" style="margin-bottom: 0 !important;">Preceptor</p>
-            <?php
-            } else if ($_SESSION['rol'] == 3) {
-            ?>
-                <p class="fs-5" style="margin-bottom: 0 !important;">Admin</p>
-            <?php
-            }
-            ?>
+    <nav id="navSidebar" class="navbar-dark bg-dark fixed-top sidebar" style="display: flex; flex-direction: column; justify-content: space-between;">
+
+        <div id="sidebarSuperior">
+            <div id="txtRol">
+                <?php
+                if ($_SESSION['rol'] == 2) {
+                ?>
+                    <p class="fs-5" style="margin-bottom: 0 !important;">Preceptor</p>
+                <?php
+                } else if ($_SESSION['rol'] == 3) {
+                ?>
+                    <p class="fs-5" style="margin-bottom: 0 !important;">Admin</p>
+                <?php
+                }
+                ?>
+            </div>
+
+            <ul class="navbar-nav bg-dark">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="gestion.php">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="index.php?accion=listarBajas">Listado de bajas</a>
+                </li>
+                
+            </ul>
         </div>
 
-        <ul class="navbar-nav bg-dark">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="gestion.php">Inicio</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="index.php?accion=listarBajas">Listado de bajas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" role="button" id="showMenu">
-                    Dropdown
-                    <i class="bi bi-caret-down"></i>
-                </a>
-                <ul class="navbar-nav bg-dark" id="menu">
-                    <li><a class="nav-link" href="#">Action</a></li>
-                    <li><a class="nav-link" href="#">Another action</a></li>
-                    <li><a class="nav-link" href="#">Something else here</a></li>
-                </ul>
-            </li>
-        </ul>
+        <?php
+        require_once('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $fechaActual = $co->fechaActual();
+
+        $date = date_create($fechaActual);
+        $fechaActualFormat = date_format($date, 'd/m/Y');
+        ?>
+
+        <div id="sidebarInferior">
+            <p class="fs-6 text-center fw-bold"><?php echo $fechaActualFormat; ?></p>
+        </div>
     </nav>
 
 </body>

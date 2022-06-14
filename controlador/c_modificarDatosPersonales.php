@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
@@ -21,11 +21,20 @@ if ($_POST['pass'] != '' || $_POST['pass'] != null) {
     $contrasenia = '';
 }
 
-if ($co->modificarDatosPersonales($nombre, $apellido, $domicilio, $codPostalDep, $codPostal, $lugarNac, $fechaNac, $cel, $correo, $username, $contrasenia, $dni)) {
-    session_start();
-    $_SESSION['datosModificadosOk'] = true;
-    header('Location: ../vAdmin/gestion.php');
+if ($_SESSION['rol'] == 1) {
+    if ($co->modificarDatosPersonales($nombre, $apellido, $domicilio, $codPostalDep, $codPostal, $lugarNac, $fechaNac, $cel, $correo, $username, $contrasenia, $dni)) {
+        session_start();
+        $_SESSION['datosModificadosOk'] = true;
+        header('Location: ../vEstudiante/gestion.php');
+    }
+}else if($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3){
+    if ($co->modificarDatosPersonales($nombre, $apellido, $domicilio, $codPostalDep, $codPostal, $lugarNac, $fechaNac, $cel, $correo, $username, $contrasenia, $dni)) {
+        session_start();
+        $_SESSION['datosModificadosOk'] = true;
+        header('Location: ../vAdmin/gestion.php');
+    }
 }
+
 
 /*echo 'Dni: ' . $dni . '<br>' .
 'Nombre: ' . $nombre . '<br>' .

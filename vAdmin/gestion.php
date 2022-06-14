@@ -13,8 +13,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
             <?php require_once('libreria.php'); ?>
 
             <style>
-
-                section{
+                section {
                     padding: 15px;
                 }
 
@@ -146,7 +145,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
 
                 .owl-controls .owl-next {
                     position: absolute;
-                    right: -40px;
+                    right: -35px;
                     bottom: 230px;
                     padding: 8px 17px;
                     background: #26ccca;
@@ -187,6 +186,22 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
 
         <body>
             <?php require_once('header.php'); ?>
+
+            <?php
+            error_reporting(0);
+            if ($_SESSION['datosModificadosOk']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Listo',
+                        text: 'Tus datos personales han sido modificados'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['datosModificadosOk']);
+            }
+            ?>
 
             <section id="container">
                 <p class="fs-5">Bienvenido <?php echo $_SESSION['username']['datosUser']; ?></p>
