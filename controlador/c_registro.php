@@ -5,6 +5,7 @@ $co = new Consultas();
 
 $nombre = $_POST['nombre'];
 $apellido = $_POST['apellido'];
+$departamento = $_POST['codPostalDep'];
 $email = $_POST['email'];
 $dni = $_POST['dni'];
 $celular = $_POST['cel'];
@@ -19,7 +20,7 @@ $password = $_POST['password'];
 'username: ' . $username . '<br>' .
 'password: ' . $password;*/
 
-if ($co->registrarUsuario($dni, $nombre, $apellido, $email, $celular, $username, $password)) {
+if ($co->registrarUsuario($dni, $nombre, $apellido, $departamento, $email, $celular, $username, $password)) {
     session_start();
     $_SESSION['registro'] = true;
     header('Location: ../login.php');

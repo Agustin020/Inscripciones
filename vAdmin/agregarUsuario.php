@@ -79,16 +79,23 @@
             var rol = rol.value;
             if (rol == 1) {
                 $('#estudiante').show().find('input, select').prop('disabled', false);
+                $('#estudiante').find('input, select').prop('required', true);
                 $('#preceptor').hide().find('input, select').prop('disabled', true);
                 $('#admin').hide().find('input, select').prop('disabled', true);
             } else if (rol == 2) {
                 $('#preceptor').show().find('input, select').prop('disabled', false);
+                $('#preceptor').find('input, select').prop('required', true);
                 $('#estudiante').hide().find('input, select').prop('disabled', true);
                 $('#admin').hide().find('input, select').prop('disabled', true);
             } else if (rol == 3) {
                 $('#admin').show().find('input, select').prop('disabled', false);
+                $('#admin').find('input, select').prop('required', true);
                 $('#estudiante').hide().find('input, select').prop('disabled', true);
                 $('#preceptor').hide().find('input, select').prop('disabled', true);
+            } else {
+                $('#estudiante').hide();
+                $('#preceptor').hide();
+                $('#admin').hide();
             }
         }
 
@@ -155,6 +162,47 @@
 </head>
 
 <body>
+
+    <?php
+    error_reporting(0);
+    if ($_SESSION['estudianteAgregado']) {
+    ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Listo',
+                text: 'El estudiante ha sido añadido al sistema'
+            })
+        </script>
+    <?php
+        unset($_SESSION['estudianteAgregado']);
+    }
+    if ($_SESSION['preceptorAgregado']) {
+    ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Listo',
+                text: 'El estudiante ha sido añadido al sistema'
+            })
+        </script>
+    <?php
+        unset($_SESSION['preceptorAgregado']);
+    }
+    if ($_SESSION['adminAgregado']) {
+    ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Listo',
+                text: 'El estudiante ha sido añadido al sistema'
+            })
+        </script>
+    <?php
+        unset($_SESSION['adminAgregado']);
+    }
+    ?>
+
     <section id="container">
         <?php
         ?>
@@ -173,7 +221,7 @@
                             <option value="<?php echo $rol[0]; ?>"><?php echo $rol[1]; ?></option>
                         <?php
                         }
-                        if($_SESSION['rol'] == 3) {
+                        if ($_SESSION['rol'] == 3) {
                         ?>
                             <option value="<?php echo $rol[0]; ?>"><?php echo $rol[1]; ?></option>
                     <?php

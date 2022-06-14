@@ -212,16 +212,40 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                             <div class="col-lg-12">
 
                                 <div id="news-slider" class="owl-carousel">
-                                    <div class="news-grid">
-                                        <div class="news-grid-image"><img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" alt="">
+
+                                    <?php
+                                    if ($_SESSION['rol'] == 2) {
+                                    ?>
+                                        <div class="news-grid">
+                                            <div class="news-grid-image"><img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" alt="">
+                                            </div>
+                                            <div class="news-grid-txt">
+                                                <span>Registro</span>
+                                                <h2>Gestión de estudiante</h2>
+                                                <p>Agregar un estudiante</p>
+                                                <a href="index.php?accion=agregarUsuario">Ver...</a>
+                                            </div>
                                         </div>
-                                        <div class="news-grid-txt">
-                                            <span>Registro</span>
-                                            <h2>Gestión de Usuarios</h2>
-                                            <p>Agregar, o dar de baja a Usuarios</p>
-                                            <a href="opcionesUsuario.php">Ver...</a>
+                                    <?php
+                                    }
+                                    ?>
+
+                                    <?php
+                                    if ($_SESSION['rol'] == 3) {
+                                    ?>
+                                        <div class="news-grid">
+                                            <div class="news-grid-image"><img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/09/ingresss.jpg" alt="">
+                                            </div>
+                                            <div class="news-grid-txt">
+                                                <span>Registro</span>
+                                                <h2>Gestión de Usuarios</h2>
+                                                <p>Agregar, o dar de baja a Usuarios</p>
+                                                <a href="opcionesUsuario.php">Ver...</a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php
+                                    }
+                                    ?>
 
                                     <div class="news-grid">
                                         <div class="news-grid-image"><img src="https://fce.uncuyo.edu.ar/cache/placa-web3_800_900.png" alt="">

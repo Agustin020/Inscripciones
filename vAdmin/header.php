@@ -114,12 +114,15 @@
 
             $('#btnEditar').click(function() {
                 $('.bodyModal').find('input, select').removeAttr('readonly');
+                $('.bodyModal').find('input, select').prop('required', true);
+                $('#cambiarPass').find('input').removeAttr('required', false);
                 $('.seccionEditar').hide(200);
                 $('.seccionGuardar').show(200);
             })
 
             $('#btnCancelar').click(function() {
                 $('.bodyModal').find('input, select').prop('readonly', true);
+                $('.bodyModal').find('input, select').prop('required', false);
                 $('.seccionEditar').show(200);
                 $('.seccionGuardar').hide(200);
                 $('#btnCambiarPass').show(200);
@@ -160,6 +163,13 @@
             } else {
                 $('#passNueva').prop('type', 'password');
                 $('#passRepetida').prop('type', 'password');
+            }
+        }
+
+        function validarDomicilio(valor) {
+            var patron = /^([a-zA-ZñÑéÉúÚíÍóÓáÁ0-9-,.<> ]+)*$/;
+            if (!patron.test(valor.value)) {
+                valor.value = valor.value.substring(0, valor.value.length - 1);
             }
         }
     </script>
@@ -231,7 +241,7 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" name="domicilio" value="<?php echo $dato[3]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <input type="text" class="form-control" oninput="validarDomicilio(this);" name="domicilio" value="<?php echo $dato[3]; ?>" id="floatingInput" placeholder="example" readonly>
                                 <label for="floatingInput">Domicilio</label>
                             </div>
 
@@ -311,6 +321,7 @@
 
                     </div>
                     <div class="modal-footer seccionEditar">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="button" id="btnEditar" class="btn btn-warning">Editar</button>
                     </div>
                     <div class="modal-footer seccionGuardar" style="display: none;">
@@ -347,7 +358,7 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="index.php?accion=listarBajas">Listado de bajas</a>
                 </li>
-                
+
             </ul>
         </div>
 

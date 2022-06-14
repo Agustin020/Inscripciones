@@ -128,6 +128,29 @@
                             <label for="floatingInput">Apellido</label>
                         </div>
 
+                        <?php
+                        require_once('modelo/m_consultas.php');
+                        $co = new Consultas();
+                        $listDepartamentos = $co->listarDepartamentos();
+                        ?>
+
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelect" name="codPostalDep" aria-label="Floating label select example" readonly>
+                                <option selected value="">Seleccione...</option>
+
+                                <?php
+                                foreach ($listDepartamentos as $departamento) {
+
+                                ?>
+                                    <option value="<?php echo $departamento[0]; ?>"><?php echo $departamento[1]; ?></option>
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                            <label for="floatingSelect">Departamento donde vive</label>
+                        </div>
+
                         <div class="form-floating mb-3" id="correo">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Correo Electrónico">
                             <label for="floatingInput">Correo Electrónico</label>

@@ -20,12 +20,12 @@ class Consultas extends Conexion
         }
     }
 
-    public function registrarUsuario($dni, $nombre, $apellido, $email, $celular, $username, $password)
+    public function registrarUsuario($dni, $nombre, $apellido, $departamento, $email, $celular, $username, $password)
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT into usuario(dni, nombre, apellido, correo, celular, usuario, contraseña)
-                    values('$dni', '$nombre', '$apellido', '$email', '$celular', '$username', '$password')";
+            $sql = "INSERT into usuario(dni, nombre, apellido, correo, celular, usuario, contraseña, codPostal2)
+                    values('$dni', '$nombre', '$apellido', '$email', '$celular', '$username', '$password', '$departamento')";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;
@@ -282,12 +282,7 @@ class Consultas extends Conexion
             $sql = "INSERT INTO usuario 
                     VALUES ('$dni', '$nombre', '$apellido', '$correo', '$usuario', '$contraseña', 
                     '$domicilio', '$codigoPostal', '$lugarNac', '$fechaNac', '$celular', '$idRol', '$departamento')";
-            $result = mysqli_query($link, $sql);
-            if ($result) {
-                return true;
-            } else {
-                return false;
-            }
+            return $sql;
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -330,12 +325,7 @@ class Consultas extends Conexion
         try {
             $link = parent::Conexion();
             $sql = "INSERT INTO usuario_sede(dniUsuario4, codigoSede3) VALUES('$dni', '$codSede')";
-            $result = mysqli_query($link, $sql);
-            if ($result) {
-                return true;
-            } else {
-                return false;
-            }
+            return $sql;
         } catch (Exception $e) {
             die($e->getMessage());
         }
