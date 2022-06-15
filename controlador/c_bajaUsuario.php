@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
@@ -8,8 +8,26 @@ $anio = $_POST['anio'];
 $sede = $_POST['sede'];
 $dni = $_POST['dni'];
 
-if ($co->bajaUsuario($motivoBaja, $dni)) {
-    session_start();
-    $_SESSION['bajaOk'] = true;
-    header('Location: ../vAdmin/index.php?accion=listarEstudiantes&anio&anio=' . $anio . '&sede=' . $sede);
+$rolPreceptor = $_POST['rolPreceptor'];
+
+if ($_SESSION['rol'] == 2) {
+    if ($co->bajaUsuario($motivoBaja, $dni)) {
+        session_start();
+        $_SESSION['bajaOk'] = true;
+        header('Location: ../vAdmin/index.php?accion=listarEstudiantes&anio&anio=' . $anio . '&sede=' . $sede);
+    }
+} else if ($_SESSION['rol'] == 3) {
+    if ($rolPreceptor == 2) {
+        if ($co->bajaUsuario($motivoBaja, $dni)) {
+            session_start();
+            $_SESSION['bajaPreceptorOk'] = true;
+            header('Location: ../vAdmin/index.php?accion=listarPreceptores');
+        }
+    } else {
+        if ($co->bajaUsuario($motivoBaja, $dni)) {
+            session_start();
+            $_SESSION['bajaOk'] = true;
+            header('Location: ../vAdmin/index.php?accion=listarEstudiantesAdmin&anio=' . $anio);
+        }
+    }
 }

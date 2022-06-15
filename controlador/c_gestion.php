@@ -3,7 +3,8 @@
 class ControladorGestion
 {
 
-    public function listarBajasContr(){
+    public function listarBajasContr()
+    {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listBajas = $co->listarBajas();
@@ -12,7 +13,8 @@ class ControladorGestion
         require('listarBajas.php');
     }
 
-    public function pageAgregarUsuarioContr(){
+    public function pageAgregarUsuarioContr()
+    {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listRoles = $co->listarTipoUsuarios();
@@ -39,7 +41,8 @@ class ControladorGestion
         require('listarEstudiantes.php');
     }
 
-    public function infoEstudianteContr($dni){
+    public function infoEstudianteContr($dni)
+    {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $infoEstudiante = $co->informacionEstudiante($dni);
@@ -55,7 +58,8 @@ class ControladorGestion
         require('infoEstudiantes.php');
     }
 
-    public function verCalificacionesContr($dni){
+    public function verCalificacionesContr($dni)
+    {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listCalifEstudiante = $co->listarCalificacionesEstudiante($dni);
@@ -68,7 +72,8 @@ class ControladorGestion
         require('calificaciones.php');
     }
 
-    public function verHistorialAcademicoContr($dni){
+    public function verHistorialAcademicoContr($dni)
+    {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $estudiante = $co->mostrarNombreApellidoDni($dni);
@@ -78,7 +83,8 @@ class ControladorGestion
         require('historialAcademico.php');
     }
 
-    public function listarSolicitudesAltaContr(){
+    public function listarSolicitudesAltaContr()
+    {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listSolicitudAlta = $co->listarSolicitudAlta();
@@ -87,7 +93,8 @@ class ControladorGestion
         require('listarRegistros.php');
     }
 
-    public function listarInscripcionesContr($anio, $sedeActual){
+    public function listarInscripcionesContr($anio, $sedeActual)
+    {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listInscripcion = $co->listarInscripciones($anio, $sedeActual);
@@ -96,7 +103,8 @@ class ControladorGestion
         require('listarInscripciones.php');
     }
 
-    public function inscribirEstudianteContr($dni){
+    public function inscribirEstudianteContr($dni)
+    {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         $listInscripcion = $co->listarInscripcionEstudiante($dni);
@@ -109,4 +117,24 @@ class ControladorGestion
         require('inscribirEstudiante.php');
     }
 
+    //ADMIN
+    public function listarEstudiantesAdminContr($anio)
+    {
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listEstudiantes = $co->listarEstudiantesAdmin($anio);
+        require('libreria.php');
+        require('header.php');
+        require('listarEstudiantesAdmin.php');
+    }
+
+    public function listarPreceptoresContr()
+    {
+        require('../modelo/m_consultas.php');
+        $co = new Consultas();
+        $listPreceptores = $co->listarPreceptores();
+        require('libreria.php');
+        require('header.php');
+        require('listarPreceptores.php');
+    }
 }

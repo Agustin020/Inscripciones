@@ -183,7 +183,7 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Listo',
-                text: 'El estudiante ha sido añadido al sistema'
+                text: 'El preceptor ha sido añadido al sistema'
             })
         </script>
     <?php
@@ -195,7 +195,7 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Listo',
-                text: 'El estudiante ha sido añadido al sistema'
+                text: 'El administrador ha sido añadido al sistema'
             })
         </script>
     <?php

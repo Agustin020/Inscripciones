@@ -55,4 +55,17 @@ switch ($accion) {
         require('../controlador/c_gestion.php');
         $controlador = new ControladorGestion();
         $controlador->inscribirEstudianteContr($dni);
+        break;
+
+    case 'listarEstudiantesAdmin':
+        $anio = $_GET['anio'];
+        require('../controlador/c_gestion.php');
+        $controlador = new ControladorGestion();
+        $controlador->listarEstudiantesAdminContr($anio);
+        break;
+    case 'listarPreceptores':
+        require('../controlador/c_gestion.php');
+        $controlador = new ControladorGestion();
+        $controlador->listarPreceptoresContr();
+        break;
 }

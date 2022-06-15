@@ -247,21 +247,51 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                     }
                                     ?>
 
-                                    <div class="news-grid">
-                                        <div class="news-grid-image"><img src="https://fce.uncuyo.edu.ar/cache/placa-web3_800_900.png" alt="">
-                                        </div>
-                                        <div class="news-grid-txt">
-                                            <span>Inscripción</span>
-                                            <h2>Alumnos inscriptos</h2>
-                                            <hr>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Estudiantes 1er Año. <a href="index.php?accion=listarEstudiantes&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
-                                                <li class="list-group-item">Estudiantes 2do Año. <a href="index.php?accion=listarEstudiantes&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
-                                                <li class="list-group-item">Estudiantes 3er Año- <a href="index.php?accion=listarEstudiantes&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
-                                            </ul>
+                                    <?php
+                                    if ($_SESSION['rol'] == 2) {
+                                    ?>
+                                        <div class="news-grid">
+                                            <div class="news-grid-image"><img src="https://fce.uncuyo.edu.ar/cache/placa-web3_800_900.png" alt="">
+                                            </div>
+                                            <div class="news-grid-txt">
+                                                <span>Inscripción</span>
+                                                <h2>Alumnos inscriptos</h2>
+                                                <hr>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">Estudiantes 1er Año. <a href="index.php?accion=listarEstudiantes&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                    <li class="list-group-item">Estudiantes 2do Año. <a href="index.php?accion=listarEstudiantes&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                    <li class="list-group-item">Estudiantes 3er Año- <a href="index.php?accion=listarEstudiantes&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                </ul>
 
+                                            </div>
                                         </div>
-                                    </div>
+
+                                    <?php
+                                    }
+                                    ?>
+
+                                    <?php
+                                    if ($_SESSION['rol'] == 3) {
+                                    ?>
+                                        <div class="news-grid">
+                                            <div class="news-grid-image"><img src="https://fce.uncuyo.edu.ar/cache/placa-web3_800_900.png" alt="">
+                                            </div>
+                                            <div class="news-grid-txt">
+                                                <span>Inscripción</span>
+                                                <h2>Alumnos inscriptos</h2>
+                                                <hr>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">Estudiantes 1er Año. <a href="index.php?accion=listarEstudiantesAdmin&anio=1">Ver</a></li>
+                                                    <li class="list-group-item">Estudiantes 2do Año. <a href="index.php?accion=listarEstudiantesAdmin&anio=2">Ver</a></li>
+                                                    <li class="list-group-item">Estudiantes 3er Año- <a href="index.php?accion=listarEstudiantesAdmin&anio=3">Ver</a></li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+
+                                    <?php
+                                    }
+                                    ?>
 
                                     <div class="news-grid">
                                         <div class="news-grid-image"><img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1080,h_675/https://www.gqdalya.com/wp-content/uploads/2018/12/calificaciones-blog.png" alt="">
@@ -273,20 +303,26 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                         </div>
                                     </div>
 
-                                    <div class="news-grid">
-                                        <div class="news-grid-image"><img src="https://www.frd.utn.edu.ar/wp-content/uploads/elementor/thumbs/student-social-internet-home-profession-p392dtdg10d8z1tfw83rfap7ltcuftrygetuqagr9c.jpg" alt="">
+                                    <?php
+                                    if ($_SESSION['rol'] == 2) {
+                                    ?>
+                                        <div class="news-grid">
+                                            <div class="news-grid-image"><img src="https://www.frd.utn.edu.ar/wp-content/uploads/elementor/thumbs/student-social-internet-home-profession-p392dtdg10d8z1tfw83rfap7ltcuftrygetuqagr9c.jpg" alt="">
+                                            </div>
+                                            <div class="news-grid-txt">
+                                                <h2>Solicitud de inscripción</h2>
+                                                <p>Verifica los datos de la inscripción a un año enviado por el estudiante</p>
+                                                <hr>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">Estudiantes 1er Año<a href="index.php?accion=listarInscripciones&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                    <li class="list-group-item">Estudiantes 2do Año<a href="index.php?accion=listarInscripciones&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                    <li class="list-group-item">Estudiantes 3er Año<a href="index.php?accion=listarInscripciones&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div class="news-grid-txt">
-                                            <h2>Solicitud de inscripción</h2>
-                                            <p>Verifica los datos de la inscripción a un año enviado por el estudiante</p>
-                                            <hr>
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Estudiantes 1er Año<a href="index.php?accion=listarInscripciones&anio=1&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
-                                                <li class="list-group-item">Estudiantes 2do Año<a href="index.php?accion=listarInscripciones&anio=2&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
-                                                <li class="list-group-item">Estudiantes 3er Año<a href="index.php?accion=listarInscripciones&anio=3&sede=<?php echo $_SESSION['sedeActual']; ?>">ir</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <?php
+                                    }
+                                    ?>
 
                                 </div>
                             </div>

@@ -55,6 +55,7 @@
 
             let time = h + ":" + m;
             var localdate = dNow.getDate() + '/' + (dNow.getMonth() + 1) + '/' + dNow.getFullYear() + ' ' + time;
+            var estudiante = document.getElementById('estudiante').innerText;
 
             $('#tablaDinamicaLoad').DataTable({
                 dom: 'Bfrtip',
@@ -74,7 +75,7 @@
                         pageSize: 'A4',
                         download: 'open',
                         title: 'Calificaciones',
-                        messageTop: 'Reporte: ' + localdate,
+                        messageTop: 'Reporte: ' + localdate + '\n' + estudiante,
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                         }
@@ -94,7 +95,7 @@
         <p class="fs-5">Calificaciones</p>
         <hr>
         <div id="informacion">
-            <p class="fs-6 col1">Calificaciones de <b><?php echo $estudiante; ?></b><br></p>
+            <p class="fs-6 col1" id="estudiante">Calificaciones de <b><?php echo $estudiante; ?></b><br></p>
             <p class="fs-6">
                 <?php
                 foreach ($carreraEstudiante as $carrera) {

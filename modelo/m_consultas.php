@@ -279,10 +279,14 @@ class Consultas extends Conexion
     ) {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT INTO usuario 
-                    VALUES ('$dni', '$nombre', '$apellido', '$correo', '$usuario', '$contraseña', 
-                    '$domicilio', '$codigoPostal', '$lugarNac', '$fechaNac', '$celular', '$idRol', '$departamento')";
-            return $sql;
+            $sql = "INSERT INTO usuario(dni, nombre, apellido, correo, usuario, contraseña, domicilio, codigoPostal, lugarNac, fechaNac, celular, idRol, codPostal2) 
+                    VALUES ('$dni', '$nombre', '$apellido', '$correo', '$usuario', '$contraseña', '$domicilio', '$codigoPostal', '$lugarNac', '$fechaNac', '$celular', '$idRol', '$departamento')";
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -325,7 +329,12 @@ class Consultas extends Conexion
         try {
             $link = parent::Conexion();
             $sql = "INSERT INTO usuario_sede(dniUsuario4, codigoSede3) VALUES('$dni', '$codSede')";
-            return $sql;
+            $result = mysqli_query($link, $sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -822,5 +831,52 @@ class Consultas extends Conexion
             die('Error: ' . $e->getMessage());
         }
         return $listBajas;
+    }
+
+
+
+    //---------------------------------------ADMIN----------------------------------------------//
+    public function listarEstudiantesAdmin($anio)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.celular, c.nombre, concat(s.nombre, ', ', d.nombre), a.anio 
+                    from usuario u, rolusuario r, estudiante e, usuario_carrera uc, carrera c, usuario_sede us, sede s, departamentos d, aniocursado a
+                    where u.idRol = r.id and u.idRol = 1
+                    and u.dni = e.dni and u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo
+                    and u.dni = us.dniUsuario4 and us.codigoSede3 = s.codigo and s.codPostal3 = d.codPostal
+                    and e.idAnioCursado3 = a.id and a.id = '$anio'";
+            $result = mysqli_query($link, $sql);
+            $estudiantesAdmin = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $estudiantesAdmin[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $estudiantesAdmin;
+    }
+
+    public function listarPreceptores()
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.celular, concat(s.nombre, ', ', d.nombre), u.idRol
+                    from usuario u, rolusuario r, usuario_sede us, sede s, departamentos d
+                    where u.idRol = r.id and u.idRol = 2
+                    and u.dni = us.dniUsuario4 and us.codigoSede3 = s.codigo and s.codPostal3 = d.codPostal";
+            $result = mysqli_query($link, $sql);
+            $listPreceptores = [];
+            $i = 0;
+            while ($row = mysqli_fetch_row($result)) {
+                $listPreceptores[$i] = $row;
+                $i++;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+        return $listPreceptores;
     }
 }

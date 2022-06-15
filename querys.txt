@@ -28,5 +28,4 @@ SELECT m.nombre, c.califParcial, c.califRecuperatorio, c.calificacionParcial2, c
                     and c.codigoMateria2 = m.codigo and m.idAnioCursado = a.id and a.id = 2
 
 
-INSERT INTO usuario VALUES ('1212112', 'wwfafawvada', 'vszasdad', 'wkw@gmail.com', 'dwawda', '1234', 'Fray Luis Beltrán', '5532', 'Godoy Cruz', '2222-02-22', '2612634090', '2', '5561')
-INSERT INTO usuario_sede(dniUsuario4, codigoSede3) VALUES('1212112', '4000')                    
+GbvM=Q15BO>Qwe<(                 

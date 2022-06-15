@@ -93,9 +93,16 @@ if (isset($_SESSION['rol'])) {
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Lista de Preceptores o Encargados</h5>
-                            <p class="card-text">Mostrar el listado de Preceptores o Encargados en el Sistema</p>
-                            <a href="#" class="btn btn-primary">Ver</a>
+                            <h5 class="card-title">Lista de Estudiantes</h5>
+                            <p class="card-text">Mostrar el listado de todos los estudiantes en el Sistema</p>
+                            <a href="index.php?accion=listarEstudiantesAdmin&anio=1" class="btn btn-primary">Ver</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Lista de Preceptores</h5>
+                            <p class="card-text">Mostrar el listado de todos los preceptores en el Sistema</p>
+                            <a href="index.php?accion=listarPreceptores" class="btn btn-primary">Ver</a>
                         </div>
                     </div>
                 </div>
