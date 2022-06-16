@@ -402,7 +402,7 @@ class Consultas extends Conexion
         try {
             $listEstudiantes = [];
             $link = parent::Conexion();
-            $sql = "SELECT u.dni, concat(u.nombre, ' ', u.apellido) as nombre_apellido, u.correo, u.domicilio, u.fechaNac, u.celular, c.nombre, concat(s.nombre, ' (', d.nombre, ')') as sede
+            $sql = "SELECT u.dni, u.apellido, u.nombre, u.correo, u.celular, c.nombre, concat(s.nombre, ' (', d.nombre, ')') as sede
                     from usuario u, estudiante e, rolusuario r, usuario_carrera uc, carrera c, sede s, usuario_sede us, sede_carrera sc, departamentos d 
                     where u.dni = e.dni and u.idRol = r.id and e.idAnioCursado3 = '$anio' 
                     and u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo 
@@ -427,13 +427,14 @@ class Consultas extends Conexion
             $infoEstudiante = [];
             $link = parent::Conexion();
             $sql = "SELECT u.dni, u.nombre, u.apellido, u.correo, u.usuario, u.domicilio, u.codigoPostal, d.nombre, u.lugarNac, u.fechaNac, u.celular,
-                a.anio, c.nombre, s.nombre
-                from usuario u, departamentos d, estudiante e, usuario_carrera uc, carrera c, usuario_sede us, sede s, aniocursado a 
-                where u.codPostal2 = d.codPostal
-                and u.dni = '$dni'
-                and u.dni = e.dni and e.idAnioCursado3 = a.id
-                and u.dni = uc.dniUsuario3 and uc.codigoCarrera = c.codigo
-                and u.dni = us.dniUsuario4 and us.codigoSede3 = s.codigo";
+                    a.anio, c.nombre, CONCAT(s.nombre, ', ', d.nombre)
+                    FROM usuario u, departamentos d, estudiante e, usuario_carrera uc, carrera c, usuario_sede us, sede s, aniocursado a 
+                    WHERE u.codPostal2 = d.codPostal
+                    AND u.dni = '$dni'
+                    AND u.dni = e.dni AND e.idAnioCursado3 = a.id
+                    AND u.dni = uc.dniUsuario3 AND uc.codigoCarrera = c.codigo
+                    AND u.dni = us.dniUsuario4 AND us.codigoSede3 = s.codigo   
+                    AND s.codPostal3 = d.codPostal";
             $result = mysqli_query($link, $sql);
             $i = 0;
             while ($col = mysqli_fetch_row($result)) {

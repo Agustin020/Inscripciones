@@ -207,6 +207,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
 
             <section id="container">
                 <p class="fs-5">Bienvenido <?php echo $_SESSION['username']['datosUser']; ?></p>
+                <p class="fs-6"><b>Nota:</b> Llenar los datos personales si no lo ha hecho. Click en la parte superior derecha y Apretar Gestionar Usuario</p>
                 <div class="container-fluid bar">
 
                     <div class="container-xxl">

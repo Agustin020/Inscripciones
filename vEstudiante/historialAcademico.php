@@ -16,6 +16,10 @@ if (isset($_SESSION['rol'])) {
                 section {
                     padding: 15px;
                 }
+
+                th, td{
+                    vertical-align: middle;
+                }
             </style>
 
             <script>

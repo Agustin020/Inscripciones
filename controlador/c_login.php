@@ -21,7 +21,6 @@ if ($co->autenticar($usuario, $password)) {
             header('Location: ../vEstudiante/gestion.php');
             break;
         case 2:
-        case 3:
             session_start();
             $listaNomApell = $co->mostrarNombreApellido($usuario);
             $datosSessionArray = array(
@@ -32,6 +31,18 @@ if ($co->autenticar($usuario, $password)) {
             $_SESSION['dni'] = $co->verificarDniUsuario($usuario);
             $_SESSION['rol'] = $co->verificarTipoUser($usuario);
             $_SESSION['sedeActual'] = $co->verificarSedePreceptor($usuario);
+            header('Location: ../vAdmin/gestion.php');
+            break;
+        case 3:
+            session_start();
+            $listaNomApell = $co->mostrarNombreApellido($usuario);
+            $datosSessionArray = array(
+                'usuario' => $usuario,
+                'datosUser' => $listaNomApell,
+            );
+            $_SESSION['username'] = $datosSessionArray;
+            $_SESSION['dni'] = $co->verificarDniUsuario($usuario);
+            $_SESSION['rol'] = $co->verificarTipoUser($usuario);
             header('Location: ../vAdmin/gestion.php');
             break;
     }

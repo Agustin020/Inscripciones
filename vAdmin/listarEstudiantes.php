@@ -8,9 +8,6 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
         <head>
             <title>Listado de Estudiantes de 1ro</title>
             <style type="text/css">
-                body {
-                    background-color: lightskyblue;
-                }
 
                 section {
                     padding: 15px;
@@ -33,6 +30,12 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
 
                 .dataTables_length {
                     margin-bottom: 10px;
+                }
+
+                #itemsInfoEstudiante {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    column-gap: 30px;
                 }
             </style>
 
@@ -124,10 +127,9 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                         <thead class="table-dark">
                             <tr>
                                 <th>DNI</th>
-                                <th>Nombre y Apellido</th>
+                                <th>Apellido</th>
+                                <th>Nombre</th>
                                 <th>Correo</th>
-                                <th>Domicilio</th>
-                                <th>Fecha de nacimiento</th>
                                 <th>Celular</th>
                                 <th>Carrera</th>
                                 <th>Sede</th>
@@ -146,7 +148,6 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                     <td><?php echo $registro[4] ?></td>
                                     <td><?php echo $registro[5] ?></td>
                                     <td><?php echo $registro[6] ?></td>
-                                    <td><?php echo $registro[7] ?></td>
                                     <td id="accion">
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -154,7 +155,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                 <li>
-                                                    <a class="dropdown-item" href="index.php?accion=infoEstudiante&dni=<?php echo $registro[0]; ?>">
+                                                    <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#modalInfo<?php echo $registro[0]; ?>">
                                                         Ver más info
                                                     </a>
                                                 </li>
@@ -178,7 +179,140 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
                                     </td>
                                 </tr>
 
-                                <!-- Modal -->
+                                <!-- Modal INFO-->
+                                <?php
+                                require_once('../modelo/m_consultas.php');
+                                $co = new Consultas();
+                                $infoEstudiante = $co->informacionEstudiante($registro[0]);
+                                $infoMateriasInscriptas = $co->listarMateriasEstudiantes($registro[0]);
+                                $infoMateriasActual = $co->listarCalificacionesEstudiante($registro[0]);
+                                ?>
+                                <div class=" modal fade" id="modalInfo<?php echo $registro[0] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Info del estudiante: <?php echo $registro[1] ?></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body" id="itemsInfoEstudiante">
+
+                                                <?php
+                                                foreach ($infoEstudiante as $estudiante) {
+                                                ?>
+                                                    <div id="section1">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[0]; ?>" name="dni" placeholder="Nombre" readonly>
+                                                            <label for="floatingInput">Dni</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[1]; ?>" name="nombre" placeholder="..." readonly>
+                                                            <label for="floatingInput">Nombre</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[2]; ?>" name="apellido" placeholder="..." readonly>
+                                                            <label for="floatingInput">Apellido</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[3]; ?>" name="correo" placeholder="..." readonly>
+                                                            <label for="floatingInput">Correo</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[4]; ?>" name="username" placeholder="..." readonly>
+                                                            <label for="floatingInput">Nombre de Usuario</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[5]; ?>" name="domicilio" placeholder="..." readonly>
+                                                            <label for="floatingInput">Domicilio</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[7]; ?>" name="departamento" placeholder="..." readonly>
+                                                            <label for="floatingInput">Departamento</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="date" class="form-control" value="<?php echo $estudiante[8]; ?>" name="lugarNac" placeholder="..." readonly>
+                                                            <label for="floatingInput">Lugar de Nacimiento</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[9]; ?>" name="fechaNac" placeholder="..." readonly>
+                                                            <label for="floatingInput">Fecha de Nacimiento</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[10]; ?>" name="celular" placeholder="..." readonly>
+                                                            <label for="floatingInput">Celular</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[11]; ?>" name="anio" placeholder="..." readonly>
+                                                            <label for="floatingInput">Año de cursado actual</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[12]; ?>" name="carrera" placeholder="..." readonly>
+                                                            <label for="floatingInput">Carrera</label>
+                                                        </div>
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" value="<?php echo $estudiante[13]; ?>" name="sede" placeholder="..." readonly>
+                                                            <label for="floatingInput">Sede</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="section2">
+
+                                                        <p class="fs-6">Materias inscriptas este año</p>
+                                                        <?php
+                                                        foreach ($infoMateriasActual as $materia) {
+                                                        ?>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked disabled>
+                                                                <label class="form-check-label" for="flexCheckDefault">
+                                                                    <?php echo $materia[0]; ?>
+                                                                </label>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                        <br>
+                                                        <p class="fs-6">Total de materias inscriptas</p>
+                                                        <?php
+                                                        foreach ($infoMateriasInscriptas as $materia) {
+                                                        ?>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" value="<?php echo $materia[0]; ?>" id="flexCheckDefault<?php echo $materia[0]; ?>" checked disabled>
+                                                                <label class="form-check-label" for="flexCheckDefault<?php echo $materia[0]; ?>">
+                                                                    <?php echo $materia[1]; ?>
+                                                                </label>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                    </div>
+
+                                                <?php
+                                                }
+                                                ?>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal BAJA -->
                                 <div class=" modal fade" id="modalBaja<?php echo $registro[0] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">

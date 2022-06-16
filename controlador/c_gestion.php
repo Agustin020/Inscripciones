@@ -41,23 +41,6 @@ class ControladorGestion
         require('listarEstudiantes.php');
     }
 
-    public function infoEstudianteContr($dni)
-    {
-        require('../modelo/m_consultas.php');
-        $co = new Consultas();
-        $infoEstudiante = $co->informacionEstudiante($dni);
-        $departamentoUsuario = $co->listarDepartamentoUsuario($dni);
-        $listDepartamentos = $co->listarDepartamentos();
-        $anioCursadoEstudiante = $co->listarAnioCursadoEstudiante($dni);
-        $aniosCursado = $co->listarAnioCursado();
-        $listCarreraEstudiante = $co->listarCarreraEstudiante($dni);
-        $listCarreras = $co->verificarCarrerasSedePreceptor($_SESSION['username']['usuario']);
-        $listMateriasEstudiante = $co->listarMateriasEstudiantes($dni);
-        require('libreria.php');
-        require('header.php');
-        require('infoEstudiantes.php');
-    }
-
     public function verCalificacionesContr($dni)
     {
         require('../modelo/m_consultas.php');
