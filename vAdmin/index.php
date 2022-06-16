@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 $accion = $_GET['accion'];
 
 switch ($accion) {
@@ -19,12 +20,6 @@ switch ($accion) {
         require('../controlador/c_gestion.php');
         $controlador = new ControladorGestion();
         $controlador->listarEstudiantesContr($anioCursado, $codSede);
-        break;
-    case 'infoEstudiante':
-        $dni = $_GET['dni'];
-        require('../controlador/c_gestion.php');
-        $controlador = new ControladorGestion();
-        $controlador->infoEstudianteContr($dni);
         break;
     case 'verCalificaciones':
         $dni = $_GET['dni'];

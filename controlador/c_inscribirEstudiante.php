@@ -3,6 +3,7 @@
 require('../modelo/m_consultas.php');
 $co = new Consultas();
 
+$id = $_POST['id'];
 $dniInscripcion = $_POST['dniInscripcion'];
 
 $dni = $_POST['dni'];
@@ -40,9 +41,11 @@ if ($anio == 1) {
                         $co->asignarCalificacionesEstudiante($dni, $materias);
                     }
                     if ($co->asignarAnioEstudiante($dni, $anio)) {
-                        session_start();
-                        $_SESSION['estudianteInscripto'] = true;
-                        header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
+                        if ($co->asignarInscripcionEstudiante($id, $anio)) {
+                            session_start();
+                            $_SESSION['estudianteInscripto'] = true;
+                            header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
+                        }
                     }
                 } else {
                     session_start();
@@ -65,9 +68,11 @@ if ($anio == 1) {
                         $co->asignarCalificacionesEstudiante($dni, $materias);
                     }
                     if ($co->asignarAnioEstudiante($dni, $anio)) {
-                        session_start();
-                        $_SESSION['estudianteInscripto'] = true;
-                        header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
+                        if ($co->asignarInscripcionEstudiante($id, $anio)) {
+                            session_start();
+                            $_SESSION['estudianteInscripto'] = true;
+                            header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
+                        }
                     }
                 } else {
                     session_start();

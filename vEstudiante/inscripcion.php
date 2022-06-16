@@ -91,10 +91,24 @@ if (isset($_SESSION['rol'])) {
                     }
                 }
             </script>
-            
+
         </head>
 
         <body>
+            <?php
+            if ($_SESSION['inscripcionOk']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Listo',
+                        text: 'La inscripción se ha realizado'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['inscripcionOk']);
+            }
+            ?>
             <section id="container">
                 <p class="fs-5">Inscripción</p>
                 <hr>
@@ -197,7 +211,30 @@ if (isset($_SESSION['rol'])) {
 
         </html>
 
-<?php
+    <?php
     }
+} else {
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background: linear-gradient(to right, lightskyblue, darkturquoise);
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p class="fs-5">Para acceder a esta sección. debe iniciar sesión. <a href="../login.php">Click Aquí</a></p>
+    </body>
+
+    </html>
+<?php
 }
 ?>

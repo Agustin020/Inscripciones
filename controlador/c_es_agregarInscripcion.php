@@ -22,9 +22,9 @@ foreach ($materias as $materia) {
     $materiasInscriptas .= $materia . ', ';
 }
 if ($co->agregarInscripcion($dni, $apellido, $nombre, $fechaNac, $lugarNac, $domicilio, $codPostal, $celular, $correo, $materiasInscriptas, $codCarrera, $codSede, $anioCursado)) {
-    echo 'Verdadero';
-}else{
-    echo 'Falso';
+    session_start();
+    $_SESSION['inscripcionOk'] = true;
+    header('Location: ../vEstudiante/index.php?accion=inscripcion');
 }
 
 
@@ -43,4 +43,3 @@ if ($co->agregarInscripcion($dni, $apellido, $nombre, $fechaNac, $lugarNac, $dom
 'Codigo Sede: ' . $codSede . '<br>' .
 'Año Cursado: ' . $anioCursado . '<br>' . 
 'Materias: ' . $materiasInscriptas;*/
-

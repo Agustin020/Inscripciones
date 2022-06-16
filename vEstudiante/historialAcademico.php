@@ -17,7 +17,8 @@ if (isset($_SESSION['rol'])) {
                     padding: 15px;
                 }
 
-                th, td{
+                th,
+                td {
                     vertical-align: middle;
                 }
             </style>
@@ -63,22 +64,22 @@ if (isset($_SESSION['rol'])) {
                             <?php
                             foreach ($historialAcademico as $nota) {
                             ?>
-                            <tr>
-                                <td><?php echo $nota[0]; ?></td>
-                                <td><?php echo $nota[1]; ?></td>
-                                <td><?php echo $nota[2]; ?></td>
-                                <td><?php echo $nota[3]; ?></td>
-                                <td><?php echo $nota[4]; ?></td>
-                                <td><?php echo $nota[5]; ?></td>
-                                <td><?php echo $nota[6]; ?></td>
-                                <td><?php echo $nota[7]; ?></td>
-                                <td><?php echo $nota[8]; ?></td>
-                                <td><?php echo $nota[9]; ?></td>
-                                <td><?php echo $nota[10]; ?></td>
-                                <td><?php echo $nota[11]; ?></td>
-                                <td><?php echo $nota[12]; ?></td>
-                                <td><?php echo $nota[13]; ?></td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo $nota[0]; ?></td>
+                                    <td><?php echo $nota[1]; ?></td>
+                                    <td><?php echo $nota[2]; ?></td>
+                                    <td><?php echo $nota[3]; ?></td>
+                                    <td><?php echo $nota[4]; ?></td>
+                                    <td><?php echo $nota[5]; ?></td>
+                                    <td><?php echo $nota[6]; ?></td>
+                                    <td><?php echo $nota[7]; ?></td>
+                                    <td><?php echo $nota[8]; ?></td>
+                                    <td><?php echo $nota[9]; ?></td>
+                                    <td><?php echo $nota[10]; ?></td>
+                                    <td><?php echo $nota[11]; ?></td>
+                                    <td><?php echo $nota[12]; ?></td>
+                                    <td><?php echo $nota[13]; ?></td>
+                                </tr>
                             <?php
                             }
                             ?>
@@ -91,7 +92,30 @@ if (isset($_SESSION['rol'])) {
 
         </html>
 
-<?php
+    <?php
     }
+} else {
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background: linear-gradient(to right, lightskyblue, darkturquoise);
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p class="fs-5">Para acceder a esta sección. debe iniciar sesión. <a href="../login.php">Click Aquí</a></p>
+    </body>
+
+    </html>
+<?php
 }
 ?>

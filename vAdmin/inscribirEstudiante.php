@@ -150,59 +150,59 @@ if (isset($_SESSION['rol'])) {
                                     <form class="row g-3">
                                         <div class="col-md-6">
                                             <label for="inputDni" class="form-label">DNI</label>
-                                            <input type="number" value="<?php echo $datoInscripcion[0]; ?>" class="form-control" id="inpuDni" readonly>
+                                            <input type="number" value="<?php echo $datoInscripcion[1]; ?>" class="form-control" id="inpuDni" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputApellido" class="form-label">Apellido</label>
-                                            <input type="text" value="<?php echo $datoInscripcion[1]; ?>" class="form-control" id="inputApellido" readonly>
+                                            <input type="text" value="<?php echo $datoInscripcion[2]; ?>" class="form-control" id="inputApellido" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputNombre" class="form-label">Nombre</label>
-                                            <input type="text" value="<?php echo $datoInscripcion[2]; ?>" class="form-control" id="inpuNombre" readonly>
+                                            <input type="text" value="<?php echo $datoInscripcion[3]; ?>" class="form-control" id="inpuNombre" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputFechaNac" class="form-label">Fecha de Nacimento</label>
-                                            <input type="date" class="form-control" id="inputFechaNac" value="<?php echo $datoInscripcion[3]; ?>" readonly>
+                                            <input type="date" class="form-control" id="inputFechaNac" value="<?php echo $datoInscripcion[4]; ?>" readonly>
                                         </div>
                                         <div class="col-12">
                                             <label for="inputLugarNac" class="form-label">Lugar de Nacimento</label>
-                                            <input type="text" class="form-control" id="inputLugarNac" value="<?php echo $datoInscripcion[4]; ?>" readonly>
+                                            <input type="text" class="form-control" id="inputLugarNac" value="<?php echo $datoInscripcion[5]; ?>" readonly>
                                         </div>
                                         <div class="col-md-12">
                                             <label for="inputDireccion" class="form-label">Dirección</label>
-                                            <input type="text" class="form-control" id="inputDirreccion" value="<?php echo $datoInscripcion[5]; ?>" readonly>
+                                            <input type="text" class="form-control" id="inputDirreccion" value="<?php echo $datoInscripcion[6]; ?>" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputCodigoPost" class="form-label">Código Postal</label>
-                                            <input type="number" class="form-control" id="inputCodigoPost" value="<?php echo $datoInscripcion[6]; ?>" readonly>
+                                            <input type="number" class="form-control" id="inputCodigoPost" value="<?php echo $datoInscripcion[7]; ?>" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputTelefono" class="form-label">Teléfono</label>
-                                            <input type="number" class="form-control" id="inputTelefono" value="<?php echo $datoInscripcion[7]; ?>" readonly>
+                                            <input type="number" class="form-control" id="inputTelefono" value="<?php echo $datoInscripcion[8]; ?>" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputEmail" class="form-label">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="inputEmail" value="<?php echo $datoInscripcion[8]; ?>" readonly>
+                                            <input type="email" class="form-control" id="inputEmail" value="<?php echo $datoInscripcion[9]; ?>" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputInscrip" class="form-label">Fecha de Inscripción</label>
-                                            <input type="date" class="form-control" id="inputInscrip" value="<?php echo $datoInscripcion[9]; ?>" readonly>
+                                            <input type="date" class="form-control" id="inputInscrip" value="<?php echo $datoInscripcion[10]; ?>" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputSede" class="form-label">Sede</label>
-                                            <input type="text" class="form-control" id="inputSede" value="<?php echo $datoInscripcion[12]; ?>" readonly>
+                                            <input type="text" class="form-control" id="inputSede" value="<?php echo $datoInscripcion[13]; ?>" readonly>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputAnio" class="form-label">Año al que se inscribe</label>
-                                            <input type="text" class="form-control" id="inputAnio" value="<?php echo $datoInscripcion[13]; ?>° Año" readonly>
+                                            <input type="text" class="form-control" id="inputAnio" value="<?php echo $datoInscripcion[14]; ?>° Año" readonly>
                                         </div>
                                         <div class="col-md-12">
                                             <label for="inputCarrera" class="form-label">Carrera</label>
-                                            <input type="text" class="form-control" id="inputCarrera" value="<?php echo $datoInscripcion[11]; ?>" readonly>
+                                            <input type="text" class="form-control" id="inputCarrera" value="<?php echo $datoInscripcion[12]; ?>" readonly>
                                         </div>
                                         <div class="col-mb-6">
                                             <label for="textareaMaterias" class="form-label">Materias</label>
-                                            <textarea class="form-control" id="textareaMaterias" rows="6" readonly><?php echo $datoInscripcion[10]; ?></textarea>
+                                            <textarea class="form-control" id="textareaMaterias" rows="6" readonly><?php echo $datoInscripcion[11]; ?></textarea>
                                         </div>
                                     </form>
                                 <?php
@@ -214,7 +214,11 @@ if (isset($_SESSION['rol'])) {
                             <form action="../controlador/c_inscribirEstudiante.php" method="post">
                                 <div class="col" id="input">
 
+                                    <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+
                                     <input type="hidden" name="dniInscripcion" value="<?php echo $_GET['dni']; ?>">
+
+                                    <input type="hidden" name="">
 
                                     <p class="fs-6">Buscar Estudiante</p>
 
@@ -291,7 +295,30 @@ if (isset($_SESSION['rol'])) {
 
         </html>
 
-<?php
+    <?php
     }
+} else {
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background: linear-gradient(to right, lightskyblue, darkturquoise);
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p class="fs-5">Para acceder a esta sección. debe iniciar sesión. <a href="../login.php">Click Aquí</a></p>
+    </body>
+
+    </html>
+<?php
 }
 ?>

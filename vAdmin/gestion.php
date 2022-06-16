@@ -10,6 +10,7 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Gestión</title>
             <?php require_once('libreria.php'); ?>
 
             <style>
@@ -333,7 +334,31 @@ if (isset($_SESSION['username']['usuario']) && isset($_SESSION['rol'])) {
         </body>
 
         </html>
-<?php
+    <?php
     }
+} else {
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php require('libreria.php'); ?>
+        <style>
+            body {
+                background: linear-gradient(to right, lightskyblue, darkturquoise);
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <p class="fs-5">Para acceder a esta sección. debe iniciar sesión. <a href="../login.php">Click Aquí</a></p>
+    </body>
+
+    </html>
+<?php
 }
 ?>

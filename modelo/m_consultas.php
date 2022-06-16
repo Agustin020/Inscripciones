@@ -682,7 +682,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT i.dni, i.apellidos, i.nombres, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
+            $sql = "SELECT i.id, i.dni, i.apellidos, i.nombres, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
                     i.fechaInscripcion, i.materias, c.nombre, s.nombre, i.idAnioCursado2 from inscripcion i, carrera c, sede s 
                     where i.codigoCarrera4 = c.codigo and i.codigoSede2 = s.codigo and i.idAnioCursado2 = '$anio' and i.codigoSede2 = '$sedeActual'";
             $result = mysqli_query($link, $sql);
@@ -702,7 +702,7 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "SELECT i.dni, i.apellidos, i.nombres, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
+            $sql = "SELECT i.id, i.dni, i.apellidos, i.nombres, i.fechaNac, i.lugarNac, i.domicilio, i.codPostal, i.celular, i.correo, 
                     i.fechaInscripcion, i.materias, c.nombre, concat(s.nombre, ', ', d.nombre) as sede, i.idAnioCursado2 
                     FROM inscripcion i, carrera c, sede s, departamentos d 
                     WHERE i.codigoCarrera4 = c.codigo AND i.codigoSede2 = s.codigo and s.codPostal3 = d.codPostal and i.dni = '$dni'";
@@ -778,6 +778,22 @@ class Consultas extends Conexion
         try {
             $link = parent::Conexion();
             $sql = "UPDATE usuario_sede set codigoSede3 = '$codSede' where dniUsuario4 = '$dni'";
+            $result = mysqli_query($link, $sql);
+            if ($result == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function asignarInscripcionEstudiante($id, $dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "UPDATE estudiante set idInscripcion = '$id' where dni = '$dni'";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;

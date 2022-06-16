@@ -7,9 +7,12 @@ class ControladorGestion
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Listado de najas</title>';
         $listBajas = $co->listarBajas();
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('listarBajas.php');
     }
 
@@ -17,27 +20,34 @@ class ControladorGestion
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Agregar Usuario</title>';
         $listRoles = $co->listarTipoUsuarios();
         $listDepartamentos = $co->listarDepartamentos();
         $listCarreras = $co->listarCarrera();
         $listSedes = $co->listarSedes();
         $listAnios = $co->listarAnioCursado();
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('agregarUsuario.php');
     }
 
     public function listarEstudiantesContr($anioCursado, $codSede)
     {
+        error_reporting(0);
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Listado de alumnos</title>';
         $listSedesPreceptor = $co->verificarCarrerasSedePreceptor($_SESSION['username']['usuario']);
         $listaEstudiantes = $co->listarEstudiantes($anioCursado, $codSede);
         $listCarrera = $co->listarCarrera();
         $anio = $anioCursado;
         $codigoSede = $codSede;
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('listarEstudiantes.php');
     }
 
@@ -45,13 +55,16 @@ class ControladorGestion
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Calificaciones</title>';
         $listCalifEstudiante = $co->listarCalificacionesEstudiante($dni);
         $anioCursadoEstudiante = $co->listarAnioCursadoEstudiante($dni);
         $carreraEstudiante = $co->listarCarreraEstudiante($dni);
         $estudiante = $co->mostrarNombreApellidoDni($dni);
         $dniEstudiante = $dni;
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('calificaciones.php');
     }
 
@@ -59,10 +72,13 @@ class ControladorGestion
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Historial Académico</title>';
         $estudiante = $co->mostrarNombreApellidoDni($dni);
         $historial = $co->listarHistorialAcademico($dni);
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('historialAcademico.php');
     }
 
@@ -70,9 +86,12 @@ class ControladorGestion
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Listado de solicitudes de alta</title>';
         $listSolicitudAlta = $co->listarSolicitudAlta();
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('listarRegistros.php');
     }
 
@@ -80,9 +99,12 @@ class ControladorGestion
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Listado de inscripciones</title>';
         $listInscripcion = $co->listarInscripciones($anio, $sedeActual);
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('listarInscripciones.php');
     }
 
@@ -90,13 +112,16 @@ class ControladorGestion
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Inscribir estudiante</title>';
         $listInscripcion = $co->listarInscripcionEstudiante($dni);
         $listAnioCursado = $co->listarAnioCursado();
         $listCarrera = $co->verificarCarrerasSedePreceptor($_SESSION['username']['usuario']);
         $listEstudiantes = $co->listarEstudiantesCargados();
         $listMateriasEstudiantes = $co->listarMateriasEstudiantes($dni);
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('inscribirEstudiante.php');
     }
 
@@ -104,10 +129,13 @@ class ControladorGestion
     public function listarEstudiantesAdminContr($anio)
     {
         require('../modelo/m_consultas.php');
+        echo '<title>Listado de estudiantes</title>';
         $co = new Consultas();
         $listEstudiantes = $co->listarEstudiantesAdmin($anio);
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('listarEstudiantesAdmin.php');
     }
 
@@ -115,9 +143,12 @@ class ControladorGestion
     {
         require('../modelo/m_consultas.php');
         $co = new Consultas();
+        echo '<title>Listado de preceptores</title>';
         $listPreceptores = $co->listarPreceptores();
         require('libreria.php');
-        require('header.php');
+        if (isset($_SESSION['rol'])) {
+            require('header.php');
+        }
         require('listarPreceptores.php');
     }
 }
