@@ -68,7 +68,7 @@
     ?>
     <div class="contenedor">
         <form action="controlador/c_login.php" method="post" class="border border-primary">
-            <img src="http://ies9008.mendoza.edu.ar/pluginfile.php/1/core_admin/logo/0x200/1630026381/190x298.jpg" alt="">
+            <img src="https://www.iesmb.edu.ar/bel/wp-content/uploads/2018/06/onlylogo.png" alt="">
             <hr>
             <?php
 
