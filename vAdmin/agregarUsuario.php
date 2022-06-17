@@ -163,6 +163,20 @@ if (isset($_SESSION['rol'])) {
                         }
                     });
                 }
+
+                function validarNumeros(valor) {
+                    var patron = /^([0-9]+)*$/;
+                    if (!patron.test(valor.value)) {
+                        valor.value = valor.value.substring(0, valor.value.length - 1);
+                    }
+                }
+
+                function validarDomicilio(valor) {
+                    var patron = /^([a-zA-ZñÑéÉúÚíÍóÓáÁ0-9-,.<> ]+)*$/;
+                    if (!patron.test(valor.value)) {
+                        valor.value = valor.value.substring(0, valor.value.length - 1);
+                    }
+                }
             </script>
         </head>
 
@@ -240,7 +254,7 @@ if (isset($_SESSION['rol'])) {
                     <div id="estudiante">
                         <p class="fs-6">Completa los datos del estudiante</p>
                         <div class="form-floating mb-3">
-                            <input type="number" name="dni" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="dni" oninput="validarNumeros(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Dni</label>
                         </div>
 
@@ -270,12 +284,12 @@ if (isset($_SESSION['rol'])) {
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="text" name="domicilio" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="domicilio" oninput="validarDomicilio(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Domicilio</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="number" name="codPostal" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="codPostal" oninput="validarNumeros(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Código Postal</label>
                         </div>
 
@@ -304,7 +318,7 @@ if (isset($_SESSION['rol'])) {
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="tel" name="cel" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="tel" name="cel" class="form-control" oninput="validarNumeros(this);" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Nro de Celular</label>
                         </div>
 
@@ -356,7 +370,7 @@ if (isset($_SESSION['rol'])) {
                     <div id="preceptor">
                         <p class="fs-6">Completa los datos del preceptor</p>
                         <div class="form-floating mb-3">
-                            <input type="number" name="dni" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="dni" oninput="validarNumeros(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Dni</label>
                         </div>
 
@@ -386,12 +400,12 @@ if (isset($_SESSION['rol'])) {
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="text" name="domicilio" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="domicilio" oninput="validarDomicilio(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Domicilio</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="number" name="codPostal" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="codPostal" oninput="validarNumeros(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Código Postal</label>
                         </div>
 
@@ -420,7 +434,7 @@ if (isset($_SESSION['rol'])) {
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="tel" name="cel" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="tel" name="cel" oninput="validarNumeros(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Nro de Celular</label>
                         </div>
 
@@ -446,7 +460,7 @@ if (isset($_SESSION['rol'])) {
                     <div id="admin">
                         <p class="fs-6">Completa los datos del administrador</p>
                         <div class="form-floating mb-3">
-                            <input type="number" name="dni" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="dni" oninput="validarNumeros(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Dni</label>
                         </div>
 
@@ -476,12 +490,12 @@ if (isset($_SESSION['rol'])) {
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="text" name="domicilio" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="domicilio" oninput="validarDomicilio(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Domicilio</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="number" name="codPostal" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="text" name="codPostal" oninput="validarNumeros(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Código Postal</label>
                         </div>
 
@@ -510,7 +524,7 @@ if (isset($_SESSION['rol'])) {
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="tel" name="cel" class="form-control" id="floatingInput" placeholder="Ejemplo">
+                            <input type="tel" name="cel" oninput="validarNumeros(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
                             <label for="floatingInput">Nro de Celular</label>
                         </div>
 

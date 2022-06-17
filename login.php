@@ -157,7 +157,7 @@
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="number" oninput="validarNumericos(this);" class="form-control" name="dni" id="dni" placeholder="Dni" min="1000000" max="99999999">
+                            <input type="text" oninput="validarNumericos(this);" class="form-control" name="dni" id="dni" placeholder="Dni" min="1000000" max="99999999">
                             <label for="floatingInput">DNI</label>
                         </div>
 

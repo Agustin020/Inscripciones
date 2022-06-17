@@ -166,6 +166,14 @@
             }
         }
 
+
+        function validarNumericos(valor) {
+            var patron = /^([0-9]+)*$/;
+            if (!patron.test(valor.value)) {
+                valor.value = valor.value.substring(0, valor.value.length - 1);
+            }
+        }
+
         function validarDomicilio(valor) {
             var patron = /^([a-zA-ZñÑéÉúÚíÍóÓáÁ0-9-,.<> ]+)*$/;
             if (!patron.test(valor.value)) {
@@ -263,7 +271,7 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" name="cPostal" value="<?php echo $dato[6]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <input type="text" class="form-control" oninput="validarNumericos(this);" name="cPostal" value="<?php echo $dato[6]; ?>" id="floatingInput" placeholder="example" readonly>
                                 <label for="floatingInput">Código Postal</label>
                             </div>
 
@@ -278,7 +286,7 @@
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="tel" class="form-control" name="cel" value="<?php echo $dato[9]; ?>" id="floatingInput" placeholder="example" readonly>
+                                <input type="tel" class="form-control" oninput="validarNumericos(this);" name="cel" value="<?php echo $dato[9]; ?>" id="floatingInput" placeholder="example" readonly>
                                 <label for="floatingInput">Celular</label>
                             </div>
 

@@ -90,6 +90,7 @@ if (isset($_SESSION['rol'])) {
                         valor.value = valor.value.substring(0, valor.value.length - 1);
                     }
                 }
+                
             </script>
 
         </head>
@@ -113,98 +114,110 @@ if (isset($_SESSION['rol'])) {
                 <p class="fs-5">Inscripción</p>
                 <hr>
 
-                <p class="fs-6">Llenar los datos para completar la inscripción</p>
-                <form action="../controlador/c_es_agregarInscripcion.php" method="post">
+                <?php
+                if ($anioInscripto != $anioActual) {
+                ?>
+                    <p class="fs-6">Llenar los datos para completar la inscripción</p>
 
-                    <div class="form-floating mb-3">
-                        <input type="number" name="dni" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Dni</label>
-                    </div>
+                    <form action="../controlador/c_es_agregarInscripcion.php" method="post">
 
-                    <div class="form-floating mb-3">
-                        <input type="text" name="apellido" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Apellido/s</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" name="dni" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Dni</label>
+                        </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="text" name="nombre" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Nombre/s</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="apellido" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Apellido/s</label>
+                        </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="date" name="fechaNac" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Fecha de Nacimiento</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="nombre" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Nombre/s</label>
+                        </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="text" name="lugarNac" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Lugar de Nacimiento</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" name="fechaNac" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Fecha de Nacimiento</label>
+                        </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="text" name="domicilio" oninput="validarDomicilio(this);" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Domicilio</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="lugarNac" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Lugar de Nacimiento</label>
+                        </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="number" name="codPostal" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Código Postal</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="domicilio" oninput="validarDomicilio(this);" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Domicilio</label>
+                        </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="tel" name="cel" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Nro de Celular</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" name="codPostal" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Código Postal</label>
+                        </div>
 
-                    <div class="form-floating mb-3">
-                        <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="Ejemplo">
-                        <label for="floatingInput">Correo</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="tel" name="cel" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Nro de Celular</label>
+                        </div>
 
-                    <div class="form-floating mb-3" id="selectCarreras">
-                        <select class="form-select selectCarrera" onchange="mostrarSelectSedes(this); mostrarMateriasCarrera(this);" name="selectCarreras" id="floatingSelect" aria-label="Floating label select example">
-                            <option value="">Seleccione...</option>
-                            <?php
-                            foreach ($listCarreras as $carrera) {
-                            ?>
-                                <option value="<?php echo $carrera[0]; ?>"><?php echo $carrera[1]; ?></option>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                        <label for="floatingSelect">Seleccione la carrera al cual se inscribe</label>
-                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" name="correo" class="form-control" id="floatingInput" placeholder="Ejemplo" required>
+                            <label for="floatingInput">Correo</label>
+                        </div>
 
-                    <div class="form-floating mb-3" id="selectSedes">
-                        <select class="form-select" name="selectSede" id="sedes" aria-label="Floating label select example">
-                            <option value="">Primero seleccione la carrera</option>
-                        </select>
-                        <label for="floatingSelect">Seleccione la sede en la que va a cursar</label>
-                    </div>
+                        <div class="form-floating mb-3" id="selectCarreras">
+                            <select class="form-select selectCarrera" onchange="mostrarSelectSedes(this); mostrarMateriasCarrera(this);" name="selectCarreras" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="">Seleccione...</option>
+                                <?php
+                                foreach ($listCarreras as $carrera) {
+                                ?>
+                                    <option value="<?php echo $carrera[0]; ?>"><?php echo $carrera[1]; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <label for="floatingSelect">Seleccione la carrera al cual se inscribe</label>
+                        </div>
 
-                    <div class="form-floating mb-3" id="anioCursado">
-                        <select class="form-select selectAnio" name="anioCursado" id="floatingSelect" aria-label="Floating label select example">
-                            <option value="">Seleccione...</option>
-                            <?php
-                            foreach ($listAnios as $anioCursado) {
-                            ?>
-                                <option value="<?php echo $anioCursado[0]; ?>"><?php echo $anioCursado[1]; ?></option>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                        <label for="floatingSelect">Seleccione el año de cursado</label>
-                    </div>
+                        <div class="form-floating mb-3" id="selectSedes">
+                            <select class="form-select" name="selectSede" id="sedes" aria-label="Floating label select example" required>
+                                <option value="">Primero seleccione la carrera</option>
+                            </select>
+                            <label for="floatingSelect">Seleccione la sede en la que va a cursar</label>
+                        </div>
 
-                    <div id="materias">
+                        <div class="form-floating mb-3" id="anioCursado">
+                            <select class="form-select selectAnio" name="anioCursado" id="floatingSelect" aria-label="Floating label select example" required>
+                                <option value="">Seleccione...</option>
+                                <?php
+                                foreach ($listAnios as $anioCursado) {
+                                ?>
+                                    <option value="<?php echo $anioCursado[0]; ?>"><?php echo $anioCursado[1]; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <label for="floatingSelect">Seleccione el año de cursado</label>
+                        </div>
 
-                    </div>
+                        <div id="materias">
 
-                    <div id="btnEnviar">
-                        <button type="submit" class="btn btn-primary">Enviar inscripción</button>
-                    </div>
+                        </div>
 
-                </form>
+                        <div id="btnEnviar">
+                            <button type="submit" class="btn btn-primary">Enviar inscripción</button>
+                        </div>
+
+                    </form>
+
+                <?php
+                } else {
+                ?>
+                    <p class="fs-6"><b>Aviso: </b>Ya te has inscripto con tus datos y los de los espacios curriculares a cursar.</p>
+                <?php
+                }
+                ?>
 
             </section>
         </body>

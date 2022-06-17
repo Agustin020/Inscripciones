@@ -24,7 +24,4 @@ if ($co->registrarUsuario($dni, $nombre, $apellido, $departamento, $email, $celu
     session_start();
     $_SESSION['registro'] = true;
     header('Location: ../login.php');
-    echo 'Verdadero';
-} else {
-    echo 'Hubo un error';
 }

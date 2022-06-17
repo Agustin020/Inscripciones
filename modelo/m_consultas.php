@@ -363,8 +363,8 @@ class Consultas extends Conexion
     {
         try {
             $link = parent::Conexion();
-            $sql = "INSERT INTO inscripcion(dni, apellidos, nombres, fechaNac, lugarNac, domicilio, codPostal, celular, correo, fechaInscripcion, materias, codigoCarrera4, codigoSede2, idAnioCursado2) 
-                    VALUES('$dni', '$apellido', '$nombre', '$fechaNac', '$lugarNac', '$domicilio', '$codPostal', '$celular', '$correo', CURDATE(), '$materias', '$codCarrera', '$codSede', '$anioCursado')";
+            $sql = "INSERT INTO inscripcion(dni, apellidos, nombres, fechaNac, lugarNac, domicilio, codPostal, celular, correo, fechaInscripcion, materias, codigoCarrera4, codigoSede2, idAnioCursado2, anioInscripto) 
+                    VALUES('$dni', '$apellido', '$nombre', '$fechaNac', '$lugarNac', '$domicilio', '$codPostal', '$celular', '$correo', CURDATE(), '$materias', '$codCarrera', '$codSede', '$anioCursado', YEAR(CURDATE()))";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;
@@ -374,6 +374,36 @@ class Consultas extends Conexion
         } catch (Exception $e) {
             die('Error: ' . $e->getMessage());
         }
+    }
+
+    public function anioActual(){
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT YEAR(CURDATE())";
+            $result = mysqli_query($link, $sql);
+            while ($col = mysqli_fetch_row($result)) {
+                $anioActual = $col[0];
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+        return $anioActual;
+    }
+
+    //Comprobar si ya se ha inscripto
+    public function comprobarInscripcionExistente($dni)
+    {
+        try {
+            $link = parent::Conexion();
+            $sql = "SELECT MAX(anioInscripto) FROM inscripcion WHERE dni = '$dni'";
+            $result = mysqli_query($link, $sql);
+            while ($col = mysqli_fetch_row($result)) {
+                $anioInscripto = $col[0];
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+        return $anioInscripto;
     }
 
     //PAGE LISTARESTUDIANTES
@@ -778,22 +808,6 @@ class Consultas extends Conexion
         try {
             $link = parent::Conexion();
             $sql = "UPDATE usuario_sede set codigoSede3 = '$codSede' where dniUsuario4 = '$dni'";
-            $result = mysqli_query($link, $sql);
-            if ($result == true) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (Exception $e) {
-            die('Error: ' . $e->getMessage());
-        }
-    }
-
-    public function asignarInscripcionEstudiante($id, $dni)
-    {
-        try {
-            $link = parent::Conexion();
-            $sql = "UPDATE estudiante set idInscripcion = '$id' where dni = '$dni'";
             $result = mysqli_query($link, $sql);
             if ($result == true) {
                 return true;

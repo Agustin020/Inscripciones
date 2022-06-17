@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['rol'])) {
-    if ($_SESSION['rol']) {
+    if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3) {
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -94,6 +94,22 @@ if (isset($_SESSION['rol'])) {
         </head>
 
         <body>
+
+            <?php
+            if ($_SESSION['notasModificadas']) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Listo',
+                        text: 'Las calificaciones han sido modificadas'
+                    })
+                </script>
+            <?php
+                unset($_SESSION['notasModificadas']);
+            }
+            ?>
+
             <section id="container">
 
                 <p class="fs-5">Calificaciones</p>

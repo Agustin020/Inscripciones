@@ -7,6 +7,8 @@ class ControladorVistasEstudiantes
         require('../modelo/m_consultas.php');
         $co = new Consultas();
         echo '<title>Inscripción</title>';
+        $anioInscripto = $co->comprobarInscripcionExistente($_SESSION['dni']);
+        $anioActual = $co->anioActual();
         $listCarreras = $co->listarCarrera();
         $listSedes = $co->listarSedes();
         $listAnios = $co->listarAnioCursado();

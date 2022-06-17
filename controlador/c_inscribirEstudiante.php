@@ -41,11 +41,9 @@ if ($anio == 1) {
                         $co->asignarCalificacionesEstudiante($dni, $materias);
                     }
                     if ($co->asignarAnioEstudiante($dni, $anio)) {
-                        if ($co->asignarInscripcionEstudiante($id, $anio)) {
-                            session_start();
-                            $_SESSION['estudianteInscripto'] = true;
-                            header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
-                        }
+                        session_start();
+                        $_SESSION['estudianteInscripto'] = true;
+                        header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
                     }
                 } else {
                     session_start();
@@ -68,11 +66,9 @@ if ($anio == 1) {
                         $co->asignarCalificacionesEstudiante($dni, $materias);
                     }
                     if ($co->asignarAnioEstudiante($dni, $anio)) {
-                        if ($co->asignarInscripcionEstudiante($id, $anio)) {
-                            session_start();
-                            $_SESSION['estudianteInscripto'] = true;
-                            header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
-                        }
+                        session_start();
+                        $_SESSION['estudianteInscripto'] = true;
+                        header('Location: ../vAdmin/index.php?accion=inscribirEstudiante&dni=' . $dniInscripcion . '');
                     }
                 } else {
                     session_start();

@@ -75,5 +75,7 @@ echo 'fechaFinal3: ' . $fechaFinal3 . '<br>';
 echo 'condicion: ' . $condicion . '<br>';*/
 
 if ($co->editarCalificacionesEstudiante($dni, $codMateria, $notaParcial, $notaRecup, $notaParcial2, $notaRecup2, $notaGlobal, $notaFinal, $fechaFinal, $notaFinal2, $fechaFinal2, $notaFinal3, $fechaFinal3, $condicion)) {
+    session_start();
+    $_SESSION['notasModificadas'] = true;
     header('Location: ../vAdmin/index.php?accion=verCalificaciones&dni=' . $dni);
 }
